@@ -1,0 +1,1628 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.4.2, mkdocs-material-8.5.10">
+    
+    
+      
+        <title>1.信号与系统 - Kascas's Blogs</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.975780f9.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.2505c338.min.css">
+        
+      
+      
+
+    
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="None" data-md-color-accent="None">
+  
+    
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#11" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="Kascas&#39;s Blogs" class="md-header__button md-logo" aria-label="Kascas's Blogs" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Kascas's Blogs
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              1.信号与系统
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/kascas/kascas.github.io" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.2.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-tabs__inner md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="../.." class="md-tabs__link">
+      主页
+    </a>
+  </li>
+
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="../../%E4%BF%A1%E6%81%AF%E8%AE%BA%E4%B8%8E%E7%BC%96%E7%A0%81/%E4%BF%A1%E6%81%AF%E8%AE%BA%E4%B8%8E%E7%BC%96%E7%A0%81/" class="md-tabs__link">
+      信息论与编码
+    </a>
+  </li>
+
+      
+        
+  
+  
+    
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="./" class="md-tabs__link md-tabs__link--active">
+        信号与系统
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../%E9%80%9A%E4%BF%A1%E5%8E%9F%E7%90%86/md/4%E4%BF%A1%E9%81%93/" class="md-tabs__link">
+        通信原理
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/2%E9%97%AE%E9%A2%98%E6%B1%82%E8%A7%A3/" class="md-tabs__link">
+        人工智能
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../%E5%9B%BE%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/%E4%BA%8C%E3%80%81%E5%9B%BE%E8%AE%BA%E5%9F%BA%E7%A1%80/" class="md-tabs__link">
+        图深度学习
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../Python%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86/1NumPy%E5%85%A5%E9%97%A8/" class="md-tabs__link">
+        Python数据处理
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../%E6%97%A5%E5%BF%97%E5%88%86%E6%9E%90/Linux-Audit%E5%8F%82%E8%80%83/Linux-Audit%E5%8F%82%E8%80%83/" class="md-tabs__link">
+        日志分析
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E7%B3%BB%E7%BB%9F%E7%BA%A7%E6%BA%AF%E6%BA%90%E5%9B%BE%E4%B8%8E%E5%A8%81%E8%83%81%E6%A3%80%E6%B5%8B/" class="md-tabs__link">
+        学习笔记
+      </a>
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+  
+
+
+  
+
+<nav class="md-nav md-nav--primary md-nav--lifted md-nav--integrated" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Kascas&#39;s Blogs" class="md-nav__button md-logo" aria-label="Kascas's Blogs" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    Kascas's Blogs
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/kascas/kascas.github.io" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.2.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        主页
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E4%BF%A1%E6%81%AF%E8%AE%BA%E4%B8%8E%E7%BC%96%E7%A0%81/%E4%BF%A1%E6%81%AF%E8%AE%BA%E4%B8%8E%E7%BC%96%E7%A0%81/" class="md-nav__link">
+        信息论与编码
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3" type="checkbox" id="__nav_3" checked>
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_3">
+          信号与系统
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="信号与系统" data-md-level="1">
+        <label class="md-nav__title" for="__nav_3">
+          <span class="md-nav__icon md-icon"></span>
+          信号与系统
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          1.信号与系统
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        1.信号与系统
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#11" class="md-nav__link">
+    1.1 连续时间与离散时间信号
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#12" class="md-nav__link">
+    1.2 自变量变换
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#13" class="md-nav__link">
+    1.3 复指数信号与正弦信号
+  </a>
+  
+    <nav class="md-nav" aria-label="1.3 复指数信号与正弦信号">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#131" class="md-nav__link">
+    1.3.1 连续时间复指数信号与正弦信号
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#132" class="md-nav__link">
+    1.3.2 离散时间复指数信号与正弦信号
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#133" class="md-nav__link">
+    1.3.3 离散时间复指数序列的周期性
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#14" class="md-nav__link">
+    1.4 单位冲激与单位阶跃
+  </a>
+  
+    <nav class="md-nav" aria-label="1.4 单位冲激与单位阶跃">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#141" class="md-nav__link">
+    1.4.1 离散时间单位脉冲与单位阶跃
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#142" class="md-nav__link">
+    1.4.2 连续时间单位阶跃与单位冲激
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#15" class="md-nav__link">
+    1.5 连续时间与离散时间系统
+  </a>
+  
+    <nav class="md-nav" aria-label="1.5 连续时间与离散时间系统">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#151" class="md-nav__link">
+    1.5.1 系统
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#152" class="md-nav__link">
+    1.5.2 系统的互联
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#16" class="md-nav__link">
+    1.6 系统的基本性质
+  </a>
+  
+    <nav class="md-nav" aria-label="1.6 系统的基本性质">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#161" class="md-nav__link">
+    1.6.1 记忆/无记忆
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#162" class="md-nav__link">
+    1.6.2 可逆/不可逆
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#163" class="md-nav__link">
+    1.6.3 因果/非因果
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#164" class="md-nav__link">
+    1.6.4 稳定/不稳定
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#165" class="md-nav__link">
+    1.6.5 时变/时不变
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#166" class="md-nav__link">
+    1.6.6 线性/非线性
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../2%E7%BA%BF%E6%80%A7%E6%97%B6%E4%B8%8D%E5%8F%98%E7%B3%BB%E7%BB%9F/" class="md-nav__link">
+        2.线性时不变系统
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../3%E5%91%A8%E6%9C%9F%E4%BF%A1%E5%8F%B7%E7%9A%84%E5%82%85%E9%87%8C%E5%8F%B6%E7%BA%A7%E6%95%B0%E8%A1%A8%E7%A4%BA/" class="md-nav__link">
+        3.周期信号的傅里叶级数表示
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../4%E8%BF%9E%E7%BB%AD%E6%97%B6%E9%97%B4%E5%82%85%E9%87%8C%E5%8F%B6%E5%8F%98%E6%8D%A2/" class="md-nav__link">
+        4.连续时间傅里叶变换
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../5%E7%A6%BB%E6%95%A3%E6%97%B6%E9%97%B4%E5%82%85%E9%87%8C%E5%8F%B6%E5%8F%98%E6%8D%A2/" class="md-nav__link">
+        5.离散时间傅里叶变换
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../9%E6%8B%89%E6%99%AE%E6%8B%89%E6%96%AF%E5%8F%98%E6%8D%A2/" class="md-nav__link">
+        9.拉普拉斯变换
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../10Z%E5%8F%98%E6%8D%A2/" class="md-nav__link">
+        10.Z变换
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E5%85%AC%E5%BC%8F%E6%80%BB%E7%BB%93/" class="md-nav__link">
+        公式总结
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4" type="checkbox" id="__nav_4" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_4">
+          通信原理
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="通信原理" data-md-level="1">
+        <label class="md-nav__title" for="__nav_4">
+          <span class="md-nav__icon md-icon"></span>
+          通信原理
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E9%80%9A%E4%BF%A1%E5%8E%9F%E7%90%86/md/4%E4%BF%A1%E9%81%93/" class="md-nav__link">
+        4.信道
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E9%80%9A%E4%BF%A1%E5%8E%9F%E7%90%86/md/5%E6%A8%A1%E6%8B%9F%E8%B0%83%E5%88%B6%E7%B3%BB%E7%BB%9F/" class="md-nav__link">
+        5.模拟调制系统
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E9%80%9A%E4%BF%A1%E5%8E%9F%E7%90%86/md/6%E6%95%B0%E5%AD%97%E5%9F%BA%E5%B8%A6%E4%BC%A0%E8%BE%93/" class="md-nav__link">
+        6.数字基带传输
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E9%80%9A%E4%BF%A1%E5%8E%9F%E7%90%86/md/7%E6%95%B0%E5%AD%97%E5%B8%A6%E9%80%9A%E4%BC%A0%E8%BE%93%E7%B3%BB%E7%BB%9F/" class="md-nav__link">
+        7.数字带通传输系统
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E9%80%9A%E4%BF%A1%E5%8E%9F%E7%90%86/md/8%E6%96%B0%E5%9E%8B%E6%95%B0%E5%AD%97%E5%B8%A6%E9%80%9A%E8%B0%83%E5%88%B6%E6%8A%80%E6%9C%AF/" class="md-nav__link">
+        8.新型数字带通调制技术
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E9%80%9A%E4%BF%A1%E5%8E%9F%E7%90%86/md/9%E6%9C%80%E4%BD%B3%E6%8E%A5%E6%94%B6%E6%9C%BA%E8%AE%BE%E8%AE%A1/" class="md-nav__link">
+        9.最佳接收机设计
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E9%80%9A%E4%BF%A1%E5%8E%9F%E7%90%86/md/10%E4%BF%A1%E6%BA%90%E7%BC%96%E7%A0%81/" class="md-nav__link">
+        10.信源编码
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E9%80%9A%E4%BF%A1%E5%8E%9F%E7%90%86/md/11%E5%B7%AE%E9%94%99%E6%8E%A7%E5%88%B6%E7%BC%96%E7%A0%81/" class="md-nav__link">
+        11.差错控制编码
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E9%80%9A%E4%BF%A1%E5%8E%9F%E7%90%86/md/%E5%85%AC%E5%BC%8F%E6%B1%87%E6%80%BB/" class="md-nav__link">
+        12.公式汇总
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_5" type="checkbox" id="__nav_5" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_5">
+          人工智能
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="人工智能" data-md-level="1">
+        <label class="md-nav__title" for="__nav_5">
+          <span class="md-nav__icon md-icon"></span>
+          人工智能
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/2%E9%97%AE%E9%A2%98%E6%B1%82%E8%A7%A3/" class="md-nav__link">
+        2.问题求解
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/3%E5%8D%9A%E5%BC%88%E9%97%AE%E9%A2%98/" class="md-nav__link">
+        3.博弈问题
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/4%E6%8E%A8%E7%90%86%E6%8A%80%E6%9C%AF/" class="md-nav__link">
+        4.推理技术
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/6%E4%B8%8D%E7%A1%AE%E5%AE%9A%E6%80%A7%E6%8E%A8%E7%90%86/" class="md-nav__link">
+        6.不确定性推理
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6" type="checkbox" id="__nav_6" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_6">
+          图深度学习
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="图深度学习" data-md-level="1">
+        <label class="md-nav__title" for="__nav_6">
+          <span class="md-nav__icon md-icon"></span>
+          图深度学习
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E5%9B%BE%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/%E4%BA%8C%E3%80%81%E5%9B%BE%E8%AE%BA%E5%9F%BA%E7%A1%80/" class="md-nav__link">
+        1.图论基础
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E5%9B%BE%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/%E4%B8%89%E3%80%81%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E5%9F%BA%E7%A1%80/" class="md-nav__link">
+        2.深度学习基础
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E5%9B%BE%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/%E5%9B%9B%E3%80%81%E5%9B%BE%E5%B5%8C%E5%85%A5/" class="md-nav__link">
+        3.图嵌入
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E5%9B%BE%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/%E4%BA%94%E3%80%81%E5%9B%BE%E4%BF%A1%E5%8F%B7%E5%A4%84%E7%90%86%E4%B8%8E%E5%9B%BE%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/" class="md-nav__link">
+        4.图信号处理与图卷积神经网络
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_7" type="checkbox" id="__nav_7" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_7">
+          Python数据处理
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Python数据处理" data-md-level="1">
+        <label class="md-nav__title" for="__nav_7">
+          <span class="md-nav__icon md-icon"></span>
+          Python数据处理
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Python%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86/1NumPy%E5%85%A5%E9%97%A8/" class="md-nav__link">
+        1 NumPy入门
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_8" type="checkbox" id="__nav_8" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_8">
+          日志分析
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="日志分析" data-md-level="1">
+        <label class="md-nav__title" for="__nav_8">
+          <span class="md-nav__icon md-icon"></span>
+          日志分析
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E6%97%A5%E5%BF%97%E5%88%86%E6%9E%90/Linux-Audit%E5%8F%82%E8%80%83/Linux-Audit%E5%8F%82%E8%80%83/" class="md-nav__link">
+        Linux-Audit参考
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E6%97%A5%E5%BF%97%E5%88%86%E6%9E%90/Zeek%E5%8F%82%E8%80%83/Zeek%E5%8F%82%E8%80%83/" class="md-nav__link">
+        Zeek参考
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E6%97%A5%E5%BF%97%E5%88%86%E6%9E%90/syslog%E5%8D%8F%E8%AE%AE/" class="md-nav__link">
+        syslog日志
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_9" type="checkbox" id="__nav_9" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_9">
+          学习笔记
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="学习笔记" data-md-level="1">
+        <label class="md-nav__title" for="__nav_9">
+          <span class="md-nav__icon md-icon"></span>
+          学习笔记
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E7%B3%BB%E7%BB%9F%E7%BA%A7%E6%BA%AF%E6%BA%90%E5%9B%BE%E4%B8%8E%E5%A8%81%E8%83%81%E6%A3%80%E6%B5%8B/" class="md-nav__link">
+        系统级溯源图与威胁检测
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+  <a href="https://github.com/kascas/kascas.github.io/edit/master/docs/信号与系统/1信号与系统.md" title="Edit this page" class="md-content__button md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25Z"/></svg>
+  </a>
+
+
+  <h1>1.信号与系统</h1>
+
+<h2 id="11">1.1 连续时间与离散时间信号</h2>
+<p><strong>信号的分类</strong>：</p>
+<ul>
+<li>连续时间信号：<span class="arithmatex">\(x(t),x(t_1,t_2)...\)</span></li>
+<li>离散时间信号：<span class="arithmatex">\(x[n],x[n_1,n_2]...\)</span></li>
+<li>连续时间信号在离散时刻点上的样本可以构成一个离散时间信号</li>
+</ul>
+<p><strong>信号的能量与功率</strong>：</p>
+<ul>
+<li>连续时间信号：在<span class="arithmatex">\([t_1,t_2]\)</span>区间<ul>
+<li>能量定义为<span class="arithmatex">\(E=\int_{t_1}^{t_1}|x(t)|^2 \mathbb dt\)</span></li>
+<li>平均功率定义为<span class="arithmatex">\(P=\frac{1}{t_2-t_1}\int_{t_1}^{t_2}|x(t)|^2\mathbb dt\)</span></li>
+</ul>
+</li>
+<li>离散时间信号：在<span class="arithmatex">\([n_1,n_2]\)</span>区间<ul>
+<li>能量定义为<span class="arithmatex">\(E=\sum_{n=n_1}^{n_2}|x[n]|^2\)</span></li>
+<li>平均功率定义为<span class="arithmatex">\(P=\frac{1}{n_2-n_1+1}\sum_{n=n_1}^{n_2}|x[n]|^2\)</span></li>
+</ul>
+</li>
+<li>在无限区间定义信号的总能量和平均功率：<ul>
+<li>连续时间：<ul>
+<li><span class="arithmatex">\(E_\infty=\lim_{T\to\infty}\int_{-T}^{T}|x(t)|^2\mathbb dt=\int_{-\infty}^{\infty}|x(t)|^2\mathbb dt\)</span></li>
+<li><span class="arithmatex">\(P_{\infty}=\lim_{T\to\infty}\frac{1}{2T}\int_{-T}^{T}|x(t)|^2\mathbb dt\)</span></li>
+</ul>
+</li>
+<li>离散时间<ul>
+<li><span class="arithmatex">\(E_{\infty}=\lim_{N\to\infty}\sum_{-N}^{N}|x[n]|^2=\sum_{-\infty}^{\infty}|x[n]|^2\)</span></li>
+<li><span class="arithmatex">\(P_{\infty}=\lim_{N\to\infty}\frac{1}{2N+1}\sum_{-N}^{N}|x[n]|^2\)</span></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p><strong>三类重要信号</strong>：</p>
+<ul>
+<li>能量信号：<span class="arithmatex">\(E_\infty&lt;\infty,P_\infty=0\)</span></li>
+<li>功率信号：<span class="arithmatex">\(E_\infty=\infty,0&lt;P_\infty&lt;\infty\)</span></li>
+<li><span class="arithmatex">\(E_\infty=\infty,P_\infty=\infty\)</span></li>
+</ul>
+<p><strong>周期信号与非周期信号</strong>：</p>
+<ul>
+<li>周期信号：<span class="arithmatex">\(x(t+T)=x(t)\)</span>，<span class="arithmatex">\(x[n+N]=x[n]\)</span></li>
+</ul>
+<h2 id="12">1.2 自变量变换</h2>
+<p><strong>时移变换</strong>：</p>
+<ul>
+<li><span class="arithmatex">\(x(t)\to x(t-t_0)\)</span>：<ul>
+<li>当<span class="arithmatex">\(t_0&gt;0\)</span>时，信号右移<span class="arithmatex">\(t_0\)</span></li>
+<li>当<span class="arithmatex">\(t_0&lt;0\)</span>时，信号左移<span class="arithmatex">\(|t_0|\)</span></li>
+</ul>
+</li>
+<li><span class="arithmatex">\(x[n]\to x[n-n_0]\)</span>：<ul>
+<li>当<span class="arithmatex">\(n_0&gt;0\)</span>时，信号右移<span class="arithmatex">\(n_0\)</span></li>
+<li>当<span class="arithmatex">\(n_0&lt;0\)</span>时，信号左移<span class="arithmatex">\(|t_0|\)</span></li>
+</ul>
+</li>
+</ul>
+<p><strong>反转变换</strong>：</p>
+<ul>
+<li><span class="arithmatex">\(x(t)\to x(-t)\)</span>：信号以t=0为轴呈镜像对称</li>
+<li><span class="arithmatex">\(x[n]\to x[-n]\)</span>：（与连续时间信号的情况相同）</li>
+</ul>
+<p><strong>尺度变换</strong>：</p>
+<ul>
+<li><span class="arithmatex">\(x(t)\to x(at)\)</span>：<ul>
+<li><span class="arithmatex">\(a&gt;1\)</span>时，<span class="arithmatex">\(x(at)\)</span>将<span class="arithmatex">\(x(t)\)</span>在时间上压缩a倍</li>
+<li><span class="arithmatex">\(0&lt;a&lt;1\)</span>时，<span class="arithmatex">\(x(at)\)</span>将<span class="arithmatex">\(x(t)\)</span>在时间上扩展<span class="arithmatex">\(1/a\)</span>倍</li>
+</ul>
+</li>
+<li>由于离散时间信号的自变量只能取整数值，因而尺度变换只针对连续时间信号而言<ul>
+<li><span class="arithmatex">\(x[2n]\)</span>是从<span class="arithmatex">\(x[n]\)</span>中抽出自变量取偶数时的各个点组成，这个过程称为对信号<span class="arithmatex">\(x[n]\)</span>的<strong>抽取</strong></li>
+</ul>
+</li>
+</ul>
+<p><strong>周期信号与非周期信号</strong>：</p>
+<ul>
+<li>周期信号：<span class="arithmatex">\(x(t+T)=x(t)\)</span>，<span class="arithmatex">\(x[n+N]=x[n]\)</span><ul>
+<li>满足此关系的正实数（正整数）中最小的一个称为信号的<strong>基波周期<span class="arithmatex">\(T_0(N_0)\)</span></strong></li>
+<li><span class="arithmatex">\(x(t)=c\)</span>可视为周期信号，但是其基波周期没有准确定义</li>
+<li><span class="arithmatex">\(x[n]=c\)</span>可视为周期信号，其基波周期为<span class="arithmatex">\(N_0=1\)</span></li>
+</ul>
+</li>
+</ul>
+<p><strong>奇信号与偶信号</strong>：</p>
+<ul>
+<li>对实信号而言：<ul>
+<li>如果有<span class="arithmatex">\(x(-t)=x(t)\)</span>，<span class="arithmatex">\(x[-n]=x[n]\)</span>，则称为偶信号（镜像偶对称）</li>
+<li>如果有<span class="arithmatex">\(x(-t)=-x(t)\)</span>，<span class="arithmatex">\(x[-n]=-x[n]\)</span>，则称为奇信号（镜像奇对称）</li>
+</ul>
+</li>
+<li>对复信号而言：<ul>
+<li>如果有<span class="arithmatex">\(x(t)=x^*(t)\)</span>，<span class="arithmatex">\(x[n]=x^*[-n]\)</span>，则称为共轭偶信号</li>
+<li>如果有<span class="arithmatex">\(x(t)=-x^*(t)\)</span>，<span class="arithmatex">\(x[n]=-x^*[-n]\)</span>，则称为共轭奇信号</li>
+</ul>
+</li>
+</ul>
+<p><strong>定理</strong>：任何信号都能分解成一个奇信号与一个偶信号之和。</p>
+<ul>
+<li>【连续、实信号】<span class="arithmatex">\(x_e(t)=\frac{1}{2}[x(t)+x(-t)]\)</span>，<span class="arithmatex">\(x_o=\frac{1}{2}[x(t)-x(-t)]\)</span></li>
+<li>【离散、实信号】<span class="arithmatex">\(x_e=\frac{1}{2}[x[n]+x[-n]]\)</span>，<span class="arithmatex">\(x_o=\frac{1}{2}[x[n]-x[-n]]\)</span></li>
+<li>【连续、复信号】<span class="arithmatex">\(x_e(t)=\frac{1}{2}[x(t)+x^*(-t)]\)</span>，<span class="arithmatex">\(x_o=\frac{1}{2}[x(t)-x^*(-t)]\)</span></li>
+<li>【离散、复信号】<span class="arithmatex">\(x_e=\frac{1}{2}[x[n]+x^*[-n]]\)</span>，<span class="arithmatex">\(x_o=\frac{1}{2}[x[n]-x^*[-n]]\)</span></li>
+</ul>
+<h2 id="13">1.3 复指数信号与正弦信号</h2>
+<h3 id="131">1.3.1 连续时间复指数信号与正弦信号</h3>
+<p><span class="arithmatex">\(x(t)=Ce^{at}\)</span>，其中<span class="arithmatex">\(C\)</span>、<span class="arithmatex">\(a\)</span>为复数</p>
+<p><strong>实指数信号</strong>：<span class="arithmatex">\(C\)</span>、<span class="arithmatex">\(a\)</span>为实数</p>
+<ul>
+<li><span class="arithmatex">\(a&gt;0\)</span>，呈单调指数上升；<span class="arithmatex">\(a&lt;0\)</span>，呈单调指数下降；<span class="arithmatex">\(a=0\)</span>，<span class="arithmatex">\(x(t)=C\)</span>为常数</li>
+</ul>
+<p><strong>周期性复指数信号与正弦信号</strong>：<span class="arithmatex">\(a=j\omega_0\)</span>，不失一般性取<span class="arithmatex">\(C=1\)</span></p>
+<ul>
+<li><span class="arithmatex">\(x(t)=e^{j\omega_0t}=\cos\omega_0t+j\sin\omega_0t\)</span></li>
+<li>实部与虚部都是正弦信号</li>
+<li><span class="arithmatex">\(x(t)\)</span>是周期的，基波周期为<span class="arithmatex">\(T_0=\frac{2\pi}{|\omega_0|}\)</span></li>
+<li>一般情况下，<span class="arithmatex">\(x(t)=A\cos(\omega_0t+\phi)=\frac{A}{2}e^{j\phi}e^{j\omega_0t}+\frac{A}{2}e^{-j\phi}e^{-j\omega_0t}\)</span><ul>
+<li>基波周期为<span class="arithmatex">\(T_0=\frac{2\pi}{|\omega_0|}\)</span>，基波频率为<span class="arithmatex">\(\omega_0\)</span></li>
+<li>当<span class="arithmatex">\(\omega_0=0\)</span>时，通常称为直流信号</li>
+</ul>
+</li>
+<li>对<span class="arithmatex">\(x(t)=e^{j\omega_0t}\)</span>而言，在一个周期内的能量为：<span class="arithmatex">\(E_T=\int_{0}^{T_0}|e^{j\omega_0t}|^2dt=\int_{0}^{T_0}1\cdot dt=T_0\)</span>，平均功率为1</li>
+</ul>
+<p><strong>成谐波关系的复指数信号集</strong>：</p>
+<ul>
+<li><span class="arithmatex">\(\phi_k(t)=\{e^{jk\omega_0t}\},k=0,\pm1,\pm2,...\)</span></li>
+<li>该信号集中每个信号都是周期的，频率分别为<span class="arithmatex">\(k\omega_0\)</span>，因而称它们成<strong>谐波关系</strong></li>
+<li>信号集内信号的基波频率为<span class="arithmatex">\(\omega_0\)</span>，基波周期为<span class="arithmatex">\(T_0\)</span>。各谐波的周期分别为<span class="arithmatex">\(T_k=\frac{2\pi}{|k\omega_0|}\)</span>，公共周期为<span class="arithmatex">\(T_0=\frac{2\pi}{|\omega_0|}\)</span></li>
+<li>k取任意整数时，该信号集内所有信号都是彼此独立的。只有该信号集内所有信号才能构成一个完备的正交函数集。</li>
+</ul>
+<p><strong>一般复指数信号</strong>：</p>
+<ul>
+<li><span class="arithmatex">\(x(t)=Ce^{at}\)</span>，其中<span class="arithmatex">\(C\)</span>、<span class="arithmatex">\(a\)</span>均为复数</li>
+<li>令<span class="arithmatex">\(C=|C|e^{j\theta}\)</span>，<span class="arithmatex">\(a=r+j\omega_0\)</span>，则<span class="arithmatex">\(x(t)=|C|e^{j\theta}e^{rt}e^{j\omega_0t}=|C|e^{rt}e^{j(\omega_0t+\theta)}\)</span></li>
+<li>该信号可看作振幅按实指数信号规律变化的周期性复指数信号，其实部与虚部都是振幅呈实指数规律变化的正弦震荡<ul>
+<li><span class="arithmatex">\(r&gt;0\)</span>时，指数增长的正弦震荡</li>
+<li><span class="arithmatex">\(r&lt;0\)</span>时，指数衰减的正弦震荡</li>
+<li><span class="arithmatex">\(r=0\)</span>时，等幅的正弦震荡</li>
+</ul>
+</li>
+</ul>
+<h3 id="132">1.3.2 离散时间复指数信号与正弦信号</h3>
+<p><span class="arithmatex">\(x[n]=C\alpha^{n}\)</span>，<span class="arithmatex">\(C\)</span>、<span class="arithmatex">\(\alpha\)</span>一般为复数</p>
+<p><strong>实指数信号</strong>：<span class="arithmatex">\(C\)</span>、<span class="arithmatex">\(\alpha\)</span>均为实数</p>
+<ul>
+<li><span class="arithmatex">\(\alpha&gt;1\)</span>时，单调指数增长</li>
+<li><span class="arithmatex">\(a&lt;1\)</span>时，单调指数衰减</li>
+<li><span class="arithmatex">\(-1&lt;\alpha&lt;0\)</span>时，摆动指数衰减</li>
+<li><span class="arithmatex">\(\alpha&lt;-1\)</span>时，摆动指数增长</li>
+</ul>
+<p><strong>正弦信号</strong>：</p>
+<ul>
+<li><span class="arithmatex">\(x[n]=e^{j\omega_0n}\)</span>，其中<span class="arithmatex">\(\omega_0\)</span>为实数</li>
+<li><span class="arithmatex">\(x[n]=e^{j\omega_0n}=\cos\omega_0n+j\sin\omega_0n\)</span></li>
+<li>离散时间正弦信号不一定是周期的</li>
+</ul>
+<p><strong>一般复指数信号</strong>：</p>
+<ul>
+<li>令<span class="arithmatex">\(C=|C|e^{j\theta}\)</span>，<span class="arithmatex">\(\alpha=|\alpha|e^{j\omega_0}\)</span>则，<span class="arithmatex">\(x[n]|C||\alpha|^ne^{j(\omega_0n+\theta)}=|C||\alpha|^n[\cos(\omega_0n+\theta)+j\sin(\omega_0n+\theta)]\)</span></li>
+<li>实部与虚部都是幅度按指数规律变化的正弦序列</li>
+</ul>
+<h3 id="133">1.3.3 离散时间复指数序列的周期性</h3>
+<p><strong>定理</strong>：离散时间复指数序列<span class="arithmatex">\(x[n]=e^{j\omega_0n}\)</span>不一定是周期的。如果是周期的，则一定满足<span class="arithmatex">\(\frac{\omega_0}{2\pi}=\frac{m}{N}\)</span>，即<span class="arithmatex">\(\omega_0\)</span>与<span class="arithmatex">\(2\pi\)</span>的比值为有理数时才具有周期性。</p>
+<ul>
+<li><span class="arithmatex">\(N=\frac{2\pi}{\omega_0}m\)</span>，即基波周期</li>
+<li><span class="arithmatex">\(\omega=\frac{2\pi}{N}=\frac{\omega_0}{m}\)</span>，即基波频率</li>
+</ul>
+<p><strong>谐波信号集</strong>：</p>
+<ul>
+<li><span class="arithmatex">\(\phi_k[n]=\{e^{j\frac{2\pi}{N}kn}\},k=0,\pm1,\pm2,...\)</span></li>
+<li>信号集中每一个信号都以N为周期</li>
+<li>k=0称为直流分量，k=1称为基波分量，k=2称为二次谐波分量...</li>
+<li>每个分量的频率都是<span class="arithmatex">\(\frac{2\pi}{N}\)</span>的整数倍</li>
+<li>信号集中只有N个信号是独立的（<span class="arithmatex">\(\phi_{k+N}[n]=\phi_k[n]\)</span>）</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th align="center"><span class="arithmatex">\(e^{j\omega_0t}\)</span></th>
+<th align="center"><span class="arithmatex">\(e^{j\omega_0n}\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center"><span class="arithmatex">\(\omega_0\)</span>不同，信号不同</td>
+<td align="center">频率相差<span class="arithmatex">\(2\pi\)</span>的整数倍时，信号相同</td>
+</tr>
+<tr>
+<td align="center">对任何<span class="arithmatex">\(\omega_0\)</span>，信号都是周期的</td>
+<td align="center">仅当满足<span class="arithmatex">\(\frac{\omega_0}{2\pi}=\frac{m}{N}\)</span>时，信号是周期的</td>
+</tr>
+<tr>
+<td align="center">基波频率<span class="arithmatex">\(\omega_0=\frac{2\pi}{T_0}\)</span></td>
+<td align="center">基波频率<span class="arithmatex">\(\omega=\frac{\omega_0}{m}=\frac{2\pi}{N}\)</span></td>
+</tr>
+<tr>
+<td align="center">基波周期<span class="arithmatex">\(T_0\)</span></td>
+<td align="center">基波周期<span class="arithmatex">\(N\)</span></td>
+</tr>
+</tbody>
+</table>
+<h2 id="14">1.4 单位冲激与单位阶跃</h2>
+<h3 id="141">1.4.1 离散时间单位脉冲与单位阶跃</h3>
+<p><strong>单位脉冲序列</strong>：<span class="arithmatex">\(\delta[n]=\begin{cases}1&amp;n=0\\0&amp;n\neq0\end{cases}\)</span></p>
+<p><strong>单位阶跃序列</strong>：<span class="arithmatex">\(u[n]=\begin{cases}1&amp;n\geq0\\0&amp;n&lt;0\end{cases}\)</span></p>
+<p><strong>二者关系</strong>：</p>
+<ul>
+<li><span class="arithmatex">\(\delta[n]=u[n]-u[n-1]\)</span></li>
+<li><span class="arithmatex">\(u[n]=\sum_{k=-\infty}^{n}\delta[k]=\sum_{k=0}^{\infty}\delta[n-k]\)</span>:warning:</li>
+<li><span class="arithmatex">\(x[n]\delta[n]=x[0]\delta[n]\)</span>，<span class="arithmatex">\(x[n]\delta[n-n_0]=x[n_0]\delta[n-n_0]\)</span><ul>
+<li><span class="arithmatex">\(\delta[n]\)</span>具有提取离散时间信号样本的作用</li>
+</ul>
+</li>
+</ul>
+<h3 id="142">1.4.2 连续时间单位阶跃与单位冲激</h3>
+<p><strong>单位阶跃</strong>：<span class="arithmatex">\(u(t)=\begin{cases}1&amp;t&gt;0\\0&amp;t&lt;0\end{cases}\)</span></p>
+<p><strong>单位冲激</strong>：<span class="arithmatex">\(\delta(t)=\frac{du(t)}{dt}\)</span>，<span class="arithmatex">\(u(t)=\int_{-\infty}^{t}\delta(\tau)d\tau\)</span></p>
+<ul>
+<li>定义不严密，<span class="arithmatex">\(u(t)\)</span>在t=0处不连续，因此此处不可导</li>
+<li><span class="arithmatex">\(u_{\Delta}(t)\)</span>，<span class="arithmatex">\(\delta_\Delta(t)\)</span></li>
+<li><span class="arithmatex">\(\int_{-\infty}^{\infty}\delta(t)dt=1\)</span>，<span class="arithmatex">\(u(t)=\int_{-\infty}^{t}\delta(\tau)d\tau=\int_{0}^{\infty}\delta(t-\tau)d\tau\)</span></li>
+<li><span class="arithmatex">\(x(t)\delta(t)=x(0)\delta(t)\)</span>，<span class="arithmatex">\(x(t)\delta(t-t_0)=x(t_0)\delta(t-t_0)\)</span><ul>
+<li><span class="arithmatex">\(\delta(t)\)</span>具有提取连续时间信号样本的作用</li>
+</ul>
+</li>
+</ul>
+<h2 id="15">1.5 连续时间与离散时间系统</h2>
+<h3 id="151">1.5.1 系统</h3>
+<p><strong>系统</strong>：若干相互依赖、相互作用的食物所组成的具有一定功能的整体</p>
+<p><strong>连续时间系统</strong>：输入信号和输出响应都是连续时间信号的系统</p>
+<p><strong>离散时间系统</strong>：输入信号和输出响应都是离散时间信号的系统</p>
+<h3 id="152">1.5.2 系统的互联</h3>
+<p><strong>级联</strong>：<img alt="" src="../img/image-20210102164642613.png" /></p>
+<p><strong>并联</strong>：<img alt="" src="../img/image-20210102164657402.png" /></p>
+<p><strong>反馈联结</strong>：<img alt="" src="../img/image-20210102164729813.png" /></p>
+<h2 id="16">1.6 系统的基本性质</h2>
+<h3 id="161">1.6.1 记忆/无记忆</h3>
+<ul>
+<li><strong>无记忆系统</strong>：任何时刻，系统的输出只与当前时刻的输入有关，而与该时刻外的输入无关，则该系统为无记忆系统</li>
+<li><strong>记忆系统</strong>：...</li>
+<li><strong>恒等系统</strong>：在无记忆系统中存在一种特例，任何时刻系统的输出响应与输入信号都相同，则该系统为恒等系统</li>
+</ul>
+<h3 id="162">1.6.2 可逆/不可逆</h3>
+<ul>
+<li><strong>可逆系统</strong>：如果一个系统对任何不同的输入都能产生不同的输出，即输入与输出一一对应，则该系统为可逆系统</li>
+<li><strong>不可逆系统</strong>：如果一个系统对两个或两个以上的不同输入产生相同输出，则该系统为不可逆系统</li>
+<li><strong>逆系统</strong>：如果一个可逆系统与另一个系统级联构成一个恒等系统，则后者是前者的逆系统</li>
+</ul>
+<h3 id="163">1.6.3 因果/非因果</h3>
+<ul>
+<li><strong>因果系统</strong>：如果一个系统在任何时刻的输出都只与当时这个时刻及以前的输入有关，与该时刻以后的输入无关，则系统是因果的</li>
+<li><strong>非因果系统</strong>：...<ul>
+<li>一般说来，非因果系统是物理不可实现的</li>
+<li>对非实时处理信号的离散时间系统或信号的自变量不具有时间概念的情况下，因果性并不一定是系统能否物理实现的先决条件。</li>
+</ul>
+</li>
+</ul>
+<h3 id="164">1.6.4 稳定/不稳定</h3>
+<ul>
+<li><strong>稳定系统</strong>：如果一个系统当输入有界时，产生的输出也是有界的，则该系统是稳定系统</li>
+<li><strong>不稳定系统</strong>：...</li>
+</ul>
+<h3 id="165">1.6.5 时变/时不变</h3>
+<ul>
+<li><strong>时不变系统</strong>：如果一个系统当输入信号有一个时移，输出响应也产生同样的时移，除此之外输出响应没有任何变化，则该系统是时不变系统，即<span class="arithmatex">\(x(t)\to y(t), \ x(t-t_0)=y(t-t_0)\)</span></li>
+<li><strong>时变系统</strong>：...</li>
+</ul>
+<p><strong>检验一个系统时不变性的步骤</strong>：</p>
+<ol>
+<li>令输入为<span class="arithmatex">\(x_1(t)\)</span>，根据系统的描述，确定此时的输出<span class="arithmatex">\(y_1(t)\)</span></li>
+<li>将输入信号变为<span class="arithmatex">\(x_2(t)\)</span>，再根据系统的描述确定输出<span class="arithmatex">\(y_2(t)\)</span></li>
+<li>令<span class="arithmatex">\(x_2(t)=x_1(t-t_0)\)</span>，根据自变量变换，检验<span class="arithmatex">\(y_1(t-t_0)\)</span>是否等于<span class="arithmatex">\(y_2(t)\)</span></li>
+</ol>
+<h3 id="166">1.6.6 线性/非线性</h3>
+<ul>
+<li><strong>线性</strong>：如果<span class="arithmatex">\(x_1(t)\to y_1(t),x_2(t)\to y_2(t)\)</span>，且有<span class="arithmatex">\(ax_1(t)+bx_2(t)\to ay_1(t)+by_2(t)\)</span>，则该系统是线性的</li>
+<li><strong>非线性</strong>：...</li>
+</ul>
+<p><strong>齐次性</strong>、<strong>可加性</strong></p>
+<p><strong>线性性质的应用</strong>：若<span class="arithmatex">\(x(t)=\sum_{k}a_kx_k(t),x_k(t)\to y_k(t)\)</span>，则<span class="arithmatex">\(y(t)=\sum_{k}a_ky_k(t)\)</span></p>
+<p><strong>增量线性系统</strong>：这类系统不满足线性系统要求，但是其输出响应的增量与输入信号的增量之间满足线性性质</p>
+<ul>
+<li>任何增量线性系统都可以等效为一个线性系统<span class="arithmatex">\(y_1(t)\)</span>+与输入无关<span class="arithmatex">\(y_0(t)\)</span>的响应<ul>
+<li>当<span class="arithmatex">\(y_0(t)=0\)</span>时，系统的输出响应完全由<span class="arithmatex">\(y_1(t)\)</span>决定，此时系统处于零初始状态，<span class="arithmatex">\(y_1(t)\)</span>称为<strong>零状态响应</strong></li>
+<li>当<span class="arithmatex">\(x(t)=0\)</span>时，有<span class="arithmatex">\(y_1(t)=0,y(t)=y_0(t)\)</span>，此时将<span class="arithmatex">\(y_0(t)\)</span>称为<strong>零输入响应</strong></li>
+</ul>
+</li>
+<li>增量线性系统的响应包括零输入响应、零状态响应</li>
+</ul>
+<p>根据线性系统的齐次性，线性系统当输入为0（无输入）时，系统的输出响应为0，即线性系统的<strong>零输入-零输出</strong>特性</p>
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+    <nav class="md-footer__inner md-grid" aria-label="Footer" >
+      
+        
+        <a href="../../%E4%BF%A1%E6%81%AF%E8%AE%BA%E4%B8%8E%E7%BC%96%E7%A0%81/%E4%BF%A1%E6%81%AF%E8%AE%BA%E4%B8%8E%E7%BC%96%E7%A0%81/" class="md-footer__link md-footer__link--prev" aria-label="Previous: 信息论与编码" rel="prev">
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+          </div>
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              信息论与编码
+            </div>
+          </div>
+        </a>
+      
+      
+        
+        <a href="../2%E7%BA%BF%E6%80%A7%E6%97%B6%E4%B8%8D%E5%8F%98%E7%B3%BB%E7%BB%9F/" class="md-footer__link md-footer__link--next" aria-label="Next: 2.线性时不变系统" rel="next">
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              2.线性时不变系统
+            </div>
+          </div>
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4Z"/></svg>
+          </div>
+        </a>
+      
+    </nav>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.tabs", "search.suggest", "search.highlight", "toc.integrate"], "search": "../../assets/javascripts/workers/search.16e2a7d4.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version.title": "Select version"}}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.5a2dcb6a.min.js"></script>
+      
+        <script src="../../javascripts/mathjax.js"></script>
+      
+        <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+    
+    
+  </body>
+</html>

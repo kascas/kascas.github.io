@@ -1,0 +1,58 @@
+LOG_NAME,LOG_DESC,FIELD_NAME,FIELD_TYPE,FIELD_DESC
+broker.log,Peering status events between Zeek or Broker-enabled processes,message,string &log &optional,An optional message describing the Broker event in more detail 
+broker.log,Peering status events between Zeek or Broker-enabled processes,ev,string &log,The event being logged. 
+broker.log,Peering status events between Zeek or Broker-enabled processes,ty,Broker::Type &log,The type of the Broker event. 
+broker.log,Peering status events between Zeek or Broker-enabled processes,peer,Broker::NetworkInfo &log &optional,The peer (if any) with which a Broker event is concerned. 
+broker.log,Peering status events between Zeek or Broker-enabled processes,ts,time &log,The network time at which a Broker event occurred. 
+capture_loss.log,Packet loss rate,ts,time &log,Timestamp for when the measurement occurred. 
+capture_loss.log,Packet loss rate,gaps,count &log,Number of missed ACKs from the previous measurement interval. 
+capture_loss.log,Packet loss rate,acks,count &log,Total number of ACKs seen in the previous measurement interval. 
+capture_loss.log,Packet loss rate,percent_lost,double &log,Percentage of ACKs seen where the data being ACKed wasn't seen. 
+capture_loss.log,Packet loss rate,ts_delta,interval &log,The time delay between this measurement and the last. 
+capture_loss.log,Packet loss rate,peer,string &log,In the event that there are multiple Zeek instances logging to the same host， this distinguishes each peer with its individual name. 
+cluster.log,Zeek cluster messages,ts,time &log,The time at which a cluster message was generated. 
+cluster.log,Zeek cluster messages,message,string &log,A message indicating information about the cluster's operation. 
+cluster.log,Zeek cluster messages,node,string &log,The name of the node that is creating the log record. 
+config.log,Configuration option changes,location,string &optional &log,Optional location that triggered the change. 
+config.log,Configuration option changes,new_value,string &log,Value after the change. 
+config.log,Configuration option changes,old_value,string &log,Value before the change. 
+config.log,Configuration option changes,ts,time &log,Timestamp at which the configuration change occured. 
+config.log,Configuration option changes,id,string &log,ID of the value that was changed. 
+loaded_scripts.log,Shows all scripts loaded by Zeek,name,string &log,Name of the script loaded potentially with spaces included before the file name to indicate load depth.  The convention is two spaces per level of depth. 
+packet_filter.log,List packet filters that were applied,init,bool &log &default = F &optional,Indicate if this is the filter set during initialization. 
+packet_filter.log,List packet filters that were applied,filter,string &log,The packet filter that is being set. 
+packet_filter.log,List packet filters that were applied,node,string &log &optional,This is a string representation of the node that applied this packet filter.  It's mostly useful in the context of dynamically changing filters on clusters. 
+packet_filter.log,List packet filters that were applied,ts,time &log,The time at which the packet filter installation attempt was made. 
+packet_filter.log,List packet filters that were applied,success,bool &log &default = T &optional,Indicate if the filter was applied successfully. 
+print.log,Print statements that were redirected to a log stream.,vals,string_vec &log,Set of strings passed to the print statement. 
+print.log,Print statements that were redirected to a log stream.,ts,time &log,The network time at which the print statement was executed. 
+reporter.log,Internal error/warning/info messages,location,string &log &optional,This is the location in a Zeek script where the message originated. Not all reporter messages will have locations in them though. 
+reporter.log,Internal error/warning/info messages,level,Reporter::Level &log,The severity of the reporter message. Levels are INFO for informational messages， not needing specific attention; WARNING for warning of a potential problem， and ERROR for a non-fatal error that should be addressed， but doesn't terminate program execution. 
+reporter.log,Internal error/warning/info messages,message,string &log,An info/warning/error message that could have either been generated from the internal Zeek core or at the scripting-layer. 
+reporter.log,Internal error/warning/info messages,ts,time &log,The network time at which the reporter event was generated. 
+stats.log,Memory/event/packet/lag statistics,pkts_dropped,count &log &optional,Number of packets dropped since the last stats interval if reading live traffic. 
+stats.log,Memory/event/packet/lag statistics,pkts_link,count &log &optional,Number of packets seen on the link since the last stats interval if reading live traffic. 
+stats.log,Memory/event/packet/lag statistics,pkt_lag,interval &log &optional,Lag between the wall clock and packet timestamps if reading live traffic. 
+stats.log,Memory/event/packet/lag statistics,events_proc,count &log,Number of events processed since the last stats interval. 
+stats.log,Memory/event/packet/lag statistics,events_queued,count &log,Number of events that have been queued since the last stats interval. 
+stats.log,Memory/event/packet/lag statistics,active_tcp_conns,count &log,TCP connections currently in memory. 
+stats.log,Memory/event/packet/lag statistics,active_udp_conns,count &log,UDP connections currently in memory. 
+stats.log,Memory/event/packet/lag statistics,active_icmp_conns,count &log,ICMP connections currently in memory. 
+stats.log,Memory/event/packet/lag statistics,tcp_conns,count &log,TCP connections seen since last stats interval. 
+stats.log,Memory/event/packet/lag statistics,udp_conns,count &log,UDP connections seen since last stats interval. 
+stats.log,Memory/event/packet/lag statistics,icmp_conns,count &log,ICMP connections seen since last stats interval. 
+stats.log,Memory/event/packet/lag statistics,timers,count &log,Number of timers scheduled since last stats interval. 
+stats.log,Memory/event/packet/lag statistics,active_timers,count &log,Current number of scheduled timers. 
+stats.log,Memory/event/packet/lag statistics,files,count &log,Number of files seen since last stats interval. 
+stats.log,Memory/event/packet/lag statistics,active_files,count &log,Current number of files actively being seen. 
+stats.log,Memory/event/packet/lag statistics,dns_requests,count &log,Number of DNS requests seen since last stats interval. 
+stats.log,Memory/event/packet/lag statistics,active_dns_requests,count &log,Current number of DNS requests awaiting a reply. 
+stats.log,Memory/event/packet/lag statistics,reassem_tcp_size,count &log,Current size of TCP data in reassembly. 
+stats.log,Memory/event/packet/lag statistics,reassem_file_size,count &log,Current size of File data in reassembly. 
+stats.log,Memory/event/packet/lag statistics,reassem_frag_size,count &log,Current size of packet fragment data in reassembly. 
+stats.log,Memory/event/packet/lag statistics,reassem_unknown_size,count &log,Current size of unknown data in reassembly (this is only PIA buffer right now). 
+stats.log,Memory/event/packet/lag statistics,bytes_recv,count &log,Number of bytes received since the last stats interval if reading live traffic. 
+stats.log,Memory/event/packet/lag statistics,pkts_proc,count &log,Number of packets processed since the last stats interval. 
+stats.log,Memory/event/packet/lag statistics,mem,count &log,Amount of memory currently in use in MB. 
+stats.log,Memory/event/packet/lag statistics,peer,string &log,Peer that generated this log.  Mostly for clusters. 
+stats.log,Memory/event/packet/lag statistics,ts,time &log,Timestamp for the measurement. 

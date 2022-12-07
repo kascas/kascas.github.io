@@ -1,0 +1,464 @@
+LOG_NAME,LOG_DESC,FIELD_NAME,FIELD_TYPE,FIELD_DESC
+conn.log,TCP/UDP/ICMP connections,id,conn_id &log,The connection's 4-tuple of endpoint addresses/ports. 
+conn.log,TCP/UDP/ICMP connections,uid,string &log,A unique identifier of the connection. 
+conn.log,TCP/UDP/ICMP connections,ts,time &log,This is the time of the first packet. 
+conn.log,TCP/UDP/ICMP connections,speculative_service,string &log &optional,(present if policy/protocols/conn/speculative-service.zeek is loaded) Protocol that was determined by a matching signature after the beginning of a connection. In this situation no analyzer can be attached and hence the data cannot be analyzed nor the protocol can be confirmed. 
+conn.log,TCP/UDP/ICMP connections,inner_vlan,int &log &optional,(present if policy/protocols/conn/vlan-logging.zeek is loaded) The inner VLAN for this connection， if applicable. 
+conn.log,TCP/UDP/ICMP connections,vlan,int &log &optional,(present if policy/protocols/conn/vlan-logging.zeek is loaded) The outer VLAN for this connection， if applicable. 
+conn.log,TCP/UDP/ICMP connections,resp_l2_addr,string &log &optional,(present if policy/protocols/conn/mac-logging.zeek is loaded) Link-layer address of the responder， if available. 
+conn.log,TCP/UDP/ICMP connections,orig_l2_addr,string &log &optional,(present if policy/protocols/conn/mac-logging.zeek is loaded) Link-layer address of the originator， if available. 
+conn.log,TCP/UDP/ICMP connections,tunnel_parents,set [string] &log &optional,If this connection was over a tunnel， indicate the uid values for any encapsulating parent connections used over the lifetime of this inner connection. 
+conn.log,TCP/UDP/ICMP connections,resp_ip_bytes,count &log &optional,Number of IP level bytes that the responder sent (as seen on the wire， taken from the IP total_length header field). Only set if use_conn_size_analyzer = T. 
+conn.log,TCP/UDP/ICMP connections,resp_pkts,count &log &optional,Number of packets that the responder sent. Only set if use_conn_size_analyzer = T. 
+conn.log,TCP/UDP/ICMP connections,orig_ip_bytes,count &log &optional,Number of IP level bytes that the originator sent (as seen on the wire， taken from the IP total_length header field). Only set if use_conn_size_analyzer = T. 
+conn.log,TCP/UDP/ICMP connections,orig_pkts,count &log &optional,Number of packets that the originator sent. Only set if use_conn_size_analyzer = T. 
+conn.log,TCP/UDP/ICMP connections,history,string &log &optional,Records the state history of connections as a string of letters.  The meaning of those letters is:       Letter Meaning    s a SYN w/o the ACK bit set  h a SYN+ACK ("handshake")  a a pure ACK  d packet with payload ("data")  f packet with FIN bit set  r packet with RST bit set  c packet with a bad checksum (applies to UDP too)  g a content gap  t packet with retransmitted payload  w packet with a zero window advertisement  i inconsistent packet (e.g. FIN+RST bits set)  q multi-flag packet (SYN+FIN or SYN+RST bits set)  ^ connection direction was flipped by Zeek's heuristic    If the event comes from the originator， the letter is in upper-case; if it comes from the responder， it's in lower-case.  The 'a'， 'd'， 'i' and 'q' flags are recorded a maximum of one time in either direction regardless of how many are actually seen.  'f'， 'h'， 'r' and 's' can be recorded multiple times for either direction if the associated sequence number differs from the last-seen packet of the same flag type. 'c'， 'g'， 't' and 'w' are recorded in a logarithmic fashion: the second instance represents that the event was seen (at least) 10 times; the third instance， 100 times; etc. 
+conn.log,TCP/UDP/ICMP connections,missed_bytes,count &log &default = 0 &optional,Indicates the number of bytes missed in content gaps， which is representative of packet loss.  A value other than zero will normally cause protocol analysis to fail but some analysis may have been completed prior to the packet loss. 
+conn.log,TCP/UDP/ICMP connections,local_resp,bool &log &optional,If the connection is responded to locally， this value will be T. If it was responded to remotely it will be F.  In the case that the Site::local_nets variable is undefined， this field will be left empty at all times. 
+conn.log,TCP/UDP/ICMP connections,local_orig,bool &log &optional,If the connection is originated locally， this value will be T. If it was originated remotely it will be F.  In the case that the Site::local_nets variable is undefined， this field will be left empty at all times. 
+conn.log,TCP/UDP/ICMP connections,conn_state,string &log &optional,Possible conn_state values:  S0: Connection attempt seen， no reply. S1: Connection established， not terminated. SF: Normal establishment and termination. Note that this is the same symbol as for state S1. You can tell the two apart because for S1 there will not be any byte counts in the summary， while for SF there will be. REJ: Connection attempt rejected. S2: Connection established and close attempt by originator seen (but no reply from responder). S3: Connection established and close attempt by responder seen (but no reply from originator). RSTO: Connection established， originator aborted (sent a RST). RSTR: Responder sent a RST. RSTOS0: Originator sent a SYN followed by a RST， we never saw a SYN-ACK from the responder. RSTRH: Responder sent a SYN ACK followed by a RST， we never saw a SYN from the (purported) originator. SH: Originator sent a SYN followed by a FIN， we never saw a SYN ACK from the responder (hence the connection was "half" open). SHR: Responder sent a SYN ACK followed by a FIN， we never saw a SYN from the originator. OTH: No SYN seen， just midstream traffic (one example of this is a "partial connection" that was not later closed).  
+conn.log,TCP/UDP/ICMP connections,resp_bytes,count &log &optional,The number of payload bytes the responder sent. See orig_bytes. 
+conn.log,TCP/UDP/ICMP connections,service,string &log &optional,An identification of an application protocol being sent over the connection. 
+conn.log,TCP/UDP/ICMP connections,orig_bytes,count &log &optional,The number of payload bytes the originator sent. For TCP this is taken from sequence numbers and might be inaccurate (e.g.， due to large connections). 
+conn.log,TCP/UDP/ICMP connections,duration,interval &log &optional,How long the connection lasted.  For 3-way or 4-way connection tear-downs， this will not include the final ACK. 
+conn.log,TCP/UDP/ICMP connections,proto,transport_proto &log,The transport layer protocol of the connection. 
+dce_rpc.log,Distributed Computing Environment/RPC,id,conn_id &log,The connection's 4-tuple of endpoint addresses/ports. 
+dce_rpc.log,Distributed Computing Environment/RPC,rtt,interval &log &optional,Round trip time from the request to the response. If either the request or response wasn't seen， this will be null. 
+dce_rpc.log,Distributed Computing Environment/RPC,operation,string &log &optional,Operation seen in the call. 
+dce_rpc.log,Distributed Computing Environment/RPC,uid,string &log,Unique ID for the connection. 
+dce_rpc.log,Distributed Computing Environment/RPC,ts,time &log,Timestamp for when the event happened. 
+dce_rpc.log,Distributed Computing Environment/RPC,named_pipe,string &log &optional,Remote pipe name. 
+dce_rpc.log,Distributed Computing Environment/RPC,endpoint,string &log &optional,Endpoint name looked up from the uuid. 
+dhcp.log,DHCP leases,server_software,string &log &optional,(present if policy/protocols/dhcp/software.zeek is loaded) Software reported by the server in the vendor_class option. 
+dhcp.log,DHCP leases,client_software,string &log &optional,(present if policy/protocols/dhcp/software.zeek is loaded) Software reported by the client in the vendor_class option. 
+dhcp.log,DHCP leases,client_addr,addr &log &optional,IP address of the client.  If a transaction is only a client sending INFORM messages then there is no lease information exchanged so this is helpful to know who sent the messages. Getting an address in this field does require that the client sources at least one DHCP message using a non-broadcast address. 
+dhcp.log,DHCP leases,uids,set [string] &log,A series of unique identifiers of the connections over which DHCP is occurring.  This behavior with multiple connections is unique to DHCP because of the way it uses broadcast packets on local networks. 
+dhcp.log,DHCP leases,mac,string &log &optional,Client's hardware address. 
+dhcp.log,DHCP leases,client_port,port &optional,Client port number seen at time of server handing out IP (expected as 68/udp). 
+dhcp.log,DHCP leases,subscriber_id,string &log &optional,(present if policy/protocols/dhcp/sub-opts.zeek is loaded) The subscriber ID is a value independent of the physical network configuration so that a customer's DHCP configuration can be given to them correctly no matter where they are physically connected. 
+dhcp.log,DHCP leases,ts,time &log,The earliest time at which a DHCP message over the associated connection is observed. 
+dhcp.log,DHCP leases,server_addr,addr &log &optional,IP address of the server involved in actually handing out the lease.  There could be other servers replying with OFFER messages which won't be represented here.  Getting an address in this field also requires that the server handing out the lease also sources packets from a non-broadcast IP address. 
+dhcp.log,DHCP leases,circuit_id,string &log &optional,(present if policy/protocols/dhcp/sub-opts.zeek is loaded) Added by DHCP relay agents which terminate switched or permanent circuits.  It encodes an agent-local identifier of the circuit from which a DHCP client-to-server packet was received.  Typically it should represent a router or switch interface number. 
+dhcp.log,DHCP leases,server_port,port &optional,Server port number seen at time of server handing out IP (expected as 67/udp). 
+dhcp.log,DHCP leases,host_name,string &log &optional,Name given by client in Hostname option 12. 
+dhcp.log,DHCP leases,client_fqdn,string &log &optional,FQDN given by client in Client FQDN option 81. 
+dhcp.log,DHCP leases,domain,string &log &optional,Domain given by the server in option 15. 
+dhcp.log,DHCP leases,requested_addr,addr &log &optional,IP address requested by the client. 
+dhcp.log,DHCP leases,assigned_addr,addr &log &optional,IP address assigned by the server. 
+dhcp.log,DHCP leases,lease_time,interval &log &optional,IP address lease interval. 
+dhcp.log,DHCP leases,duration,interval &log &default = 0 secs &optional,Duration of the DHCP "session" representing the time from the first message to the last. 
+dhcp.log,DHCP leases,client_message,string &log &optional,Message typically accompanied with a DHCP_DECLINE so the client can tell the server why it rejected an address. 
+dhcp.log,DHCP leases,agent_remote_id,string &log &optional,(present if policy/protocols/dhcp/sub-opts.zeek is loaded) A globally unique identifier added by relay agents to identify the remote host end of the circuit. 
+dhcp.log,DHCP leases,server_message,string &log &optional,Message typically accompanied with a DHCP_NAK to let the client know why it rejected the request. 
+dhcp.log,DHCP leases,msg_types,vector of string &log &default = [] &optional,The DHCP message types seen by this DHCP transaction 
+dhcp.log,DHCP leases,client_chaddr,string &optional,The CHADDR field sent by the client. 
+dhcp.log,DHCP leases,msg_orig,vector of addr &log &default = [] &optional,(present if policy/protocols/dhcp/msg-orig.zeek is loaded) The address that originated each message from the msg_types field. 
+dnp3.log,DNP3 requests and replies,iin,count &log &optional,The response's "internal indication number". 
+dnp3.log,DNP3 requests and replies,fc_reply,string &log &optional,The name of the function message in the reply. 
+dnp3.log,DNP3 requests and replies,fc_request,string &log &optional,The name of the function message in the request. 
+dnp3.log,DNP3 requests and replies,uid,string &log,Unique identifier for the connection. 
+dnp3.log,DNP3 requests and replies,ts,time &log,Time of the request. 
+dnp3.log,DNP3 requests and replies,id,conn_id &log,Identifier for the connection. 
+dns.log,DNS activity,original_query,string &log &optional,(present if policy/protocols/dns/log-original-query-case.zeek is loaded) Query with original letter casing 
+dns.log,DNS activity,addl,set [string] &log &optional,(present if policy/protocols/dns/auth-addl.zeek is loaded) Additional responses for the query. 
+dns.log,DNS activity,auth,set [string] &log &optional,(present if policy/protocols/dns/auth-addl.zeek is loaded) Authoritative responses for the query. 
+dns.log,DNS activity,saw_reply,bool &default = F &optional,Whether the full DNS reply has been seen. 
+dns.log,DNS activity,saw_query,bool &default = F &optional,Whether the full DNS query has been seen. 
+dns.log,DNS activity,total_replies,count &optional,The total number of resource records in a reply message's answer， authority， and additional sections. 
+dns.log,DNS activity,total_answers,count &optional,The total number of resource records in a reply message's answer section. 
+dns.log,DNS activity,rejected,bool &log &default = F &optional,The DNS query was rejected by the server. 
+dns.log,DNS activity,TTLs,vector of interval &log &optional,The caching intervals of the associated RRs described by the answers field. 
+dns.log,DNS activity,answers,vector of string &log &optional,The set of resource descriptions in the query answer. 
+dns.log,DNS activity,Z,count &log &default = 0 &optional,A reserved field that is usually zero in queries and responses. 
+dns.log,DNS activity,RA,bool &log &default = F &optional,The Recursion Available bit in a response message indicates that the name server supports recursive queries. 
+dns.log,DNS activity,RD,bool &log &default = F &optional,The Recursion Desired bit in a request message indicates that the client wants recursive service for this query. 
+dns.log,DNS activity,TC,bool &log &default = F &optional,The Truncation bit specifies that the message was truncated. 
+dns.log,DNS activity,AA,bool &log &default = F &optional,The Authoritative Answer bit for response messages specifies that the responding name server is an authority for the domain name in the question section. 
+dns.log,DNS activity,rcode_name,string &log &optional,A descriptive name for the response code value. 
+dns.log,DNS activity,qtype_name,string &log &optional,A descriptive name for the type of the query. 
+dns.log,DNS activity,qtype,count &log &optional,A QTYPE value specifying the type of the query. 
+dns.log,DNS activity,proto,transport_proto &log,The transport layer protocol of the connection. 
+dns.log,DNS activity,id,conn_id &log,The connection's 4-tuple of endpoint addresses/ports. 
+dns.log,DNS activity,qclass_name,string &log &optional,A descriptive name for the class of the query. 
+dns.log,DNS activity,uid,string &log,A unique identifier of the connection over which DNS messages are being transferred. 
+dns.log,DNS activity,ts,time &log,The earliest time at which a DNS protocol message over the associated connection is observed. 
+dns.log,DNS activity,qclass,count &log &optional,The QCLASS value specifying the class of the query. 
+dns.log,DNS activity,query,string &log &optional,The domain name that is the subject of the DNS query. 
+dns.log,DNS activity,rcode,count &log &optional,The response code value in DNS response messages. 
+dns.log,DNS activity,rtt,interval &log &optional,Round trip time for the query and response. This indicates the delay between when the request was seen until the answer started. 
+dns.log,DNS activity,trans_id,count &log &optional,A 16-bit identifier assigned by the program that generated the DNS query.  Also used in responses to match up replies to outstanding queries. 
+ftp.log,FTP activity,user,string &log &default = "<unknown>" &optional,User name for the current FTP session. 
+ftp.log,FTP activity,command,string &log &optional,Command given by the client. 
+ftp.log,FTP activity,arg,string &log &optional,Argument for the command if one is given. 
+ftp.log,FTP activity,id,conn_id &log,The connection's 4-tuple of endpoint addresses/ports. 
+ftp.log,FTP activity,fuid,string &optional &log,(present if base/protocols/ftp/files.zeek is loaded) File unique ID. 
+ftp.log,FTP activity,capture_password,bool &default = FTP::default_capture_password &optional,Determines if the password will be captured for this request. 
+ftp.log,FTP activity,passive,bool &default = F &optional,Indicates if the session is in active or passive mode. 
+ftp.log,FTP activity,mime_type,string &log &optional,Sniffed mime type of file. 
+ftp.log,FTP activity,last_auth_requested,string &optional,(present if base/protocols/ftp/gridftp.zeek is loaded) 
+ftp.log,FTP activity,uid,string &log,Unique ID for the connection. 
+ftp.log,FTP activity,pending_commands,FTP::PendingCmds,Queue for commands that have been sent but not yet responded to are tracked here. 
+ftp.log,FTP activity,cmdarg,FTP::CmdArg &optional,Command that is currently waiting for a response. 
+ftp.log,FTP activity,reply_code,count &log &optional,Reply code from the server in response to the command. 
+ftp.log,FTP activity,cwd,string &default = "." &optional,Current working directory that this session is in.  By making the default value '.'， we can indicate that unless something more concrete is discovered that the existing but unknown directory is ok to use. 
+ftp.log,FTP activity,data_channel,FTP::ExpectedDataChannel &log &optional,Expected FTP data channel. 
+ftp.log,FTP activity,reply_msg,string &log &optional,Reply message from the server in response to the command. 
+ftp.log,FTP activity,password,string &log &optional,Password for the current FTP session if captured. 
+ftp.log,FTP activity,file_size,count &log &optional,Size of the file if the command indicates a file transfer. 
+ftp.log,FTP activity,ts,time &log,Time when the command was sent. 
+http.log,HTTP requests and replies,orig_mime_types,vector of string &log &optional,(present if base/protocols/http/entities.zeek is loaded) An ordered vector of mime types. Limited to HTTP::max_files_orig entries. 
+http.log,HTTP requests and replies,resp_fuids,vector of string &log &optional,(present if base/protocols/http/entities.zeek is loaded) An ordered vector of file unique IDs. Limited to HTTP::max_files_resp entries. 
+http.log,HTTP requests and replies,resp_filenames,vector of string &log &optional,(present if base/protocols/http/entities.zeek is loaded) An ordered vector of filenames from the server. Limited to HTTP::max_files_resp entries. 
+http.log,HTTP requests and replies,resp_mime_types,vector of string &log &optional,(present if base/protocols/http/entities.zeek is loaded) An ordered vector of mime types. Limited to HTTP::max_files_resp entries. 
+http.log,HTTP requests and replies,current_entity,HTTP::Entity &optional,(present if base/protocols/http/entities.zeek is loaded) The current entity. 
+http.log,HTTP requests and replies,orig_mime_depth,count &default = 0 &optional,(present if base/protocols/http/entities.zeek is loaded) Current number of MIME entities in the HTTP request message body. 
+http.log,HTTP requests and replies,resp_mime_depth,count &default = 0 &optional,(present if base/protocols/http/entities.zeek is loaded) Current number of MIME entities in the HTTP response message body. 
+http.log,HTTP requests and replies,user_agent,string &log &optional,Value of the User-Agent header from the client. 
+http.log,HTTP requests and replies,client_header_names,vector of string &log &optional,(present if policy/protocols/http/header-names.zeek is loaded) The vector of HTTP header names sent by the client.  No header values are included here， just the header names. 
+http.log,HTTP requests and replies,server_header_names,vector of string &log &optional,(present if policy/protocols/http/header-names.zeek is loaded) The vector of HTTP header names sent by the server.  No header values are included here， just the header names. 
+http.log,HTTP requests and replies,omniture,bool &default = F &optional,(present if policy/protocols/http/software-browser-plugins.zeek is loaded) Indicates if the server is an omniture advertising server. 
+http.log,HTTP requests and replies,flash_version,string &optional,(present if policy/protocols/http/software-browser-plugins.zeek is loaded) The unparsed Flash version， if detected. 
+http.log,HTTP requests and replies,cookie_vars,vector of string &optional &log,(present if policy/protocols/http/var-extraction-cookies.zeek is loaded) Variable names extracted from all cookies. 
+http.log,HTTP requests and replies,uri_vars,vector of string &optional &log,(present if policy/protocols/http/var-extraction-uri.zeek is loaded) Variable names from the URI. 
+http.log,HTTP requests and replies,ts,time &log,Timestamp for when the request happened. 
+http.log,HTTP requests and replies,uid,string &log,Unique ID for the connection. 
+http.log,HTTP requests and replies,id,conn_id &log,The connection's 4-tuple of endpoint addresses/ports. 
+http.log,HTTP requests and replies,trans_depth,count &log,Represents the pipelined depth into the connection of this request/response transaction. 
+http.log,HTTP requests and replies,method,string &log &optional,Verb used in the HTTP request (GET， POST， HEAD， etc.). 
+http.log,HTTP requests and replies,host,string &log &optional,Value of the HOST header. 
+http.log,HTTP requests and replies,uri,string &log &optional,URI used in the request. 
+http.log,HTTP requests and replies,referrer,string &log &optional,Value of the "referer" header.  The comment is deliberately misspelled like the standard declares， but the name used here is "referrer" spelled correctly. 
+http.log,HTTP requests and replies,version,string &log &optional,Value of the version portion of the request. 
+http.log,HTTP requests and replies,origin,string &log &optional,Value of the Origin header from the client. 
+http.log,HTTP requests and replies,request_body_len,count &log &default = 0 &optional,Actual uncompressed content size of the data transferred from the client. 
+http.log,HTTP requests and replies,response_body_len,count &log &default = 0 &optional,Actual uncompressed content size of the data transferred from the server. 
+http.log,HTTP requests and replies,status_code,count &log &optional,Status code returned by the server. 
+http.log,HTTP requests and replies,status_msg,string &log &optional,Status message returned by the server. 
+http.log,HTTP requests and replies,info_code,count &log &optional,Last seen 1xx informational reply code returned by the server. 
+http.log,HTTP requests and replies,info_msg,string &log &optional,Last seen 1xx informational reply message returned by the server. 
+http.log,HTTP requests and replies,tags,set [HTTP::Tags] &log,A set of indicators of various attributes discovered and related to a particular request/response pair. 
+http.log,HTTP requests and replies,username,string &log &optional,Username if basic-auth is performed for the request. 
+http.log,HTTP requests and replies,password,string &log &optional,Password if basic-auth is performed for the request. 
+http.log,HTTP requests and replies,capture_password,bool &default = HTTP::default_capture_password &optional,Determines if the password will be captured for this request. 
+http.log,HTTP requests and replies,proxied,set [string] &log &optional,All of the headers that may indicate if the request was proxied. 
+http.log,HTTP requests and replies,range_request,bool &default = F &optional,Indicates if this request can assume 206 partial content in response. 
+http.log,HTTP requests and replies,orig_fuids,vector of string &log &optional,(present if base/protocols/http/entities.zeek is loaded) An ordered vector of file unique IDs. Limited to HTTP::max_files_orig entries. 
+http.log,HTTP requests and replies,orig_filenames,vector of string &log &optional,(present if base/protocols/http/entities.zeek is loaded) An ordered vector of filenames from the client. Limited to HTTP::max_files_orig entries. 
+irc.log,IRC commands and responses,ts,time &log,Timestamp when the command was seen. 
+irc.log,IRC commands and responses,user,string &log &optional,Username given for the connection. 
+irc.log,IRC commands and responses,value,string &log &optional,Value for the command given by the client. 
+irc.log,IRC commands and responses,command,string &log &optional,Command given by the client. 
+irc.log,IRC commands and responses,uid,string &log,Unique ID for the connection. 
+irc.log,IRC commands and responses,dcc_file_name,string &log &optional,(present if base/protocols/irc/dcc-send.zeek is loaded) DCC filename requested. 
+irc.log,IRC commands and responses,id,conn_id &log,The connection's 4-tuple of endpoint addresses/ports. 
+irc.log,IRC commands and responses,dcc_file_size,count &log &optional,(present if base/protocols/irc/dcc-send.zeek is loaded) Size of the DCC transfer as indicated by the sender. 
+irc.log,IRC commands and responses,addl,string &log &optional,Any additional data for the command. 
+irc.log,IRC commands and responses,dcc_mime_type,string &log &optional,(present if base/protocols/irc/dcc-send.zeek is loaded) Sniffed mime type of the file. 
+irc.log,IRC commands and responses,fuid,string &log &optional,(present if base/protocols/irc/files.zeek is loaded) File unique ID. 
+irc.log,IRC commands and responses,nick,string &log &optional,Nickname given for the connection. 
+kerberos.log,Kerberos,client_cert_subject,string &log &optional,(present if base/protocols/krb/files.zeek is loaded) Subject of client certificate， if any 
+kerberos.log,Kerberos,client_cert_fuid,string &log &optional,(present if base/protocols/krb/files.zeek is loaded) File unique ID of client cert， if any 
+kerberos.log,Kerberos,server_cert_fuid,string &log &optional,(present if base/protocols/krb/files.zeek is loaded) File unique ID of server cert， if any 
+kerberos.log,Kerberos,auth_ticket,string &log &optional,(present if policy/protocols/krb/ticket-logging.zeek is loaded) Hash of ticket used to authorize request/transaction 
+kerberos.log,Kerberos,new_ticket,string &log &optional,(present if policy/protocols/krb/ticket-logging.zeek is loaded) Hash of ticket returned by the KDC 
+kerberos.log,Kerberos,till,time &log &optional,Ticket valid till 
+kerberos.log,Kerberos,uid,string &log,Unique ID for the connection. 
+kerberos.log,Kerberos,from,time &log &optional,Ticket valid from 
+kerberos.log,Kerberos,error_code,count &optional,Error code 
+kerberos.log,Kerberos,success,bool &log &optional,Request result 
+kerberos.log,Kerberos,service,string &log &optional,Service 
+kerberos.log,Kerberos,client,string &log &optional,Client 
+kerberos.log,Kerberos,error_msg,string &log &optional,Error message 
+kerberos.log,Kerberos,request_type,string &log &optional,Request type - Authentication Service ("AS") or Ticket Granting Service ("TGS") 
+kerberos.log,Kerberos,server_cert,Files::Info &optional,(present if base/protocols/krb/files.zeek is loaded) Server certificate 
+kerberos.log,Kerberos,ts,time &log,Timestamp for when the event happened. 
+kerberos.log,Kerberos,cipher,string &log &optional,Ticket encryption type 
+kerberos.log,Kerberos,server_cert_subject,string &log &optional,(present if base/protocols/krb/files.zeek is loaded) Subject of server certificate， if any 
+kerberos.log,Kerberos,forwardable,bool &log &optional,Forwardable ticket requested 
+kerberos.log,Kerberos,renewable,bool &log &optional,Renewable ticket requested 
+kerberos.log,Kerberos,logged,bool &default = F &optional,We've already logged this 
+kerberos.log,Kerberos,client_cert,Files::Info &optional,(present if base/protocols/krb/files.zeek is loaded) Client certificate 
+kerberos.log,Kerberos,id,conn_id &log,The connection's 4-tuple of endpoint addresses/ports. 
+modbus.log,Modbus commands and responses,uid,string &log,Unique identifier for the connection. 
+modbus.log,Modbus commands and responses,id,conn_id &log,Identifier for the connection. 
+modbus.log,Modbus commands and responses,track_address,count &default = 0 &optional,(present if policy/protocols/modbus/track-memmap.zeek is loaded) 
+modbus.log,Modbus commands and responses,exception,string &log &optional,The exception if the response was a failure. 
+modbus.log,Modbus commands and responses,func,string &log &optional,The name of the function message that was sent. 
+modbus.log,Modbus commands and responses,ts,time &log,Time of the request. 
+modbus_register_change.log,Tracks changes to Modbus holding registers,uid,string &log,Unique ID for the connection. 
+modbus_register_change.log,Tracks changes to Modbus holding registers,id,conn_id &log,Connection ID. 
+modbus_register_change.log,Tracks changes to Modbus holding registers,register,count &log,The device memory offset. 
+modbus_register_change.log,Tracks changes to Modbus holding registers,old_val,count &log,The old value stored in the register. 
+modbus_register_change.log,Tracks changes to Modbus holding registers,new_val,count &log,The new value stored in the register. 
+modbus_register_change.log,Tracks changes to Modbus holding registers,delta,interval &log,The time delta between when the old_val and new_val were seen. 
+modbus_register_change.log,Tracks changes to Modbus holding registers,ts,time &log,Timestamp for the detected register change. 
+mysql.log,MySQL,id,conn_id &log,The connection's 4-tuple of endpoint addresses/ports. 
+mysql.log,MySQL,success,bool &log &optional,Did the server tell us that the command succeeded? 
+mysql.log,MySQL,rows,count &log &optional,The number of affected rows， if any 
+mysql.log,MySQL,ts,time &log,Timestamp for when the event happened. 
+mysql.log,MySQL,uid,string &log,Unique ID for the connection. 
+mysql.log,MySQL,response,string &log &optional,Server message， if any 
+mysql.log,MySQL,arg,string &log,The argument issued to the command 
+mysql.log,MySQL,cmd,string &log,The command that was issued 
+ntlm.log,NT LAN Manager (NTLM),id,conn_id &log,The connection's 4-tuple of endpoint addresses/ports. 
+ntlm.log,NT LAN Manager (NTLM),success,bool &log &optional,Indicate whether or not the authentication was successful. 
+ntlm.log,NT LAN Manager (NTLM),server_tree_name,string &log &optional,Tree name given by the server in a CHALLENGE. 
+ntlm.log,NT LAN Manager (NTLM),ts,time &log,Timestamp for when the event happened. 
+ntlm.log,NT LAN Manager (NTLM),server_nb_computer_name,string &log &optional,NetBIOS name given by the server in a CHALLENGE. 
+ntlm.log,NT LAN Manager (NTLM),uid,string &log,Unique ID for the connection. 
+ntlm.log,NT LAN Manager (NTLM),done,bool &default = F &optional,Internally used field to indicate if the login attempt has already been logged. 
+ntlm.log,NT LAN Manager (NTLM),domainname,string &log &optional,Domainname given by the client. 
+ntlm.log,NT LAN Manager (NTLM),hostname,string &log &optional,Hostname given by the client. 
+ntlm.log,NT LAN Manager (NTLM),username,string &log &optional,Username given by the client. 
+ntlm.log,NT LAN Manager (NTLM),server_dns_computer_name,string &log &optional,DNS name given by the server in a CHALLENGE. 
+ntp.log,Network Time Protocol,mode,count &log,The NTP mode being used. 
+ntp.log,Network Time Protocol,stratum,count &log,The stratum (primary server， secondary server， etc.). 
+ntp.log,Network Time Protocol,poll,interval &log,The maximum interval between successive messages. 
+ntp.log,Network Time Protocol,precision,interval &log,The precision of the system clock. 
+ntp.log,Network Time Protocol,root_delay,interval &log,Total round-trip delay to the reference clock. 
+ntp.log,Network Time Protocol,root_disp,interval &log,Total dispersion to the reference clock. 
+ntp.log,Network Time Protocol,ref_id,string &log,For stratum 0， 4 character string used for debugging. For stratum 1， ID assigned to the reference clock by IANA. Above stratum 1， when using IPv4， the IP address of the reference clock.  Note that the NTP protocol did not originally specify a large enough field to represent IPv6 addresses， so they use the first four bytes of the MD5 hash of the reference clock's IPv6 address (i.e. an IPv4 address here is not necessarily IPv4). 
+ntp.log,Network Time Protocol,ref_time,time &log,Time when the system clock was last set or correct. 
+ntp.log,Network Time Protocol,org_time,time &log,Time at the client when the request departed for the NTP server. 
+ntp.log,Network Time Protocol,rec_time,time &log,Time at the server when the request arrived from the NTP client. 
+ntp.log,Network Time Protocol,xmt_time,time &log,Time at the server when the response departed for the NTP client. 
+ntp.log,Network Time Protocol,num_exts,count &default = 0 &optional &log,Number of extension fields (which are not currently parsed). 
+ntp.log,Network Time Protocol,ts,time &log,Timestamp for when the event happened. 
+ntp.log,Network Time Protocol,uid,string &log,Unique ID for the connection. 
+ntp.log,Network Time Protocol,id,conn_id &log,The connection's 4-tuple of endpoint addresses/ports. 
+ntp.log,Network Time Protocol,version,count &log,The NTP version number (1， 2， 3， 4). 
+radius.log,RADIUS authentication attempts,ts,time &log,Timestamp for when the event happened. 
+radius.log,RADIUS authentication attempts,reply_msg,string &log &optional,Reply message from the server challenge. This is frequently shown to the user authenticating. 
+radius.log,RADIUS authentication attempts,result,string &log &optional,Successful or failed authentication. 
+radius.log,RADIUS authentication attempts,connect_info,string &log &optional,Connect info， if present. 
+radius.log,RADIUS authentication attempts,ttl,interval &log &optional,The duration between the first request and either the "Access-Accept" message or an error. If the field is empty， it means that either the request or response was not seen. 
+radius.log,RADIUS authentication attempts,username,string &log &optional,The username， if present. 
+radius.log,RADIUS authentication attempts,mac,string &log &optional,MAC address， if present. 
+radius.log,RADIUS authentication attempts,framed_addr,addr &log &optional,The address given to the network access server， if present.  This is only a hint from the RADIUS server and the network access server is not required to honor the address. 
+radius.log,RADIUS authentication attempts,uid,string &log,Unique ID for the connection. 
+radius.log,RADIUS authentication attempts,id,conn_id &log,The connection's 4-tuple of endpoint addresses/ports. 
+radius.log,RADIUS authentication attempts,logged,bool &default = F &optional,Whether this has already been logged and can be ignored. 
+radius.log,RADIUS authentication attempts,tunnel_client,string &log &optional,Address (IPv4， IPv6， or FQDN) of the initiator end of the tunnel， if present.  This is collected from the Tunnel-Client-Endpoint attribute. 
+rdp.log,RDP,result,string &log &optional,Status result for the connection.  It's a mix between RDP negotation failure messages and GCC server create response messages. 
+rdp.log,RDP,client_channels,vector of string &log &optional,The channels requested by the client 
+rdp.log,RDP,ssl,bool &log &default = F &optional,(present if policy/protocols/rdp/indicate_ssl.zeek is loaded) Flag the connection if it was seen over SSL. 
+rdp.log,RDP,cert_permanent,bool &log &optional,Indicates if the provided certificate or certificate chain is permanent or temporary. 
+rdp.log,RDP,id,conn_id &log,The connection's 4-tuple of endpoint addresses/ports. 
+rdp.log,RDP,cookie,string &log &optional,Cookie value used by the client machine. This is typically a username. 
+rdp.log,RDP,requested_color_depth,string &log &optional,The color depth requested by the client in the high_color_depth field. 
+rdp.log,RDP,uid,string &log,Unique ID for the connection. 
+rdp.log,RDP,keyboard_layout,string &log &optional,Keyboard layout (language) of the client machine. 
+rdp.log,RDP,client_build,string &log &optional,RDP client version used by the client machine. 
+rdp.log,RDP,client_name,string &log &optional,Name of the client machine. 
+rdp.log,RDP,done,bool &default = F &optional,Track status of logging RDP connections. 
+rdp.log,RDP,analyzer_id,count &optional,The analyzer ID used for the analyzer instance attached to each connection.  It is not used for logging since it's a meaningless arbitrary number. 
+rdp.log,RDP,client_dig_product_id,string &log &optional,Product ID of the client machine. 
+rdp.log,RDP,ts,time &log,Timestamp for when the event happened. 
+rdp.log,RDP,desktop_width,count &log &optional,Desktop width of the client machine. 
+rdp.log,RDP,security_protocol,string &log &optional,Security protocol chosen by the server. 
+rdp.log,RDP,encryption_level,string &log &optional,Encryption level of the connection. 
+rdp.log,RDP,encryption_method,string &log &optional,Encryption method of the connection. 
+rdp.log,RDP,cert_type,string &log &optional,If the connection is being encrypted with native RDP encryption， this is the type of cert being used. 
+rdp.log,RDP,cert_count,count &log &default = 0 &optional,The number of certs seen.  X.509 can transfer an entire certificate chain. 
+rdp.log,RDP,desktop_height,count &log &optional,Desktop height of the client machine. 
+rfb.log,Remote Framebuffer (RFB),id,conn_id &log,The connection's 4-tuple of endpoint addresses/ports. 
+rfb.log,Remote Framebuffer (RFB),ts,time &log,Timestamp for when the event happened. 
+rfb.log,Remote Framebuffer (RFB),done,bool &default = F &optional,Internally used value to determine if this connection has already been logged. 
+rfb.log,Remote Framebuffer (RFB),width,count &log &optional,Width of the screen that is being shared. 
+rfb.log,Remote Framebuffer (RFB),desktop_name,string &log &optional,Name of the screen that is being shared. 
+rfb.log,Remote Framebuffer (RFB),share_flag,bool &log &optional,Whether the client has an exclusive or a shared session. 
+rfb.log,Remote Framebuffer (RFB),auth,bool &log &optional,Whether or not authentication was successful. 
+rfb.log,Remote Framebuffer (RFB),height,count &log &optional,Height of the screen that is being shared. 
+rfb.log,Remote Framebuffer (RFB),authentication_method,string &log &optional,Identifier of authentication method used. 
+rfb.log,Remote Framebuffer (RFB),server_minor_version,string &log &optional,Minor version of the server. 
+rfb.log,Remote Framebuffer (RFB),server_major_version,string &log &optional,Major version of the server. 
+rfb.log,Remote Framebuffer (RFB),client_minor_version,string &log &optional,Minor version of the client. 
+rfb.log,Remote Framebuffer (RFB),uid,string &log,Unique ID for the connection. 
+rfb.log,Remote Framebuffer (RFB),client_major_version,string &log &optional,Major version of the client. 
+sip.log,SIP,method,string &log &optional,Verb used in the SIP request (INVITE， REGISTER etc.). 
+sip.log,SIP,trans_depth,count &log,Represents the pipelined depth into the connection of this request/response transaction. 
+sip.log,SIP,id,conn_id &log,The connection's 4-tuple of endpoint addresses/ports. 
+sip.log,SIP,reply_to,string &log &optional,Contents of the Reply-To: header 
+sip.log,SIP,seq,string &log &optional,Contents of the CSeq: header from the client 
+sip.log,SIP,subject,string &log &optional,Contents of the Subject: header from the client 
+sip.log,SIP,response_to,string &log &optional,Contents of the response To: header 
+sip.log,SIP,response_from,string &log &optional,Contents of the response From: header Note: The tag= value that's usually appended to the sender is stripped off and not logged. 
+sip.log,SIP,request_to,string &log &optional,Contents of the To: header 
+sip.log,SIP,request_path,vector of string &log &optional,The client message transmission path， as extracted from the headers. 
+sip.log,SIP,response_path,vector of string &log &optional,The server message transmission path， as extracted from the headers. 
+sip.log,SIP,user_agent,string &log &optional,Contents of the User-Agent: header from the client 
+sip.log,SIP,status_code,count &log &optional,Status code returned by the server. 
+sip.log,SIP,status_msg,string &log &optional,Status message returned by the server. 
+sip.log,SIP,warning,string &log &optional,Contents of the Warning: header 
+sip.log,SIP,request_body_len,count &log &optional,Contents of the Content-Length: header from the client 
+sip.log,SIP,response_body_len,count &log &optional,Contents of the Content-Length: header from the server 
+sip.log,SIP,content_type,string &log &optional,Contents of the Content-Type: header from the server 
+sip.log,SIP,call_id,string &log &optional,Contents of the Call-ID: header from the client 
+sip.log,SIP,request_from,string &log &optional,Contents of the request From: header Note: The tag= value that's usually appended to the sender is stripped off and not logged. 
+sip.log,SIP,date,string &log &optional,Contents of the Date: header from the client 
+sip.log,SIP,uid,string &log,Unique ID for the connection. 
+sip.log,SIP,ts,time &log,Timestamp for when the request happened. 
+sip.log,SIP,uri,string &log &optional,URI used in the request. 
+smb_cmd.log,SMB commands,version,string &log,Version of SMB for the command. 
+smb_cmd.log,SMB commands,tree,string &log &optional,If this is related to a tree， this is the tree that was used for the current command. 
+smb_cmd.log,SMB commands,tree_service,string &log &optional,The type of tree (disk share， printer share， named pipe， etc.). 
+smb_cmd.log,SMB commands,referenced_file,SMB::FileInfo &log &optional,If the command referenced a file， store it here. 
+smb_cmd.log,SMB commands,command,string &log,The command sent by the client. 
+smb_cmd.log,SMB commands,smb1_offered_dialects,string_vec &optional,(present if base/protocols/smb/smb1-main.zeek is loaded) Dialects offered by the client. 
+smb_cmd.log,SMB commands,smb2_offered_dialects,index_vec &optional,(present if base/protocols/smb/smb2-main.zeek is loaded) Dialects offered by the client. 
+smb_cmd.log,SMB commands,sub_command,string &log &optional,The subcommand sent by the client， if present. 
+smb_cmd.log,SMB commands,argument,string &log &optional,Command argument sent by the client， if any. 
+smb_cmd.log,SMB commands,rtt,interval &log &optional,Round trip time from the request to the response. 
+smb_cmd.log,SMB commands,uid,string &log,Unique ID of the connection the request was sent over. 
+smb_cmd.log,SMB commands,status,string &log &optional,Server reply to the client's command. 
+smb_cmd.log,SMB commands,referenced_tree,SMB::TreeInfo &optional,If the command referenced a tree， store it here. 
+smb_cmd.log,SMB commands,ts,time &log &default = 0.0 &optional,Timestamp of the command request. 
+smb_cmd.log,SMB commands,username,string &log &optional,Authenticated username， if available. 
+smb_cmd.log,SMB commands,id,conn_id &log,ID of the connection the request was sent over. 
+smb_files.log,SMB files,ts,time &log &default = 0.0 &optional,Time when the file was first discovered. 
+smb_files.log,SMB files,path,string &log &optional,Path pulled from the tree this file was transferred to or from. 
+smb_files.log,SMB files,id,conn_id &log,ID of the connection the file was sent over. 
+smb_files.log,SMB files,uid,string &log,Unique ID of the connection the file was sent over. 
+smb_files.log,SMB files,name,string &log &optional,Filename if one was seen. 
+smb_files.log,SMB files,size,count &log &default = 0 &optional,Total size of the file. 
+smb_files.log,SMB files,prev_name,string &log &optional,If the rename action was seen， this will be the file's previous name. 
+smb_files.log,SMB files,times,SMB::MACTimes &log &optional,Last time this file was modified. 
+smb_files.log,SMB files,fid,count &optional,ID referencing this file. 
+smb_files.log,SMB files,uuid,string &optional,UUID referencing this file if DCE/RPC. 
+smb_files.log,SMB files,fuid,string &log &optional,Unique ID of the file. 
+smb_files.log,SMB files,action,SMB::Action &log &optional,Action this log record represents. 
+smb_mapping.log,SMB trees,uid,string &log,Unique ID of the connection the tree was mapped over. 
+smb_mapping.log,SMB trees,native_file_system,string &log &optional,File system of the tree. 
+smb_mapping.log,SMB trees,share_type,string &log &default = "DISK" &optional,If this is SMB2， a share type will be included.  For SMB1， the type of share will be deduced and included as well. 
+smb_mapping.log,SMB trees,service,string &log &optional,The type of resource of the tree (disk share， printer share， named pipe， etc.). 
+smb_mapping.log,SMB trees,path,string &log &optional,Name of the tree path. 
+smb_mapping.log,SMB trees,id,conn_id &log,ID of the connection the tree was mapped over. 
+smb_mapping.log,SMB trees,ts,time &log &default = 0.0 &optional,Time when the tree was mapped. 
+smtp.log,SMTP transactions,helo,string &log &optional,Contents of the Helo header. 
+smtp.log,SMTP transactions,trans_depth,count &log,A count to represent the depth of this message transaction in a single connection where multiple messages were transferred. 
+smtp.log,SMTP transactions,id,conn_id &log,The connection's 4-tuple of endpoint addresses/ports. 
+smtp.log,SMTP transactions,uid,string &log,Unique ID for the connection. 
+smtp.log,SMTP transactions,ts,time &log,Time when the message was first seen. 
+smtp.log,SMTP transactions,cc,set [string] &log &optional,Contents of the CC header. 
+smtp.log,SMTP transactions,to,set [string] &log &optional,Contents of the To header. 
+smtp.log,SMTP transactions,from,string &log &optional,Contents of the From header. 
+smtp.log,SMTP transactions,rcptto,set [string] &log &optional,Email addresses found in the Rcpt header. 
+smtp.log,SMTP transactions,subject,string &log &optional,Contents of the Subject header. 
+smtp.log,SMTP transactions,date,string &log &optional,Contents of the Date header. 
+smtp.log,SMTP transactions,first_received,string &log &optional,Contents of the first Received header. 
+smtp.log,SMTP transactions,second_received,string &log &optional,Contents of the second Received header. 
+smtp.log,SMTP transactions,reply_to,string &log &optional,Contents of the ReplyTo header. 
+smtp.log,SMTP transactions,path,vector of addr &log &optional,The message transmission path， as extracted from the headers. 
+smtp.log,SMTP transactions,msg_id,string &log &optional,Contents of the MsgID header. 
+smtp.log,SMTP transactions,in_reply_to,string &log &optional,Contents of the In-Reply-To header. 
+smtp.log,SMTP transactions,is_webmail,bool &log &default = F &optional,(present if policy/protocols/smtp/software.zeek is loaded) Boolean indicator of if the message was sent through a webmail interface. 
+smtp.log,SMTP transactions,x_originating_ip,addr &log &optional,Contents of the X-Originating-IP header. 
+smtp.log,SMTP transactions,mailfrom,string &log &optional,Email addresses found in the From header. 
+smtp.log,SMTP transactions,last_reply,string &log &optional,The last message that the server sent to the client. 
+smtp.log,SMTP transactions,user_agent,string &log &optional,Value of the User-Agent header from the client. 
+smtp.log,SMTP transactions,tls,bool &log &default = F &optional,Indicates that the connection has switched to using TLS. 
+smtp.log,SMTP transactions,process_received_from,bool &default = T &optional,Indicates if the "Received: from" headers should still be processed. 
+smtp.log,SMTP transactions,has_client_activity,bool &default = F &optional,Indicates if client activity has been seen， but not yet logged. 
+smtp.log,SMTP transactions,process_smtp_headers,bool &default = T &optional,Indicates if the SMTP headers should still be processed. 
+smtp.log,SMTP transactions,entity,SMTP::Entity &optional,(present if base/protocols/smtp/entities.zeek is loaded) The current entity being seen. 
+smtp.log,SMTP transactions,fuids,vector of string &log &default = [] &optional,(present if base/protocols/smtp/files.zeek is loaded) An ordered vector of file unique IDs seen attached to the message. 
+snmp.log,SNMP messages,set_requests,count &log &default = 0 &optional,The number of variable bindings in SetRequest PDUs seen for the session. 
+snmp.log,SNMP messages,ts,time &log,Timestamp of first packet belonging to the SNMP session. 
+snmp.log,SNMP messages,version,string &log,The version of SNMP being used. 
+snmp.log,SNMP messages,id,conn_id &log,The connection's 5-tuple of addresses/ports (ports inherently include transport protocol information) 
+snmp.log,SNMP messages,uid,string &log,The unique ID for the connection. 
+snmp.log,SNMP messages,community,string &log &optional,The community string of the first SNMP packet associated with the session.  This is used as part of SNMP's (v1 and v2c) administrative/security framework.  See RFC 1157 or RFC 1901. 
+snmp.log,SNMP messages,duration,interval &log &default = 0 secs &optional,The amount of time between the first packet beloning to the SNMP session and the latest one seen. 
+snmp.log,SNMP messages,up_since,time &log &optional,The time at which the SNMP responder endpoint claims it's been up since. 
+snmp.log,SNMP messages,display_string,string &log &optional,A system description of the SNMP responder endpoint. 
+snmp.log,SNMP messages,get_requests,count &log &default = 0 &optional,The number of variable bindings in GetRequest/GetNextRequest PDUs seen for the session. 
+snmp.log,SNMP messages,get_responses,count &log &default = 0 &optional,The number of variable bindings in GetResponse/Response PDUs seen for the session. 
+snmp.log,SNMP messages,get_bulk_requests,count &log &default = 0 &optional,The number of variable bindings in GetBulkRequest PDUs seen for the session. 
+socks.log,SOCKS proxy requests,bound_p,port &log &optional,Server bound port. 
+socks.log,SOCKS proxy requests,bound,SOCKS::Address &log &optional,Server bound address. Could be an address， a name or both. 
+socks.log,SOCKS proxy requests,request_p,port &log &optional,Client requested port. 
+socks.log,SOCKS proxy requests,uid,string &log,Unique ID for the tunnel - may correspond to connection uid or be non-existent. 
+socks.log,SOCKS proxy requests,request,SOCKS::Address &log &optional,Client requested SOCKS address. Could be an address， a name or both. 
+socks.log,SOCKS proxy requests,ts,time &log,Time when the proxy connection was first detected. 
+socks.log,SOCKS proxy requests,id,conn_id &log,The connection's 4-tuple of endpoint addresses/ports. 
+socks.log,SOCKS proxy requests,version,count &log,Protocol version of SOCKS. 
+socks.log,SOCKS proxy requests,user,string &log &optional,Username used to request a login to the proxy. 
+socks.log,SOCKS proxy requests,password,string &log &optional,Password used to request a login to the proxy. 
+socks.log,SOCKS proxy requests,capture_password,bool &default = SOCKS::default_capture_password &optional,Determines if the password will be captured for this request. 
+socks.log,SOCKS proxy requests,status,string &log &optional,Server status for the attempt at using the proxy. 
+ssh.log,SSH connections,server,string &log &optional,The server's version string 
+ssh.log,SSH connections,cipher_alg,string &log &optional,The encryption algorithm in use 
+ssh.log,SSH connections,mac_alg,string &log &optional,The signing (MAC) algorithm in use 
+ssh.log,SSH connections,compression_alg,string &log &optional,The compression algorithm in use 
+ssh.log,SSH connections,kex_alg,string &log &optional,The key exchange algorithm in use 
+ssh.log,SSH connections,ts,time &log,Time when the SSH connection began. 
+ssh.log,SSH connections,host_key_alg,string &log &optional,The server host key's algorithm 
+ssh.log,SSH connections,host_key,string &log &optional,The server's key fingerprint 
+ssh.log,SSH connections,analyzer_id,count &optional,Analzyer ID 
+ssh.log,SSH connections,remote_location,geo_location &log &optional,(present if policy/protocols/ssh/geo-data.zeek is loaded) Add geographic data related to the "remote" host of the connection. 
+ssh.log,SSH connections,client,string &log &optional,The client's version string 
+ssh.log,SSH connections,id,conn_id &log,The connection's 4-tuple of endpoint addresses/ports. 
+ssh.log,SSH connections,auth_success,bool &log &optional,Authentication result (T=success， F=failure， unset=unknown) 
+ssh.log,SSH connections,version,count &log,SSH major version (1 or 2) 
+ssh.log,SSH connections,direction,Direction &log &optional,Direction of the connection. If the client was a local host logging into an external host， this would be OUTBOUND. INBOUND would be set for the opposite situation. 
+ssh.log,SSH connections,auth_attempts,count &log &default = 0 &optional,The number of authentication attemps we observed. There's always at least one， since some servers might support no authentication at all. It's important to note that not all of these are failures， since some servers require two-factor auth (e.g. password AND pubkey) 
+ssh.log,SSH connections,uid,string &log,Unique ID for the connection. 
+ssl.log,SSL/TLS handshake info,curve,string &log &optional,Elliptic curve the server chose when using ECDH/ECDHE. 
+ssl.log,SSL/TLS handshake info,server_name,string &log &optional,Value of the Server Name Indicator SSL/TLS extension.  It indicates the server name that the client was requesting. 
+ssl.log,SSL/TLS handshake info,ts,time &log,Time when the SSL connection was first detected. 
+ssl.log,SSL/TLS handshake info,uid,string &log,Unique ID for the connection. 
+ssl.log,SSL/TLS handshake info,id,conn_id &log,The connection's 4-tuple of endpoint addresses/ports. 
+ssl.log,SSL/TLS handshake info,version_num,count &optional,Numeric SSL/TLS version that the server chose. 
+ssl.log,SSL/TLS handshake info,version,string &log &optional,SSL/TLS version that the server chose. 
+ssl.log,SSL/TLS handshake info,session_id,string &optional,Session ID offered by the client for session resumption. Not used for logging. 
+ssl.log,SSL/TLS handshake info,resumed,bool &log &default = F &optional,Flag to indicate if the session was resumed reusing the key material exchanged in an earlier connection. 
+ssl.log,SSL/TLS handshake info,client_ticket_empty_session_seen,bool &default = F &optional,Flag to indicate if we saw a non-empty session ticket being sent by the client using an empty session ID. This value is used to determine if a session is being resumed. It's not logged. 
+ssl.log,SSL/TLS handshake info,logged,bool &default = F &optional,Flag to indicate if this record already has been logged， to prevent duplicates. 
+ssl.log,SSL/TLS handshake info,cert_chain,vector of Files::Info &optional,(present if base/protocols/ssl/files.zeek is loaded) Chain of certificates offered by the server to validate its complete signing chain. 
+ssl.log,SSL/TLS handshake info,cert_chain_fuids,vector of string &optional &log,(present if base/protocols/ssl/files.zeek is loaded) An ordered vector of all certificate file unique IDs for the certificates offered by the server. 
+ssl.log,SSL/TLS handshake info,client_cert_chain,vector of Files::Info &optional,(present if base/protocols/ssl/files.zeek is loaded) Chain of certificates offered by the client to validate its complete signing chain. 
+ssl.log,SSL/TLS handshake info,client_key_exchange_seen,bool &default = F &optional,Flag to indicate if we saw a client key exchange message sent by the client. This value is used to determine if a session is being resumed. It's not logged. 
+ssl.log,SSL/TLS handshake info,client_psk_seen,bool &default = F &optional,Track if the client sent a pre-shared-key extension. Used to determine if a TLS 1.3 session is being resumed. Not logged. 
+ssl.log,SSL/TLS handshake info,cipher,string &log &optional,SSL/TLS cipher suite that the server chose. 
+ssl.log,SSL/TLS handshake info,last_alert,string &log &optional,Last alert that was seen during the connection. 
+ssl.log,SSL/TLS handshake info,next_protocol,string &log &optional,Next protocol the server chose using the application layer next protocol extension， if present. 
+ssl.log,SSL/TLS handshake info,client_cert_chain_fuids,vector of string &optional &log,(present if base/protocols/ssl/files.zeek is loaded) An ordered vector of all certificate file unique IDs for the certificates offered by the client. 
+ssl.log,SSL/TLS handshake info,subject,string &log &optional,(present if base/protocols/ssl/files.zeek is loaded) Subject of the X.509 certificate offered by the server. 
+ssl.log,SSL/TLS handshake info,issuer,string &log &optional,(present if base/protocols/ssl/files.zeek is loaded) Subject of the signer of the X.509 certificate offered by the server. 
+ssl.log,SSL/TLS handshake info,client_subject,string &log &optional,(present if base/protocols/ssl/files.zeek is loaded) Subject of the X.509 certificate offered by the client. 
+ssl.log,SSL/TLS handshake info,analyzer_id,count &optional,The analyzer ID used for the analyzer instance attached to each connection.  It is not used for logging since it's a meaningless arbitrary number. 
+ssl.log,SSL/TLS handshake info,established,bool &log &default = F &optional,Flag to indicate if this ssl session has been established successfully， or if it was aborted during the handshake. 
+ssl.log,SSL/TLS handshake info,notary,CertNotary::Response &log &optional,(present if policy/protocols/ssl/notary.zeek is loaded) A response from the ICSI certificate notary. 
+ssl.log,SSL/TLS handshake info,client_issuer,string &log &optional,(present if base/protocols/ssl/files.zeek is loaded) Subject of the signer of the X.509 certificate offered by the client. 
+ssl.log,SSL/TLS handshake info,server_depth,count &default = 0 &optional,(present if base/protocols/ssl/files.zeek is loaded) Current number of certificates seen from either side. Used to create file handles. 
+ssl.log,SSL/TLS handshake info,client_depth,count &default = 0 &optional,(present if base/protocols/ssl/files.zeek is loaded) 
+ssl.log,SSL/TLS handshake info,last_originator_heartbeat_request_size,count &optional,(present if policy/protocols/ssl/heartbleed.zeek is loaded) 
+ssl.log,SSL/TLS handshake info,last_responder_heartbeat_request_size,count &optional,(present if policy/protocols/ssl/heartbleed.zeek is loaded) 
+ssl.log,SSL/TLS handshake info,originator_heartbeats,count &default = 0 &optional,(present if policy/protocols/ssl/heartbleed.zeek is loaded) 
+ssl.log,SSL/TLS handshake info,responder_heartbeats,count &default = 0 &optional,(present if policy/protocols/ssl/heartbleed.zeek is loaded) 
+ssl.log,SSL/TLS handshake info,heartbleed_detected,bool &default = F &optional,(present if policy/protocols/ssl/heartbleed.zeek is loaded) 
+ssl.log,SSL/TLS handshake info,enc_appdata_packages,count &default = 0 &optional,(present if policy/protocols/ssl/heartbleed.zeek is loaded) 
+ssl.log,SSL/TLS handshake info,enc_appdata_bytes,count &default = 0 &optional,(present if policy/protocols/ssl/heartbleed.zeek is loaded) 
+ssl.log,SSL/TLS handshake info,validation_status,string &log &optional,(present if policy/protocols/ssl/validate-certs.zeek is loaded) Result of certificate validation for this connection. 
+ssl.log,SSL/TLS handshake info,validation_code,int &optional,(present if policy/protocols/ssl/validate-certs.zeek is loaded) Result of certificate validation for this connection， given as OpenSSL validation code. 
+ssl.log,SSL/TLS handshake info,valid_chain,vector of opaque of x509 &optional,(present if policy/protocols/ssl/validate-certs.zeek is loaded) Ordered chain of validated certificate， if validation succeeded. 
+ssl.log,SSL/TLS handshake info,ocsp_status,string &log &optional,(present if policy/protocols/ssl/validate-ocsp.zeek is loaded) Result of ocsp validation for this connection. 
+ssl.log,SSL/TLS handshake info,ocsp_response,string &optional,(present if policy/protocols/ssl/validate-ocsp.zeek is loaded) ocsp response as string. 
+ssl.log,SSL/TLS handshake info,valid_scts,count &optional,(present if policy/protocols/ssl/validate-sct.zeek is loaded) Number of valid SCTs that were encountered in the connection. 
+ssl.log,SSL/TLS handshake info,invalid_scts,count &optional,(present if policy/protocols/ssl/validate-sct.zeek is loaded) Number of SCTs that could not be validated that were encountered in the connection. 
+ssl.log,SSL/TLS handshake info,valid_ct_logs,count &log &optional,(present if policy/protocols/ssl/validate-sct.zeek is loaded) Number of different Logs for which valid SCTs were encountered in the connection. 
+ssl.log,SSL/TLS handshake info,valid_ct_operators,count &log &optional,(present if policy/protocols/ssl/validate-sct.zeek is loaded) Number of different Log operators of which valid SCTs were encountered in the connection. 
+ssl.log,SSL/TLS handshake info,valid_ct_operators_list,set [string] &optional,(present if policy/protocols/ssl/validate-sct.zeek is loaded) List of operators for which valid SCTs were encountered in the connection. 
+ssl.log,SSL/TLS handshake info,ct_proofs,vector of SSL::SctInfo &default = [] &optional,(present if policy/protocols/ssl/validate-sct.zeek is loaded) Information about all SCTs that were encountered in the connection. 
+syslog.log,Syslog messages,message,string &log,The plain text message. 
+syslog.log,Syslog messages,facility,string &log,Syslog facility for the message. 
+syslog.log,Syslog messages,severity,string &log,Syslog severity for the message. 
+syslog.log,Syslog messages,ts,time &log,Timestamp when the syslog message was seen. 
+syslog.log,Syslog messages,uid,string &log,Unique ID for the connection. 
+syslog.log,Syslog messages,id,conn_id &log,The connection's 4-tuple of endpoint addresses/ports. 
+syslog.log,Syslog messages,proto,transport_proto &log,Protocol over which the message was seen. 
+tunnel.log,Tunneling protocol events,id,conn_id &log,The tunnel "connection" 4-tuple of endpoint addresses/ports. For an IP tunnel， the ports will be 0. 
+tunnel.log,Tunneling protocol events,uid,string &log &optional,The unique identifier for the tunnel， which may correspond to a connection's uid field for non-IP-in-IP tunnels. This is optional because there could be numerous connections for payload proxies like SOCKS but we should treat it as a single tunnel. 
+tunnel.log,Tunneling protocol events,ts,time &log,Time at which some tunnel activity occurred. 
+tunnel.log,Tunneling protocol events,tunnel_type,Tunnel::Type &log,The type of tunnel. 
+tunnel.log,Tunneling protocol events,action,Tunnel::Action &log,The type of activity that occurred. 

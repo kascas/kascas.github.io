@@ -1,0 +1,4184 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      <link rel="icon" href="../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.4.2, mkdocs-material-8.5.10">
+    
+    
+      
+        <title>Linux-Audit参考 - Kascas's Blogs</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.975780f9.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.2505c338.min.css">
+        
+      
+      
+
+    
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="None" data-md-color-accent="None">
+  
+    
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#linux-audit" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../.." title="Kascas&#39;s Blogs" class="md-header__button md-logo" aria-label="Kascas's Blogs" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Kascas's Blogs
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Linux-Audit参考
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/kascas/kascas.github.io" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.2.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-tabs__inner md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="../../.." class="md-tabs__link">
+      主页
+    </a>
+  </li>
+
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="../../../%E4%BF%A1%E6%81%AF%E8%AE%BA%E4%B8%8E%E7%BC%96%E7%A0%81/%E4%BF%A1%E6%81%AF%E8%AE%BA%E4%B8%8E%E7%BC%96%E7%A0%81/" class="md-tabs__link">
+      信息论与编码
+    </a>
+  </li>
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../%E4%BF%A1%E5%8F%B7%E4%B8%8E%E7%B3%BB%E7%BB%9F/1%E4%BF%A1%E5%8F%B7%E4%B8%8E%E7%B3%BB%E7%BB%9F/" class="md-tabs__link">
+        信号与系统
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../%E9%80%9A%E4%BF%A1%E5%8E%9F%E7%90%86/md/4%E4%BF%A1%E9%81%93/" class="md-tabs__link">
+        通信原理
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/2%E9%97%AE%E9%A2%98%E6%B1%82%E8%A7%A3/" class="md-tabs__link">
+        人工智能
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../%E5%9B%BE%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/%E4%BA%8C%E3%80%81%E5%9B%BE%E8%AE%BA%E5%9F%BA%E7%A1%80/" class="md-tabs__link">
+        图深度学习
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../Python%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86/1NumPy%E5%85%A5%E9%97%A8/" class="md-tabs__link">
+        Python数据处理
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+    
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="./" class="md-tabs__link md-tabs__link--active">
+        日志分析
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E7%B3%BB%E7%BB%9F%E7%BA%A7%E6%BA%AF%E6%BA%90%E5%9B%BE%E4%B8%8E%E5%A8%81%E8%83%81%E6%A3%80%E6%B5%8B/" class="md-tabs__link">
+        学习笔记
+      </a>
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+  
+
+
+  
+
+<nav class="md-nav md-nav--primary md-nav--lifted md-nav--integrated" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="Kascas&#39;s Blogs" class="md-nav__button md-logo" aria-label="Kascas's Blogs" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    Kascas's Blogs
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/kascas/kascas.github.io" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.2.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
+        主页
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../%E4%BF%A1%E6%81%AF%E8%AE%BA%E4%B8%8E%E7%BC%96%E7%A0%81/%E4%BF%A1%E6%81%AF%E8%AE%BA%E4%B8%8E%E7%BC%96%E7%A0%81/" class="md-nav__link">
+        信息论与编码
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3" type="checkbox" id="__nav_3" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_3">
+          信号与系统
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="信号与系统" data-md-level="1">
+        <label class="md-nav__title" for="__nav_3">
+          <span class="md-nav__icon md-icon"></span>
+          信号与系统
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../%E4%BF%A1%E5%8F%B7%E4%B8%8E%E7%B3%BB%E7%BB%9F/1%E4%BF%A1%E5%8F%B7%E4%B8%8E%E7%B3%BB%E7%BB%9F/" class="md-nav__link">
+        1.信号与系统
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../%E4%BF%A1%E5%8F%B7%E4%B8%8E%E7%B3%BB%E7%BB%9F/2%E7%BA%BF%E6%80%A7%E6%97%B6%E4%B8%8D%E5%8F%98%E7%B3%BB%E7%BB%9F/" class="md-nav__link">
+        2.线性时不变系统
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../%E4%BF%A1%E5%8F%B7%E4%B8%8E%E7%B3%BB%E7%BB%9F/3%E5%91%A8%E6%9C%9F%E4%BF%A1%E5%8F%B7%E7%9A%84%E5%82%85%E9%87%8C%E5%8F%B6%E7%BA%A7%E6%95%B0%E8%A1%A8%E7%A4%BA/" class="md-nav__link">
+        3.周期信号的傅里叶级数表示
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../%E4%BF%A1%E5%8F%B7%E4%B8%8E%E7%B3%BB%E7%BB%9F/4%E8%BF%9E%E7%BB%AD%E6%97%B6%E9%97%B4%E5%82%85%E9%87%8C%E5%8F%B6%E5%8F%98%E6%8D%A2/" class="md-nav__link">
+        4.连续时间傅里叶变换
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../%E4%BF%A1%E5%8F%B7%E4%B8%8E%E7%B3%BB%E7%BB%9F/5%E7%A6%BB%E6%95%A3%E6%97%B6%E9%97%B4%E5%82%85%E9%87%8C%E5%8F%B6%E5%8F%98%E6%8D%A2/" class="md-nav__link">
+        5.离散时间傅里叶变换
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../%E4%BF%A1%E5%8F%B7%E4%B8%8E%E7%B3%BB%E7%BB%9F/9%E6%8B%89%E6%99%AE%E6%8B%89%E6%96%AF%E5%8F%98%E6%8D%A2/" class="md-nav__link">
+        9.拉普拉斯变换
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../%E4%BF%A1%E5%8F%B7%E4%B8%8E%E7%B3%BB%E7%BB%9F/10Z%E5%8F%98%E6%8D%A2/" class="md-nav__link">
+        10.Z变换
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../%E4%BF%A1%E5%8F%B7%E4%B8%8E%E7%B3%BB%E7%BB%9F/%E5%85%AC%E5%BC%8F%E6%80%BB%E7%BB%93/" class="md-nav__link">
+        公式总结
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4" type="checkbox" id="__nav_4" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_4">
+          通信原理
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="通信原理" data-md-level="1">
+        <label class="md-nav__title" for="__nav_4">
+          <span class="md-nav__icon md-icon"></span>
+          通信原理
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../%E9%80%9A%E4%BF%A1%E5%8E%9F%E7%90%86/md/4%E4%BF%A1%E9%81%93/" class="md-nav__link">
+        4.信道
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../%E9%80%9A%E4%BF%A1%E5%8E%9F%E7%90%86/md/5%E6%A8%A1%E6%8B%9F%E8%B0%83%E5%88%B6%E7%B3%BB%E7%BB%9F/" class="md-nav__link">
+        5.模拟调制系统
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../%E9%80%9A%E4%BF%A1%E5%8E%9F%E7%90%86/md/6%E6%95%B0%E5%AD%97%E5%9F%BA%E5%B8%A6%E4%BC%A0%E8%BE%93/" class="md-nav__link">
+        6.数字基带传输
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../%E9%80%9A%E4%BF%A1%E5%8E%9F%E7%90%86/md/7%E6%95%B0%E5%AD%97%E5%B8%A6%E9%80%9A%E4%BC%A0%E8%BE%93%E7%B3%BB%E7%BB%9F/" class="md-nav__link">
+        7.数字带通传输系统
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../%E9%80%9A%E4%BF%A1%E5%8E%9F%E7%90%86/md/8%E6%96%B0%E5%9E%8B%E6%95%B0%E5%AD%97%E5%B8%A6%E9%80%9A%E8%B0%83%E5%88%B6%E6%8A%80%E6%9C%AF/" class="md-nav__link">
+        8.新型数字带通调制技术
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../%E9%80%9A%E4%BF%A1%E5%8E%9F%E7%90%86/md/9%E6%9C%80%E4%BD%B3%E6%8E%A5%E6%94%B6%E6%9C%BA%E8%AE%BE%E8%AE%A1/" class="md-nav__link">
+        9.最佳接收机设计
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../%E9%80%9A%E4%BF%A1%E5%8E%9F%E7%90%86/md/10%E4%BF%A1%E6%BA%90%E7%BC%96%E7%A0%81/" class="md-nav__link">
+        10.信源编码
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../%E9%80%9A%E4%BF%A1%E5%8E%9F%E7%90%86/md/11%E5%B7%AE%E9%94%99%E6%8E%A7%E5%88%B6%E7%BC%96%E7%A0%81/" class="md-nav__link">
+        11.差错控制编码
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../%E9%80%9A%E4%BF%A1%E5%8E%9F%E7%90%86/md/%E5%85%AC%E5%BC%8F%E6%B1%87%E6%80%BB/" class="md-nav__link">
+        12.公式汇总
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_5" type="checkbox" id="__nav_5" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_5">
+          人工智能
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="人工智能" data-md-level="1">
+        <label class="md-nav__title" for="__nav_5">
+          <span class="md-nav__icon md-icon"></span>
+          人工智能
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/2%E9%97%AE%E9%A2%98%E6%B1%82%E8%A7%A3/" class="md-nav__link">
+        2.问题求解
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/3%E5%8D%9A%E5%BC%88%E9%97%AE%E9%A2%98/" class="md-nav__link">
+        3.博弈问题
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/4%E6%8E%A8%E7%90%86%E6%8A%80%E6%9C%AF/" class="md-nav__link">
+        4.推理技术
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/6%E4%B8%8D%E7%A1%AE%E5%AE%9A%E6%80%A7%E6%8E%A8%E7%90%86/" class="md-nav__link">
+        6.不确定性推理
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6" type="checkbox" id="__nav_6" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_6">
+          图深度学习
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="图深度学习" data-md-level="1">
+        <label class="md-nav__title" for="__nav_6">
+          <span class="md-nav__icon md-icon"></span>
+          图深度学习
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../%E5%9B%BE%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/%E4%BA%8C%E3%80%81%E5%9B%BE%E8%AE%BA%E5%9F%BA%E7%A1%80/" class="md-nav__link">
+        1.图论基础
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../%E5%9B%BE%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/%E4%B8%89%E3%80%81%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E5%9F%BA%E7%A1%80/" class="md-nav__link">
+        2.深度学习基础
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../%E5%9B%BE%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/%E5%9B%9B%E3%80%81%E5%9B%BE%E5%B5%8C%E5%85%A5/" class="md-nav__link">
+        3.图嵌入
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../%E5%9B%BE%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/%E4%BA%94%E3%80%81%E5%9B%BE%E4%BF%A1%E5%8F%B7%E5%A4%84%E7%90%86%E4%B8%8E%E5%9B%BE%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/" class="md-nav__link">
+        4.图信号处理与图卷积神经网络
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_7" type="checkbox" id="__nav_7" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_7">
+          Python数据处理
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Python数据处理" data-md-level="1">
+        <label class="md-nav__title" for="__nav_7">
+          <span class="md-nav__icon md-icon"></span>
+          Python数据处理
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Python%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86/1NumPy%E5%85%A5%E9%97%A8/" class="md-nav__link">
+        1 NumPy入门
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_8" type="checkbox" id="__nav_8" checked>
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_8">
+          日志分析
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="日志分析" data-md-level="1">
+        <label class="md-nav__title" for="__nav_8">
+          <span class="md-nav__icon md-icon"></span>
+          日志分析
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          Linux-Audit参考
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        Linux-Audit参考
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#field-dictionary" class="md-nav__link">
+    Field-dictionary
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#message-dictionary" class="md-nav__link">
+    Message-dictionary
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#message-dictionary-ranges" class="md-nav__link">
+    Message-dictionary Ranges
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    日志解析示例
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Zeek%E5%8F%82%E8%80%83/Zeek%E5%8F%82%E8%80%83/" class="md-nav__link">
+        Zeek参考
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../syslog%E5%8D%8F%E8%AE%AE/" class="md-nav__link">
+        syslog日志
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_9" type="checkbox" id="__nav_9" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_9">
+          学习笔记
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="学习笔记" data-md-level="1">
+        <label class="md-nav__title" for="__nav_9">
+          <span class="md-nav__icon md-icon"></span>
+          学习笔记
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E7%B3%BB%E7%BB%9F%E7%BA%A7%E6%BA%AF%E6%BA%90%E5%9B%BE%E4%B8%8E%E5%A8%81%E8%83%81%E6%A3%80%E6%B5%8B/" class="md-nav__link">
+        系统级溯源图与威胁检测
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+  <a href="https://github.com/kascas/kascas.github.io/edit/master/docs/日志分析/Linux-Audit参考/Linux-Audit参考.md" title="Edit this page" class="md-content__button md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25Z"/></svg>
+  </a>
+
+
+<h1 id="linux-audit">Linux Audit参考</h1>
+<blockquote>
+<p><a href="https://github.com/linux-audit/audit-documentation/wiki">linux-audit/audit-documentation</a></p>
+</blockquote>
+<h2 id="field-dictionary">Field-dictionary</h2>
+<table>
+<thead>
+<tr>
+<th align="left">NAME</th>
+<th align="left">FORMAT</th>
+<th align="left">MEANING</th>
+<th align="left">EXCEPTION</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">a[0-3]</td>
+<td align="left">numeric hexadecimal</td>
+<td align="left">the arguments to a syscall</td>
+<td align="left">syscall</td>
+</tr>
+<tr>
+<td align="left">a[[:digit:]+][.*]</td>
+<td align="left">encoded</td>
+<td align="left">the arguments to the execve syscall</td>
+<td align="left">execve</td>
+</tr>
+<tr>
+<td align="left">acct</td>
+<td align="left">encoded</td>
+<td align="left">a user's account name</td>
+<td align="left">nan</td>
+</tr>
+<tr>
+<td align="left">acl</td>
+<td align="left">alphabet</td>
+<td align="left">access mode of resource assigned to vm</td>
+<td align="left">nan</td>
+</tr>
+<tr>
+<td align="left">action</td>
+<td align="left">numeric</td>
+<td align="left">netfilter packet disposition</td>
+<td align="left">nan</td>
+</tr>
+<tr>
+<td align="left">added</td>
+<td align="left">numeric</td>
+<td align="left">number of new files detected</td>
+<td align="left">nan</td>
+</tr>
+<tr>
+<td align="left">addr</td>
+<td align="left">encoded</td>
+<td align="left">the remote address that the user is connecting from</td>
+<td align="left">nan</td>
+</tr>
+<tr>
+<td align="left">apparmor</td>
+<td align="left">encoded</td>
+<td align="left">apparmor event information</td>
+<td align="left">nan</td>
+</tr>
+<tr>
+<td align="left">arch</td>
+<td align="left">numeric hexadecimal</td>
+<td align="left">the elf architecture flags</td>
+<td align="left">nan</td>
+</tr>
+<tr>
+<td align="left">argc</td>
+<td align="left">numeric decimal</td>
+<td align="left">the number of arguments to an execve syscall</td>
+<td align="left">nan</td>
+</tr>
+<tr>
+<td align="left">audit_backlog_limit</td>
+<td align="left">numeric decimal</td>
+<td align="left">audit system's backlog queue size</td>
+<td align="left">nan</td>
+</tr>
+<tr>
+<td align="left">audit_backlog_wait_time</td>
+<td align="left">numeric decimal</td>
+<td align="left">audit system's backlog wait time</td>
+<td align="left">nan</td>
+</tr>
+<tr>
+<td align="left">audit_enabled</td>
+<td align="left">numeric decimal</td>
+<td align="left">audit systems's enable/disable status</td>
+<td align="left">nan</td>
+</tr>
+<tr>
+<td align="left">audit_failure</td>
+<td align="left">numeric decimal</td>
+<td align="left">audit system's failure mode</td>
+<td align="left">nan</td>
+</tr>
+<tr>
+<td align="left">auid</td>
+<td align="left">numeric decimal</td>
+<td align="left">login user ID</td>
+<td align="left">nan</td>
+</tr>
+<tr>
+<td align="left">banners</td>
+<td align="left">alphanumeric</td>
+<td align="left">banners used on printed page</td>
+<td align="left">nan</td>
+</tr>
+<tr>
+<td align="left">bool</td>
+<td align="left">alphanumeric</td>
+<td align="left">name of SELinux boolean</td>
+<td align="left">nan</td>
+</tr>
+<tr>
+<td align="left">bus</td>
+<td align="left">alphanumeric</td>
+<td align="left">name of subsystem bus a vm resource belongs to</td>
+<td align="left">nan</td>
+</tr>
+<tr>
+<td align="left">capability</td>
+<td align="left">numeric decimal</td>
+<td align="left">posix capabilities</td>
+<td align="left">nan</td>
+</tr>
+<tr>
+<td align="left">cap_fe</td>
+<td align="left">numeric decimal</td>
+<td align="left">file assigned effective capability map</td>
+<td align="left">nan</td>
+</tr>
+<tr>
+<td align="left">cap_fi</td>
+<td align="left">numeric hexadecimal</td>
+<td align="left">file inherited capability map</td>
+<td align="left">nan</td>
+</tr>
+<tr>
+<td align="left">cap_fp</td>
+<td align="left">numeric hexadecimal</td>
+<td align="left">file permitted capability map</td>
+<td align="left">nan</td>
+</tr>
+<tr>
+<td align="left">cap_fver</td>
+<td align="left">numeric hexadecimal</td>
+<td align="left">file system capabilities version number</td>
+<td align="left">nan</td>
+</tr>
+<tr>
+<td align="left">cap_pa</td>
+<td align="left">numeric hexadecimal</td>
+<td align="left">process ambient capability map</td>
+<td align="left">nan</td>
+</tr>
+<tr>
+<td align="left">cap_pe</td>
+<td align="left">numeric hexadecimal</td>
+<td align="left">process effective capability map</td>
+<td align="left">nan</td>
+</tr>
+<tr>
+<td align="left">cap_pi</td>
+<td align="left">numeric hexadecimal</td>
+<td align="left">process inherited capability map</td>
+<td align="left">nan</td>
+</tr>
+<tr>
+<td align="left">cap_pp</td>
+<td align="left">numeric hexadecimal</td>
+<td align="left">process permitted capability map</td>
+<td align="left">nan</td>
+</tr>
+<tr>
+<td align="left">category</td>
+<td align="left">alphabet</td>
+<td align="left">resource category assigned to vm</td>
+<td align="left">nan</td>
+</tr>
+<tr>
+<td align="left">cgroup</td>
+<td align="left">encoded</td>
+<td align="left">path to cgroup in sysfs</td>
+<td align="left">nan</td>
+</tr>
+<tr>
+<td align="left">changed</td>
+<td align="left">numeric decimal</td>
+<td align="left">number of changed files</td>
+<td align="left">nan</td>
+</tr>
+<tr>
+<td align="left">cipher</td>
+<td align="left">alphanumeric</td>
+<td align="left">name of crypto cipher selected</td>
+<td align="left">nan</td>
+</tr>
+<tr>
+<td align="left">class</td>
+<td align="left">alphabet</td>
+<td align="left">resource class assigned to vm</td>
+<td align="left">nan</td>
+</tr>
+<tr>
+<td align="left">cmd</td>
+<td align="left">encoded</td>
+<td align="left">command being executed</td>
+<td align="left">nan</td>
+</tr>
+<tr>
+<td align="left">code</td>
+<td align="left">numeric hexadecimal</td>
+<td align="left">seccomp action code</td>
+<td align="left">nan</td>
+</tr>
+<tr>
+<td align="left">comm</td>
+<td align="left">encoded</td>
+<td align="left">command line program name</td>
+<td align="left">nan</td>
+</tr>
+<tr>
+<td align="left">compat</td>
+<td align="left">numeric decimal</td>
+<td align="left">is_compat_task result</td>
+<td align="left">nan</td>
+</tr>
+<tr>
+<td align="left">cwd</td>
+<td align="left">encoded</td>
+<td align="left">the current working directory</td>
+<td align="left">nan</td>
+</tr>
+<tr>
+<td align="left">daddr</td>
+<td align="left">alphanumeric</td>
+<td align="left">remote IP address</td>
+<td align="left">nan</td>
+</tr>
+<tr>
+<td align="left">data</td>
+<td align="left">encoded</td>
+<td align="left">TTY text</td>
+<td align="left">nan</td>
+</tr>
+<tr>
+<td align="left">default-context</td>
+<td align="left">alphanumeric</td>
+<td align="left">default MAC context</td>
+<td align="left">nan</td>
+</tr>
+<tr>
+<td align="left">dev</td>
+<td align="left">numeric hexadecimal-tuple</td>
+<td align="left">in path records</td>
+<td align="left">major and minor for device</td>
+</tr>
+<tr>
+<td align="left">dev</td>
+<td align="left">alphanumeric</td>
+<td align="left">device name as found in /dev</td>
+<td align="left">avc</td>
+</tr>
+<tr>
+<td align="left">device</td>
+<td align="left">encoded</td>
+<td align="left">device name</td>
+<td align="left">nan</td>
+</tr>
+<tr>
+<td align="left">dir</td>
+<td align="left">encoded</td>
+<td align="left">directory name</td>
+<td align="left">nan</td>
+</tr>
+<tr>
+<td align="left">direction</td>
+<td align="left">alphanumeric</td>
+<td align="left">direction of crypto operation</td>
+<td align="left">nan</td>
+</tr>
+<tr>
+<td align="left">dmac</td>
+<td align="left">numeric</td>
+<td align="left">remote MAC address</td>
+<td align="left">nan</td>
+</tr>
+<tr>
+<td align="left">dport</td>
+<td align="left">numeric decimal</td>
+<td align="left">remote port number</td>
+<td align="left">nan</td>
+</tr>
+<tr>
+<td align="left">egid</td>
+<td align="left">numeric decimal</td>
+<td align="left">effective group ID</td>
+<td align="left">nan</td>
+</tr>
+<tr>
+<td align="left">enforcing</td>
+<td align="left">numeric decimal</td>
+<td align="left">new MAC enforcement status</td>
+<td align="left">nan</td>
+</tr>
+<tr>
+<td align="left">entries</td>
+<td align="left">numeric decimal</td>
+<td align="left">number of entries in the netfilter table</td>
+<td align="left">nan</td>
+</tr>
+<tr>
+<td align="left">errno</td>
+<td align="left">numeric decimal</td>
+<td align="left">error code of the audited operation</td>
+<td align="left">nan</td>
+</tr>
+<tr>
+<td align="left">euid</td>
+<td align="left">numeric decimal</td>
+<td align="left">effective user ID</td>
+<td align="left">nan</td>
+</tr>
+<tr>
+<td align="left">exe</td>
+<td align="left">encoded</td>
+<td align="left">executable name</td>
+<td align="left">nan</td>
+</tr>
+<tr>
+<td align="left">exit</td>
+<td align="left">numeric decimal</td>
+<td align="left">syscall exit code</td>
+<td align="left">nan</td>
+</tr>
+<tr>
+<td align="left">fam</td>
+<td align="left">alphanumeric</td>
+<td align="left">socket address family</td>
+<td align="left">nan</td>
+</tr>
+<tr>
+<td align="left">family</td>
+<td align="left">numeric decimal</td>
+<td align="left">netfilter protocol</td>
+<td align="left">nan</td>
+</tr>
+<tr>
+<td align="left">fd</td>
+<td align="left">numeric decimal</td>
+<td align="left">file descriptor number</td>
+<td align="left">nan</td>
+</tr>
+<tr>
+<td align="left">file</td>
+<td align="left">encoded</td>
+<td align="left">file name</td>
+<td align="left">nan</td>
+</tr>
+<tr>
+<td align="left">flags</td>
+<td align="left">numeric hexadecimal</td>
+<td align="left">mmap syscall flags</td>
+<td align="left">nan</td>
+</tr>
+<tr>
+<td align="left">fe</td>
+<td align="left">numeric decimal</td>
+<td align="left">file assigned effective capability map</td>
+<td align="left">nan</td>
+</tr>
+<tr>
+<td align="left">feature</td>
+<td align="left">alphanumeric</td>
+<td align="left">kernel feature being changed</td>
+<td align="left">nan</td>
+</tr>
+<tr>
+<td align="left">fi</td>
+<td align="left">numeric hexadecimal</td>
+<td align="left">file assigned inherited capability map</td>
+<td align="left">nan</td>
+</tr>
+<tr>
+<td align="left">fp</td>
+<td align="left">numeric hexadecimal</td>
+<td align="left">file assigned permitted capability map</td>
+<td align="left">nan</td>
+</tr>
+<tr>
+<td align="left">fp</td>
+<td align="left">alphanumeric</td>
+<td align="left">crypto key finger print</td>
+<td align="left">crypto_key</td>
+</tr>
+<tr>
+<td align="left">format</td>
+<td align="left">alphanumeric</td>
+<td align="left">audit log's format</td>
+<td align="left">nan</td>
+</tr>
+<tr>
+<td align="left">fsgid</td>
+<td align="left">numeric decimal</td>
+<td align="left">file system group ID</td>
+<td align="left">nan</td>
+</tr>
+<tr>
+<td align="left">fsuid</td>
+<td align="left">numeric decimal</td>
+<td align="left">file system user ID</td>
+<td align="left">nan</td>
+</tr>
+<tr>
+<td align="left">fver</td>
+<td align="left">numeric hexadecimal</td>
+<td align="left">file system capabilities version number</td>
+<td align="left">nan</td>
+</tr>
+<tr>
+<td align="left">gid</td>
+<td align="left">numeric decimal</td>
+<td align="left">group ID</td>
+<td align="left">nan</td>
+</tr>
+<tr>
+<td align="left">grantors</td>
+<td align="left">alphanumeric</td>
+<td align="left">pam modules approving the action</td>
+<td align="left">nan</td>
+</tr>
+<tr>
+<td align="left">grp</td>
+<td align="left">encoded</td>
+<td align="left">group name</td>
+<td align="left">nan</td>
+</tr>
+<tr>
+<td align="left">hook</td>
+<td align="left">numeric</td>
+<td align="left">netfilter hook that packet came from</td>
+<td align="left">nan</td>
+</tr>
+<tr>
+<td align="left">hostname</td>
+<td align="left">alphanumeric</td>
+<td align="left">the hostname that the user is connecting from</td>
+<td align="left">nan</td>
+</tr>
+<tr>
+<td align="left">icmp_type</td>
+<td align="left">numeric</td>
+<td align="left">type of icmp message</td>
+<td align="left">nan</td>
+</tr>
+<tr>
+<td align="left">id</td>
+<td align="left">numeric</td>
+<td align="left">during account changes</td>
+<td align="left">the user ID of the account</td>
+</tr>
+<tr>
+<td align="left">igid</td>
+<td align="left">numeric decimal</td>
+<td align="left">ipc object's group ID</td>
+<td align="left">nan</td>
+</tr>
+<tr>
+<td align="left">img-ctx</td>
+<td align="left">alphanumeric</td>
+<td align="left">the vm's disk image context string</td>
+<td align="left">nan</td>
+</tr>
+<tr>
+<td align="left">inif</td>
+<td align="left">numeric</td>
+<td align="left">in interface number</td>
+<td align="left">nan</td>
+</tr>
+<tr>
+<td align="left">ip</td>
+<td align="left">alphanumeric</td>
+<td align="left">network address of a printer</td>
+<td align="left">nan</td>
+</tr>
+<tr>
+<td align="left">ipid</td>
+<td align="left">numeric decimal</td>
+<td align="left">IP datagram fragment identifier</td>
+<td align="left">nan</td>
+</tr>
+<tr>
+<td align="left">ino</td>
+<td align="left">numeric decimal</td>
+<td align="left">inode number</td>
+<td align="left">nan</td>
+</tr>
+<tr>
+<td align="left">inode</td>
+<td align="left">numeric decimal</td>
+<td align="left">inode number</td>
+<td align="left">nan</td>
+</tr>
+<tr>
+<td align="left">inode_gid</td>
+<td align="left">numeric decimal</td>
+<td align="left">group ID of the inode's owner</td>
+<td align="left">nan</td>
+</tr>
+<tr>
+<td align="left">inode_uid</td>
+<td align="left">numeric decimal</td>
+<td align="left">user ID of the inode's owner</td>
+<td align="left">nan</td>
+</tr>
+<tr>
+<td align="left">invalid_context</td>
+<td align="left">encoded</td>
+<td align="left">SELinux context</td>
+<td align="left">nan</td>
+</tr>
+<tr>
+<td align="left">ioctlcmd</td>
+<td align="left">numeric hexadecimal</td>
+<td align="left">The request argument to the ioctl syscall</td>
+<td align="left">nan</td>
+</tr>
+<tr>
+<td align="left">ipx-net</td>
+<td align="left">numeric</td>
+<td align="left">IPX network number</td>
+<td align="left">nan</td>
+</tr>
+<tr>
+<td align="left">item</td>
+<td align="left">numeric decimal</td>
+<td align="left">which item is being recorded</td>
+<td align="left">nan</td>
+</tr>
+<tr>
+<td align="left">items</td>
+<td align="left">numeric decimal</td>
+<td align="left">the number of path records in the event</td>
+<td align="left">nan</td>
+</tr>
+<tr>
+<td align="left">iuid</td>
+<td align="left">numeric decimal</td>
+<td align="left">ipc object's user ID</td>
+<td align="left">nan</td>
+</tr>
+<tr>
+<td align="left">kernel</td>
+<td align="left">alphanumeric</td>
+<td align="left">kernel's version number</td>
+<td align="left">nan</td>
+</tr>
+<tr>
+<td align="left">key</td>
+<td align="left">encoded</td>
+<td align="left">key assigned from triggered audit rule</td>
+<td align="left">nan</td>
+</tr>
+<tr>
+<td align="left">kind</td>
+<td align="left">alphabet</td>
+<td align="left">server or client in crypto operation</td>
+<td align="left">nan</td>
+</tr>
+<tr>
+<td align="left">ksize</td>
+<td align="left">numeric</td>
+<td align="left">key size for crypto operation</td>
+<td align="left">nan</td>
+</tr>
+<tr>
+<td align="left">laddr</td>
+<td align="left">alphanumeric</td>
+<td align="left">local network address</td>
+<td align="left">nan</td>
+</tr>
+<tr>
+<td align="left">len</td>
+<td align="left">numeric decimal</td>
+<td align="left">length</td>
+<td align="left">nan</td>
+</tr>
+<tr>
+<td align="left">lport</td>
+<td align="left">numeric decimal</td>
+<td align="left">local network port</td>
+<td align="left">nan</td>
+</tr>
+<tr>
+<td align="left">list</td>
+<td align="left">numeric decimal</td>
+<td align="left">the audit system's filter list number</td>
+<td align="left">nan</td>
+</tr>
+<tr>
+<td align="left">mac</td>
+<td align="left">alphanumeric</td>
+<td align="left">crypto MAC algorithm selected</td>
+<td align="left">nan</td>
+</tr>
+<tr>
+<td align="left">macproto</td>
+<td align="left">numeric</td>
+<td align="left">ethernet packet type ID field</td>
+<td align="left">nan</td>
+</tr>
+<tr>
+<td align="left">maj</td>
+<td align="left">numeric</td>
+<td align="left">device major number</td>
+<td align="left">nan</td>
+</tr>
+<tr>
+<td align="left">major</td>
+<td align="left">numeric decimal</td>
+<td align="left">device major number</td>
+<td align="left">nan</td>
+</tr>
+<tr>
+<td align="left">minor</td>
+<td align="left">numeric decimal</td>
+<td align="left">device minor number</td>
+<td align="left">nan</td>
+</tr>
+<tr>
+<td align="left">mode</td>
+<td align="left">numeric octal</td>
+<td align="left">mode flags on a file</td>
+<td align="left">nan</td>
+</tr>
+<tr>
+<td align="left">model</td>
+<td align="left">alphanumeric</td>
+<td align="left">security model being used for virt</td>
+<td align="left">nan</td>
+</tr>
+<tr>
+<td align="left">msg</td>
+<td align="left">alphanumeric</td>
+<td align="left">the payload of the audit record</td>
+<td align="left">nan</td>
+</tr>
+<tr>
+<td align="left">nargs</td>
+<td align="left">numeric decimal</td>
+<td align="left">the number of arguments to a socket call</td>
+<td align="left">nan</td>
+</tr>
+<tr>
+<td align="left">name</td>
+<td align="left">encoded</td>
+<td align="left">file name in avcs</td>
+<td align="left">nan</td>
+</tr>
+<tr>
+<td align="left">nametype</td>
+<td align="left">alphabet</td>
+<td align="left">kind of file operation being referenced</td>
+<td align="left">nan</td>
+</tr>
+<tr>
+<td align="left">net</td>
+<td align="left">alphanumeric</td>
+<td align="left">network MAC address</td>
+<td align="left">nan</td>
+</tr>
+<tr>
+<td align="left">new</td>
+<td align="left">numeric</td>
+<td align="left">value being set in feature</td>
+<td align="left">nan</td>
+</tr>
+<tr>
+<td align="left">new-chardev</td>
+<td align="left">encoded</td>
+<td align="left">new character device being assigned to vm</td>
+<td align="left">nan</td>
+</tr>
+<tr>
+<td align="left">new-disk</td>
+<td align="left">encoded</td>
+<td align="left">disk being added to vm</td>
+<td align="left">nan</td>
+</tr>
+<tr>
+<td align="left">new-enabled</td>
+<td align="left">numeric decimal</td>
+<td align="left">new TTY audit enabled setting</td>
+<td align="left">nan</td>
+</tr>
+<tr>
+<td align="left">new-fs</td>
+<td align="left">encoded</td>
+<td align="left">file system being added to vm</td>
+<td align="left">nan</td>
+</tr>
+<tr>
+<td align="left">new_gid</td>
+<td align="left">numeric decimal</td>
+<td align="left">new group ID being assigned</td>
+<td align="left">nan</td>
+</tr>
+<tr>
+<td align="left">new-level</td>
+<td align="left">alphanumeric</td>
+<td align="left">new run level</td>
+<td align="left">nan</td>
+</tr>
+<tr>
+<td align="left">new_lock</td>
+<td align="left">numeric decimal</td>
+<td align="left">new value of feature lock</td>
+<td align="left">nan</td>
+</tr>
+<tr>
+<td align="left">new-log_passwd</td>
+<td align="left">numeric decimal</td>
+<td align="left">new value for TTY password logging</td>
+<td align="left">nan</td>
+</tr>
+<tr>
+<td align="left">new-mem</td>
+<td align="left">numeric</td>
+<td align="left">new amount of memory in KB</td>
+<td align="left">nan</td>
+</tr>
+<tr>
+<td align="left">new-net</td>
+<td align="left">encoded</td>
+<td align="left">MAC address being assigned to vm</td>
+<td align="left">nan</td>
+</tr>
+<tr>
+<td align="left">new_pe</td>
+<td align="left">numeric</td>
+<td align="left">new process effective capability map(deprec)</td>
+<td align="left">nan</td>
+</tr>
+<tr>
+<td align="left">new_pi</td>
+<td align="left">numeric</td>
+<td align="left">new process inherited capability map(deprec)</td>
+<td align="left">nan</td>
+</tr>
+<tr>
+<td align="left">new_pp</td>
+<td align="left">numeric</td>
+<td align="left">new process permitted capability map(deprec)</td>
+<td align="left">nan</td>
+</tr>
+<tr>
+<td align="left">new-range</td>
+<td align="left">alphanumeric</td>
+<td align="left">new SELinux range</td>
+<td align="left">nan</td>
+</tr>
+<tr>
+<td align="left">new-rng</td>
+<td align="left">encoded</td>
+<td align="left">device name of rng being added from a vm</td>
+<td align="left">nan</td>
+</tr>
+<tr>
+<td align="left">new-role</td>
+<td align="left">alphanumeric</td>
+<td align="left">new SELinux role</td>
+<td align="left">nan</td>
+</tr>
+<tr>
+<td align="left">new-seuser</td>
+<td align="left">alphanumeric</td>
+<td align="left">new SELinux user</td>
+<td align="left">nan</td>
+</tr>
+<tr>
+<td align="left">new-vcpu</td>
+<td align="left">numeric</td>
+<td align="left">new number of CPU cores</td>
+<td align="left">nan</td>
+</tr>
+<tr>
+<td align="left">nlnk-fam</td>
+<td align="left">numeric</td>
+<td align="left">netlink protocol number</td>
+<td align="left">nan</td>
+</tr>
+<tr>
+<td align="left">nlnk-grp</td>
+<td align="left">numeric</td>
+<td align="left">netlink group number</td>
+<td align="left">nan</td>
+</tr>
+<tr>
+<td align="left">nlnk-pid</td>
+<td align="left">numeric decimal</td>
+<td align="left">pid of netlink packet sender</td>
+<td align="left">nan</td>
+</tr>
+<tr>
+<td align="left">oauid</td>
+<td align="left">numeric decimal</td>
+<td align="left">object's login user ID</td>
+<td align="left">nan</td>
+</tr>
+<tr>
+<td align="left">obj</td>
+<td align="left">alphanumeric</td>
+<td align="left">lspp object context string</td>
+<td align="left">nan</td>
+</tr>
+<tr>
+<td align="left">obj_gid</td>
+<td align="left">numeric decimal</td>
+<td align="left">group ID of object</td>
+<td align="left">nan</td>
+</tr>
+<tr>
+<td align="left">obj_uid</td>
+<td align="left">numeric decimal</td>
+<td align="left">user ID of object</td>
+<td align="left">nan</td>
+</tr>
+<tr>
+<td align="left">oflag</td>
+<td align="left">numeric</td>
+<td align="left">open syscall flags</td>
+<td align="left">nan</td>
+</tr>
+<tr>
+<td align="left">ogid</td>
+<td align="left">numeric decimal</td>
+<td align="left">file owner group ID</td>
+<td align="left">nan</td>
+</tr>
+<tr>
+<td align="left">ocomm</td>
+<td align="left">encoded</td>
+<td align="left">object's command line name</td>
+<td align="left">nan</td>
+</tr>
+<tr>
+<td align="left">old</td>
+<td align="left">numeric</td>
+<td align="left">present value of kernel feature</td>
+<td align="left">nan</td>
+</tr>
+<tr>
+<td align="left">old</td>
+<td align="left">numeric</td>
+<td align="left">old value</td>
+<td align="left">audit_enabled audit_backlog audit_failure value</td>
+</tr>
+<tr>
+<td align="left">old-auid</td>
+<td align="left">numeric decimal</td>
+<td align="left">previous auid value</td>
+<td align="left">nan</td>
+</tr>
+<tr>
+<td align="left">old-chardev</td>
+<td align="left">encoded</td>
+<td align="left">present character device assigned to vm</td>
+<td align="left">nan</td>
+</tr>
+<tr>
+<td align="left">old-disk</td>
+<td align="left">encoded</td>
+<td align="left">disk being removed from vm</td>
+<td align="left">nan</td>
+</tr>
+<tr>
+<td align="left">old-enabled</td>
+<td align="left">numeric decimal</td>
+<td align="left">present TTY audit enabled setting</td>
+<td align="left">nan</td>
+</tr>
+<tr>
+<td align="left">old_enforcing</td>
+<td align="left">numeric decimal</td>
+<td align="left">old MAC enforcement status</td>
+<td align="left">nan</td>
+</tr>
+<tr>
+<td align="left">old-fs</td>
+<td align="left">encoded</td>
+<td align="left">file system being removed from vm</td>
+<td align="left">nan</td>
+</tr>
+<tr>
+<td align="left">old-level</td>
+<td align="left">alphanumeric</td>
+<td align="left">old run level</td>
+<td align="left">nan</td>
+</tr>
+<tr>
+<td align="left">old_lock</td>
+<td align="left">numeric decimal</td>
+<td align="left">present value of feature lock</td>
+<td align="left">nan</td>
+</tr>
+<tr>
+<td align="left">old-log_passwd</td>
+<td align="left">numeric decimal</td>
+<td align="left">present value for TTY password logging</td>
+<td align="left">nan</td>
+</tr>
+<tr>
+<td align="left">old-mem</td>
+<td align="left">numeric</td>
+<td align="left">present amount of memory in KB</td>
+<td align="left">nan</td>
+</tr>
+<tr>
+<td align="left">old-net</td>
+<td align="left">encoded</td>
+<td align="left">present MAC address assigned to vm</td>
+<td align="left">nan</td>
+</tr>
+<tr>
+<td align="left">old_pa</td>
+<td align="left">numeric hexadecimal</td>
+<td align="left">old process ambient capability map</td>
+<td align="left">nan</td>
+</tr>
+<tr>
+<td align="left">old_pe</td>
+<td align="left">numeric hexadecimal</td>
+<td align="left">old process effective capability map</td>
+<td align="left">nan</td>
+</tr>
+<tr>
+<td align="left">old_pi</td>
+<td align="left">numeric hexadecimal</td>
+<td align="left">old process inherited capability map</td>
+<td align="left">nan</td>
+</tr>
+<tr>
+<td align="left">old_pp</td>
+<td align="left">numeric hexadecimal</td>
+<td align="left">old process permitted capability map</td>
+<td align="left">nan</td>
+</tr>
+<tr>
+<td align="left">old_prom</td>
+<td align="left">numeric decimal</td>
+<td align="left">network promiscuity flag</td>
+<td align="left">nan</td>
+</tr>
+<tr>
+<td align="left">old-range</td>
+<td align="left">alphanumeric</td>
+<td align="left">present SELinux range</td>
+<td align="left">nan</td>
+</tr>
+<tr>
+<td align="left">old-rng</td>
+<td align="left">encoded</td>
+<td align="left">device name of rng being removed from a vm</td>
+<td align="left">nan</td>
+</tr>
+<tr>
+<td align="left">old-role</td>
+<td align="left">alphanumeric</td>
+<td align="left">present SELinux role</td>
+<td align="left">nan</td>
+</tr>
+<tr>
+<td align="left">old-ses</td>
+<td align="left">numeric decimal</td>
+<td align="left">previous ses value</td>
+<td align="left">nan</td>
+</tr>
+<tr>
+<td align="left">old-seuser</td>
+<td align="left">alphanumeric</td>
+<td align="left">present SELinux user</td>
+<td align="left">nan</td>
+</tr>
+<tr>
+<td align="left">old_val</td>
+<td align="left">numeric decimal</td>
+<td align="left">current value of SELinux boolean</td>
+<td align="left">nan</td>
+</tr>
+<tr>
+<td align="left">old-vcpu</td>
+<td align="left">numeric</td>
+<td align="left">present number of CPU cores</td>
+<td align="left">nan</td>
+</tr>
+<tr>
+<td align="left">op</td>
+<td align="left">alphanumeric</td>
+<td align="left">the operation being performed that is audited</td>
+<td align="left">nan</td>
+</tr>
+<tr>
+<td align="left">opid</td>
+<td align="left">numeric decimal</td>
+<td align="left">object's process ID</td>
+<td align="left">nan</td>
+</tr>
+<tr>
+<td align="left">oses</td>
+<td align="left">numeric decimal</td>
+<td align="left">object's session ID</td>
+<td align="left">nan</td>
+</tr>
+<tr>
+<td align="left">ouid</td>
+<td align="left">numeric decimal</td>
+<td align="left">file owner user ID</td>
+<td align="left">nan</td>
+</tr>
+<tr>
+<td align="left">outif</td>
+<td align="left">numeric</td>
+<td align="left">out interface number</td>
+<td align="left">nan</td>
+</tr>
+<tr>
+<td align="left">pa</td>
+<td align="left">numeric hexadecimal</td>
+<td align="left">process ambient capability map</td>
+<td align="left">nan</td>
+</tr>
+<tr>
+<td align="left">pe</td>
+<td align="left">numeric hexadecimal</td>
+<td align="left">process effective capability map</td>
+<td align="left">nan</td>
+</tr>
+<tr>
+<td align="left">pi</td>
+<td align="left">numeric hexadecimal</td>
+<td align="left">process inherited capability map</td>
+<td align="left">nan</td>
+</tr>
+<tr>
+<td align="left">pp</td>
+<td align="left">numeric hexadecimal</td>
+<td align="left">process permitted capability map</td>
+<td align="left">nan</td>
+</tr>
+<tr>
+<td align="left">parent</td>
+<td align="left">numeric</td>
+<td align="left">the inode number of the parent file</td>
+<td align="left">nan</td>
+</tr>
+<tr>
+<td align="left">path</td>
+<td align="left">encoded</td>
+<td align="left">file system path name</td>
+<td align="left">nan</td>
+</tr>
+<tr>
+<td align="left">per</td>
+<td align="left">numeric hexadecimal</td>
+<td align="left">linux personality</td>
+<td align="left">nan</td>
+</tr>
+<tr>
+<td align="left">perm</td>
+<td align="left">numeric</td>
+<td align="left">the file permission being used</td>
+<td align="left">nan</td>
+</tr>
+<tr>
+<td align="left">perm_mask</td>
+<td align="left">numeric</td>
+<td align="left">file permission mask that triggered a watch event</td>
+<td align="left">nan</td>
+</tr>
+<tr>
+<td align="left">permissive</td>
+<td align="left">numeric decimal</td>
+<td align="left">SELinux is in permissive mode</td>
+<td align="left">nan</td>
+</tr>
+<tr>
+<td align="left">pfs</td>
+<td align="left">alphanumeric</td>
+<td align="left">perfect forward secrecy method</td>
+<td align="left">nan</td>
+</tr>
+<tr>
+<td align="left">pid</td>
+<td align="left">numeric decimal</td>
+<td align="left">process ID</td>
+<td align="left">nan</td>
+</tr>
+<tr>
+<td align="left">ppid</td>
+<td align="left">numeric decimal</td>
+<td align="left">parent process ID</td>
+<td align="left">nan</td>
+</tr>
+<tr>
+<td align="left">printer</td>
+<td align="left">alphanumeric</td>
+<td align="left">printer name</td>
+<td align="left">nan</td>
+</tr>
+<tr>
+<td align="left">prom</td>
+<td align="left">numeric decimal</td>
+<td align="left">network promiscuity flag</td>
+<td align="left">nan</td>
+</tr>
+<tr>
+<td align="left">proctitle</td>
+<td align="left">encoded</td>
+<td align="left">process title and command line parameters</td>
+<td align="left">nan</td>
+</tr>
+<tr>
+<td align="left">proto</td>
+<td align="left">numeric decimal</td>
+<td align="left">network protocol</td>
+<td align="left">nan</td>
+</tr>
+<tr>
+<td align="left">qbytes</td>
+<td align="left">numeric hexadecimal</td>
+<td align="left">ipc objects quantity of bytes</td>
+<td align="left">nan</td>
+</tr>
+<tr>
+<td align="left">range</td>
+<td align="left">alphanumeric</td>
+<td align="left">user's SE Linux range</td>
+<td align="left">nan</td>
+</tr>
+<tr>
+<td align="left">rdev</td>
+<td align="left">numeric hexadecimal-tuple</td>
+<td align="left">the device identifier (special files only)</td>
+<td align="left">nan</td>
+</tr>
+<tr>
+<td align="left">reason</td>
+<td align="left">alphanumeric</td>
+<td align="left">text string denoting a reason for the action</td>
+<td align="left">nan</td>
+</tr>
+<tr>
+<td align="left">removed</td>
+<td align="left">numeric</td>
+<td align="left">number of deleted files</td>
+<td align="left">nan</td>
+</tr>
+<tr>
+<td align="left">res</td>
+<td align="left">numeric decimal</td>
+<td align="left">result of the audited operation(success/fail)</td>
+<td align="left">nan</td>
+</tr>
+<tr>
+<td align="left">resrc</td>
+<td align="left">alphanumeric</td>
+<td align="left">resource being assigned</td>
+<td align="left">nan</td>
+</tr>
+<tr>
+<td align="left">result</td>
+<td align="left">alphanumeric</td>
+<td align="left">result of the audited operation(success/fail)</td>
+<td align="left">nan</td>
+</tr>
+<tr>
+<td align="left">role</td>
+<td align="left">alphanumeric</td>
+<td align="left">user's SELinux role</td>
+<td align="left">nan</td>
+</tr>
+<tr>
+<td align="left">rport</td>
+<td align="left">numeric decimal</td>
+<td align="left">remote port number</td>
+<td align="left">nan</td>
+</tr>
+<tr>
+<td align="left">saddr</td>
+<td align="left">encoded</td>
+<td align="left">struct socket address structure</td>
+<td align="left">nan</td>
+</tr>
+<tr>
+<td align="left">sauid</td>
+<td align="left">numeric decimal</td>
+<td align="left">sent login user ID</td>
+<td align="left">nan</td>
+</tr>
+<tr>
+<td align="left">scontext</td>
+<td align="left">alphanumeric</td>
+<td align="left">the subject's context string</td>
+<td align="left">nan</td>
+</tr>
+<tr>
+<td align="left">selected-context</td>
+<td align="left">alphanumeric</td>
+<td align="left">new MAC context assigned to session</td>
+<td align="left">nan</td>
+</tr>
+<tr>
+<td align="left">seperm</td>
+<td align="left">alphanumeric</td>
+<td align="left">SELinux permission being decided on</td>
+<td align="left">nan</td>
+</tr>
+<tr>
+<td align="left">seqno</td>
+<td align="left">numeric decimal</td>
+<td align="left">sequence number</td>
+<td align="left">nan</td>
+</tr>
+<tr>
+<td align="left">seperms</td>
+<td align="left">alphabet</td>
+<td align="left">SELinux permissions being used</td>
+<td align="left">nan</td>
+</tr>
+<tr>
+<td align="left">seresult</td>
+<td align="left">alphabet</td>
+<td align="left">SELinux AVC decision granted/denied</td>
+<td align="left">nan</td>
+</tr>
+<tr>
+<td align="left">ses</td>
+<td align="left">numeric decimal</td>
+<td align="left">login session ID</td>
+<td align="left">nan</td>
+</tr>
+<tr>
+<td align="left">seuser</td>
+<td align="left">alphanumeric</td>
+<td align="left">user's SE Linux user acct</td>
+<td align="left">nan</td>
+</tr>
+<tr>
+<td align="left">sgid</td>
+<td align="left">numeric decimal</td>
+<td align="left">set group ID</td>
+<td align="left">nan</td>
+</tr>
+<tr>
+<td align="left">sig</td>
+<td align="left">numeric decimal</td>
+<td align="left">signal number</td>
+<td align="left">nan</td>
+</tr>
+<tr>
+<td align="left">sigev_signo</td>
+<td align="left">numeric decimal</td>
+<td align="left">signal number</td>
+<td align="left">nan</td>
+</tr>
+<tr>
+<td align="left">smac</td>
+<td align="left">numeric</td>
+<td align="left">local MAC address</td>
+<td align="left">nan</td>
+</tr>
+<tr>
+<td align="left">spid</td>
+<td align="left">numeric decimal</td>
+<td align="left">sent process ID</td>
+<td align="left">nan</td>
+</tr>
+<tr>
+<td align="left">sport</td>
+<td align="left">numeric decimal</td>
+<td align="left">local port number</td>
+<td align="left">nan</td>
+</tr>
+<tr>
+<td align="left">state</td>
+<td align="left">alphanumeric</td>
+<td align="left">audit daemon configuration resulting state</td>
+<td align="left">nan</td>
+</tr>
+<tr>
+<td align="left">subj</td>
+<td align="left">alphanumeric</td>
+<td align="left">lspp subject's context string</td>
+<td align="left">nan</td>
+</tr>
+<tr>
+<td align="left">success</td>
+<td align="left">alphanumeric</td>
+<td align="left">whether the syscall was successful or not</td>
+<td align="left">nan</td>
+</tr>
+<tr>
+<td align="left">suid</td>
+<td align="left">numeric decimal</td>
+<td align="left">sent user ID</td>
+<td align="left">nan</td>
+</tr>
+<tr>
+<td align="left">syscall</td>
+<td align="left">numeric decimal</td>
+<td align="left">syscall number in effect when the event occurred</td>
+<td align="left">nan</td>
+</tr>
+<tr>
+<td align="left">table</td>
+<td align="left">alphanumeric</td>
+<td align="left">netfilter table name</td>
+<td align="left">nan</td>
+</tr>
+<tr>
+<td align="left">tclass</td>
+<td align="left">alphanumeric</td>
+<td align="left">target's object classification</td>
+<td align="left">nan</td>
+</tr>
+<tr>
+<td align="left">tcontext</td>
+<td align="left">alphanumeric</td>
+<td align="left">the target's or object's context string</td>
+<td align="left">nan</td>
+</tr>
+<tr>
+<td align="left">terminal</td>
+<td align="left">alphanumeric</td>
+<td align="left">terminal name the user is running programs on</td>
+<td align="left">nan</td>
+</tr>
+<tr>
+<td align="left">tty</td>
+<td align="left">alphanumeric</td>
+<td align="left">tty udevice the user is running programs on</td>
+<td align="left">nan</td>
+</tr>
+<tr>
+<td align="left">type</td>
+<td align="left">alphanumeric</td>
+<td align="left">the audit record's type</td>
+<td align="left">nan</td>
+</tr>
+<tr>
+<td align="left">uid</td>
+<td align="left">numeric decimal</td>
+<td align="left">user ID</td>
+<td align="left">nan</td>
+</tr>
+<tr>
+<td align="left">unit</td>
+<td align="left">alphanumeric</td>
+<td align="left">systemd unit</td>
+<td align="left">nan</td>
+</tr>
+<tr>
+<td align="left">uri</td>
+<td align="left">alphanumeric</td>
+<td align="left">URI pointing to a printer</td>
+<td align="left">nan</td>
+</tr>
+<tr>
+<td align="left">user</td>
+<td align="left">alphanumeric</td>
+<td align="left">account submitted for authentication</td>
+<td align="left">nan</td>
+</tr>
+<tr>
+<td align="left">uuid</td>
+<td align="left">alphanumeric</td>
+<td align="left">a UUID</td>
+<td align="left">nan</td>
+</tr>
+<tr>
+<td align="left">val</td>
+<td align="left">alphanumeric</td>
+<td align="left">generic value associated with the operation</td>
+<td align="left">nan</td>
+</tr>
+<tr>
+<td align="left">val</td>
+<td align="left">numeric decimal</td>
+<td align="left">new value of SELinux boolean</td>
+<td align="left">nan</td>
+</tr>
+<tr>
+<td align="left">ver</td>
+<td align="left">numeric</td>
+<td align="left">audit daemon's version number</td>
+<td align="left">nan</td>
+</tr>
+<tr>
+<td align="left">virt</td>
+<td align="left">alphanumeric</td>
+<td align="left">kind of virtualization being referenced</td>
+<td align="left">nan</td>
+</tr>
+<tr>
+<td align="left">vm</td>
+<td align="left">encoded</td>
+<td align="left">virtual machine name</td>
+<td align="left">nan</td>
+</tr>
+<tr>
+<td align="left">vm-ctx</td>
+<td align="left">alphanumeric</td>
+<td align="left">the vm's context string</td>
+<td align="left">nan</td>
+</tr>
+<tr>
+<td align="left">vm-pid</td>
+<td align="left">numeric decimal</td>
+<td align="left">vm's process ID</td>
+<td align="left">nan</td>
+</tr>
+<tr>
+<td align="left">watch</td>
+<td align="left">encoded</td>
+<td align="left">file name in a watch record</td>
+<td align="left">nan</td>
+</tr>
+</tbody>
+</table>
+<h2 id="message-dictionary">Message-dictionary</h2>
+<table>
+<thead>
+<tr>
+<th align="left">MACRO NAME</th>
+<th align="right">VALUE</th>
+<th align="left">ORIGIN</th>
+<th align="left">CLASS</th>
+<th align="left">DESCRIPITON</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">AUDIT_GET</td>
+<td align="right">1000</td>
+<td align="left">USER</td>
+<td align="left">CTL</td>
+<td align="left">Get status</td>
+</tr>
+<tr>
+<td align="left">AUDIT_SET</td>
+<td align="right">1001</td>
+<td align="left">USER</td>
+<td align="left">CTL</td>
+<td align="left">Set status (enable/disable/auditd)</td>
+</tr>
+<tr>
+<td align="left">AUDIT_LIST</td>
+<td align="right">1002</td>
+<td align="left">USER</td>
+<td align="left">DEP</td>
+<td align="left">List syscall rules -- deprecated</td>
+</tr>
+<tr>
+<td align="left">AUDIT_ADD</td>
+<td align="right">1003</td>
+<td align="left">USER</td>
+<td align="left">DEP</td>
+<td align="left">Add syscall rule -- deprecated</td>
+</tr>
+<tr>
+<td align="left">AUDIT_DEL</td>
+<td align="right">1004</td>
+<td align="left">USER</td>
+<td align="left">DEP</td>
+<td align="left">Delete syscall rule -- deprecated</td>
+</tr>
+<tr>
+<td align="left">AUDIT_USER</td>
+<td align="right">1005</td>
+<td align="left">USER</td>
+<td align="left">DEP</td>
+<td align="left">Message from userspace -- deprecated</td>
+</tr>
+<tr>
+<td align="left">AUDIT_LOGIN</td>
+<td align="right">1006</td>
+<td align="left">KERN</td>
+<td align="left">IND</td>
+<td align="left">Define the login ID and information</td>
+</tr>
+<tr>
+<td align="left">AUDIT_WATCH_INS</td>
+<td align="right">1007</td>
+<td align="left">USER</td>
+<td align="left">DEP</td>
+<td align="left">Insert file/dir watch entry</td>
+</tr>
+<tr>
+<td align="left">AUDIT_WATCH_REM</td>
+<td align="right">1008</td>
+<td align="left">USER</td>
+<td align="left">DEP</td>
+<td align="left">Remove file/dir watch entry</td>
+</tr>
+<tr>
+<td align="left">AUDIT_WATCH_LIST</td>
+<td align="right">1009</td>
+<td align="left">USER</td>
+<td align="left">DEP</td>
+<td align="left">List all file/dir watches</td>
+</tr>
+<tr>
+<td align="left">AUDIT_SIGNAL_INFO</td>
+<td align="right">1010</td>
+<td align="left">USER</td>
+<td align="left">CTL</td>
+<td align="left">Get info about sender of signal to auditd</td>
+</tr>
+<tr>
+<td align="left">AUDIT_ADD_RULE</td>
+<td align="right">1011</td>
+<td align="left">USER</td>
+<td align="left">CTL</td>
+<td align="left">Add syscall filtering rule</td>
+</tr>
+<tr>
+<td align="left">AUDIT_DEL_RULE</td>
+<td align="right">1012</td>
+<td align="left">USER</td>
+<td align="left">CTL</td>
+<td align="left">Delete syscall filtering rule</td>
+</tr>
+<tr>
+<td align="left">AUDIT_LIST_RULES</td>
+<td align="right">1013</td>
+<td align="left">USER</td>
+<td align="left">CTL</td>
+<td align="left">List syscall filtering rules</td>
+</tr>
+<tr>
+<td align="left">AUDIT_TRIM</td>
+<td align="right">1014</td>
+<td align="left">USER</td>
+<td align="left">CTL</td>
+<td align="left">Trim junk from watched tree</td>
+</tr>
+<tr>
+<td align="left">AUDIT_MAKE_EQUIV</td>
+<td align="right">1015</td>
+<td align="left">USER</td>
+<td align="left">CTL</td>
+<td align="left">Append to watched tree</td>
+</tr>
+<tr>
+<td align="left">AUDIT_TTY_GET</td>
+<td align="right">1016</td>
+<td align="left">USER</td>
+<td align="left">CTL</td>
+<td align="left">Get TTY auditing status</td>
+</tr>
+<tr>
+<td align="left">AUDIT_TTY_SET</td>
+<td align="right">1017</td>
+<td align="left">USER</td>
+<td align="left">CTL</td>
+<td align="left">Set TTY auditing status</td>
+</tr>
+<tr>
+<td align="left">AUDIT_SET_FEATURE</td>
+<td align="right">1018</td>
+<td align="left">USER</td>
+<td align="left">CTL</td>
+<td align="left">Turn an audit feature on or off</td>
+</tr>
+<tr>
+<td align="left">AUDIT_GET_FEATURE</td>
+<td align="right">1019</td>
+<td align="left">USER</td>
+<td align="left">CTL</td>
+<td align="left">Get which features are enabled</td>
+</tr>
+<tr>
+<td align="left">AUDIT_USER_AUTH</td>
+<td align="right">1100</td>
+<td align="left">USER</td>
+<td align="left">IND</td>
+<td align="left">User system access authentication</td>
+</tr>
+<tr>
+<td align="left">AUDIT_USER_ACCT</td>
+<td align="right">1101</td>
+<td align="left">USER</td>
+<td align="left">IND</td>
+<td align="left">User system access authorization</td>
+</tr>
+<tr>
+<td align="left">AUDIT_USER_MGMT</td>
+<td align="right">1102</td>
+<td align="left">USER</td>
+<td align="left">IND</td>
+<td align="left">User account attribute change</td>
+</tr>
+<tr>
+<td align="left">AUDIT_CRED_ACQ</td>
+<td align="right">1103</td>
+<td align="left">USER</td>
+<td align="left">IND</td>
+<td align="left">User credential acquired</td>
+</tr>
+<tr>
+<td align="left">AUDIT_CRED_DISP</td>
+<td align="right">1104</td>
+<td align="left">USER</td>
+<td align="left">IND</td>
+<td align="left">User credential disposed</td>
+</tr>
+<tr>
+<td align="left">AUDIT_USER_START</td>
+<td align="right">1105</td>
+<td align="left">USER</td>
+<td align="left">IND</td>
+<td align="left">User session start</td>
+</tr>
+<tr>
+<td align="left">AUDIT_USER_END</td>
+<td align="right">1106</td>
+<td align="left">USER</td>
+<td align="left">IND</td>
+<td align="left">User session end</td>
+</tr>
+<tr>
+<td align="left">AUDIT_USER_AVC</td>
+<td align="right">1107</td>
+<td align="left">USER</td>
+<td align="left">IND</td>
+<td align="left">User space AVC (Access Vector Cache) message</td>
+</tr>
+<tr>
+<td align="left">AUDIT_USER_CHAUTHTOK</td>
+<td align="right">1108</td>
+<td align="left">USER</td>
+<td align="left">IND</td>
+<td align="left">User account password or PIN changed</td>
+</tr>
+<tr>
+<td align="left">AUDIT_USER_ERR</td>
+<td align="right">1109</td>
+<td align="left">USER</td>
+<td align="left">IND</td>
+<td align="left">User account state error</td>
+</tr>
+<tr>
+<td align="left">AUDIT_CRED_REFR</td>
+<td align="right">1110</td>
+<td align="left">USER</td>
+<td align="left">IND</td>
+<td align="left">User credential refreshed</td>
+</tr>
+<tr>
+<td align="left">AUDIT_USYS_CONFIG</td>
+<td align="right">1111</td>
+<td align="left">USER</td>
+<td align="left">IND</td>
+<td align="left">User space system config change</td>
+</tr>
+<tr>
+<td align="left">AUDIT_USER_LOGIN</td>
+<td align="right">1112</td>
+<td align="left">USER</td>
+<td align="left">IND</td>
+<td align="left">User has logged in</td>
+</tr>
+<tr>
+<td align="left">AUDIT_USER_LOGOUT</td>
+<td align="right">1113</td>
+<td align="left">USER</td>
+<td align="left">IND</td>
+<td align="left">User has logged out</td>
+</tr>
+<tr>
+<td align="left">AUDIT_ADD_USER</td>
+<td align="right">1114</td>
+<td align="left">USER</td>
+<td align="left">IND</td>
+<td align="left">User account added</td>
+</tr>
+<tr>
+<td align="left">AUDIT_DEL_USER</td>
+<td align="right">1115</td>
+<td align="left">USER</td>
+<td align="left">IND</td>
+<td align="left">User account deleted</td>
+</tr>
+<tr>
+<td align="left">AUDIT_ADD_GROUP</td>
+<td align="right">1116</td>
+<td align="left">USER</td>
+<td align="left">IND</td>
+<td align="left">Group account added</td>
+</tr>
+<tr>
+<td align="left">AUDIT_DEL_GROUP</td>
+<td align="right">1117</td>
+<td align="left">USER</td>
+<td align="left">IND</td>
+<td align="left">Group account deleted</td>
+</tr>
+<tr>
+<td align="left">AUDIT_DAC_CHECK</td>
+<td align="right">1118</td>
+<td align="left">USER</td>
+<td align="left">IND</td>
+<td align="left">User space DAC check results</td>
+</tr>
+<tr>
+<td align="left">AUDIT_CHGRP_ID</td>
+<td align="right">1119</td>
+<td align="left">USER</td>
+<td align="left">IND</td>
+<td align="left">User space group ID changed</td>
+</tr>
+<tr>
+<td align="left">AUDIT_TEST</td>
+<td align="right">1120</td>
+<td align="left">USER</td>
+<td align="left">IND</td>
+<td align="left">Used for test success messages</td>
+</tr>
+<tr>
+<td align="left">AUDIT_TRUSTED_APP</td>
+<td align="right">1121</td>
+<td align="left">USER</td>
+<td align="left">IND</td>
+<td align="left">Trusted app msg - freestyle text</td>
+</tr>
+<tr>
+<td align="left">AUDIT_USER_SELINUX_ERR</td>
+<td align="right">1122</td>
+<td align="left">USER</td>
+<td align="left">IND</td>
+<td align="left">SELinux user space error</td>
+</tr>
+<tr>
+<td align="left">AUDIT_USER_CMD</td>
+<td align="right">1123</td>
+<td align="left">USER</td>
+<td align="left">IND</td>
+<td align="left">User shell command and args</td>
+</tr>
+<tr>
+<td align="left">AUDIT_USER_TTY</td>
+<td align="right">1124</td>
+<td align="left">USER</td>
+<td align="left">IND</td>
+<td align="left">Non-ICANON TTY input meaning</td>
+</tr>
+<tr>
+<td align="left">AUDIT_CHUSER_ID</td>
+<td align="right">1125</td>
+<td align="left">USER</td>
+<td align="left">IND</td>
+<td align="left">Changed user ID supplemental data</td>
+</tr>
+<tr>
+<td align="left">AUDIT_GRP_AUTH</td>
+<td align="right">1126</td>
+<td align="left">USER</td>
+<td align="left">IND</td>
+<td align="left">Authentication for group password</td>
+</tr>
+<tr>
+<td align="left">AUDIT_SYSTEM_BOOT</td>
+<td align="right">1127</td>
+<td align="left">USER</td>
+<td align="left">IND</td>
+<td align="left">System boot</td>
+</tr>
+<tr>
+<td align="left">AUDIT_SYSTEM_SHUTDOWN</td>
+<td align="right">1128</td>
+<td align="left">USER</td>
+<td align="left">IND</td>
+<td align="left">System shutdown</td>
+</tr>
+<tr>
+<td align="left">AUDIT_SYSTEM_RUNLEVEL</td>
+<td align="right">1129</td>
+<td align="left">USER</td>
+<td align="left">IND</td>
+<td align="left">System runlevel change</td>
+</tr>
+<tr>
+<td align="left">AUDIT_SERVICE_START</td>
+<td align="right">1130</td>
+<td align="left">USER</td>
+<td align="left">IND</td>
+<td align="left">Service (daemon) start</td>
+</tr>
+<tr>
+<td align="left">AUDIT_SERVICE_STOP</td>
+<td align="right">1131</td>
+<td align="left">USER</td>
+<td align="left">IND</td>
+<td align="left">Service (daemon) stop</td>
+</tr>
+<tr>
+<td align="left">AUDIT_GRP_MGMT</td>
+<td align="right">1132</td>
+<td align="left">USER</td>
+<td align="left">IND</td>
+<td align="left">Group account attribute was modified</td>
+</tr>
+<tr>
+<td align="left">AUDIT_GRP_CHAUTHTOK</td>
+<td align="right">1133</td>
+<td align="left">USER</td>
+<td align="left">IND</td>
+<td align="left">Group account password or PIN changed</td>
+</tr>
+<tr>
+<td align="left">AUDIT_MAC_CHECK</td>
+<td align="right">1134</td>
+<td align="left">USER</td>
+<td align="left">IND</td>
+<td align="left">User space MAC (Mandatory Access Control) decision results</td>
+</tr>
+<tr>
+<td align="left">AUDIT_ACCT_LOCK</td>
+<td align="right">1135</td>
+<td align="left">USER</td>
+<td align="left">IND</td>
+<td align="left">User's account locked by admin</td>
+</tr>
+<tr>
+<td align="left">AUDIT_ACCT_UNLOCK</td>
+<td align="right">1136</td>
+<td align="left">USER</td>
+<td align="left">IND</td>
+<td align="left">User's account unlocked by admin</td>
+</tr>
+<tr>
+<td align="left">AUDIT_USER_DEVICE</td>
+<td align="right">1137</td>
+<td align="left">USER</td>
+<td align="left">IND</td>
+<td align="left">User space hotplug device changes</td>
+</tr>
+<tr>
+<td align="left">AUDIT_SOFTWARE_UPDATE</td>
+<td align="right">1138</td>
+<td align="left">USER</td>
+<td align="left">IND</td>
+<td align="left">Software update event</td>
+</tr>
+<tr>
+<td align="left">AUDIT_DAEMON_START</td>
+<td align="right">1200</td>
+<td align="left">USER</td>
+<td align="left">IND</td>
+<td align="left">Daemon startup record</td>
+</tr>
+<tr>
+<td align="left">AUDIT_DAEMON_END</td>
+<td align="right">1201</td>
+<td align="left">USER</td>
+<td align="left">IND</td>
+<td align="left">Daemon normal stop record</td>
+</tr>
+<tr>
+<td align="left">AUDIT_DAEMON_ABORT</td>
+<td align="right">1202</td>
+<td align="left">USER</td>
+<td align="left">IND</td>
+<td align="left">Daemon error stop record</td>
+</tr>
+<tr>
+<td align="left">AUDIT_DAEMON_CONFIG</td>
+<td align="right">1203</td>
+<td align="left">USER</td>
+<td align="left">IND</td>
+<td align="left">Daemon config change</td>
+</tr>
+<tr>
+<td align="left">AUDIT_DAEMON_RECONFIG</td>
+<td align="right">1204</td>
+<td align="left">USER</td>
+<td align="left">IND</td>
+<td align="left">Auditd should reconfigure</td>
+</tr>
+<tr>
+<td align="left">AUDIT_DAEMON_ROTATE</td>
+<td align="right">1205</td>
+<td align="left">USER</td>
+<td align="left">IND</td>
+<td align="left">Auditd should rotate logs</td>
+</tr>
+<tr>
+<td align="left">AUDIT_DAEMON_RESUME</td>
+<td align="right">1206</td>
+<td align="left">USER</td>
+<td align="left">IND</td>
+<td align="left">Auditd should resume logging</td>
+</tr>
+<tr>
+<td align="left">AUDIT_DAEMON_ACCEPT</td>
+<td align="right">1207</td>
+<td align="left">USER</td>
+<td align="left">IND</td>
+<td align="left">Auditd accepted remote connection</td>
+</tr>
+<tr>
+<td align="left">AUDIT_DAEMON_CLOSE</td>
+<td align="right">1208</td>
+<td align="left">USER</td>
+<td align="left">IND</td>
+<td align="left">Auditd closed remote connection</td>
+</tr>
+<tr>
+<td align="left">AUDIT_DAEMON_ERR</td>
+<td align="right">1209</td>
+<td align="left">USER</td>
+<td align="left">IND</td>
+<td align="left">Auditd internal error</td>
+</tr>
+<tr>
+<td align="left">AUDIT_SYSCALL</td>
+<td align="right">1300</td>
+<td align="left">KERN</td>
+<td align="left">SC</td>
+<td align="left">System call event information</td>
+</tr>
+<tr>
+<td align="left">AUDIT_FS_WATCH</td>
+<td align="right">1301</td>
+<td align="left">KERN</td>
+<td align="left">DEP</td>
+<td align="left">Deprecated</td>
+</tr>
+<tr>
+<td align="left">AUDIT_PATH</td>
+<td align="right">1302</td>
+<td align="left">KERN</td>
+<td align="left">SC</td>
+<td align="left">Filename path information</td>
+</tr>
+<tr>
+<td align="left">AUDIT_IPC</td>
+<td align="right">1303</td>
+<td align="left">KERN</td>
+<td align="left">SC</td>
+<td align="left">System call IPC (Inter-Process Communication) object</td>
+</tr>
+<tr>
+<td align="left">AUDIT_SOCKETCALL</td>
+<td align="right">1304</td>
+<td align="left">KERN</td>
+<td align="left">SC</td>
+<td align="left">System call socketcall arguments</td>
+</tr>
+<tr>
+<td align="left">AUDIT_CONFIG_CHANGE</td>
+<td align="right">1305</td>
+<td align="left">KERN</td>
+<td align="left">IND</td>
+<td align="left">Audit system configuration change</td>
+</tr>
+<tr>
+<td align="left">AUDIT_SOCKADDR</td>
+<td align="right">1306</td>
+<td align="left">KERN</td>
+<td align="left">SC</td>
+<td align="left">System call socket address argument information</td>
+</tr>
+<tr>
+<td align="left">AUDIT_CWD</td>
+<td align="right">1307</td>
+<td align="left">KERN</td>
+<td align="left">SC</td>
+<td align="left">Current working directory</td>
+</tr>
+<tr>
+<td align="left">AUDIT_EXECVE</td>
+<td align="right">1309</td>
+<td align="left">KERN</td>
+<td align="left">SC</td>
+<td align="left">Arguments supplied to the execve system call</td>
+</tr>
+<tr>
+<td align="left">AUDIT_IPC_SET_PERM</td>
+<td align="right">1311</td>
+<td align="left">KERN</td>
+<td align="left">SC</td>
+<td align="left">IPC new permissions record type</td>
+</tr>
+<tr>
+<td align="left">AUDIT_MQ_OPEN</td>
+<td align="right">1312</td>
+<td align="left">KERN</td>
+<td align="left">SC</td>
+<td align="left">POSIX MQ open record type</td>
+</tr>
+<tr>
+<td align="left">AUDIT_MQ_SENDRECV</td>
+<td align="right">1313</td>
+<td align="left">KERN</td>
+<td align="left">SC</td>
+<td align="left">POSIX MQ send/receive record type</td>
+</tr>
+<tr>
+<td align="left">AUDIT_MQ_NOTIFY</td>
+<td align="right">1314</td>
+<td align="left">KERN</td>
+<td align="left">SC</td>
+<td align="left">POSIX MQ notify record type</td>
+</tr>
+<tr>
+<td align="left">AUDIT_MQ_GETSETATTR</td>
+<td align="right">1315</td>
+<td align="left">KERN</td>
+<td align="left">SC</td>
+<td align="left">POSIX MQ get/set attribute record type</td>
+</tr>
+<tr>
+<td align="left">AUDIT_KERNEL_OTHER</td>
+<td align="right">1316</td>
+<td align="left">KERN</td>
+<td align="left">IND</td>
+<td align="left">For use by 3rd party modules</td>
+</tr>
+<tr>
+<td align="left">AUDIT_FD_PAIR</td>
+<td align="right">1317</td>
+<td align="left">KERN</td>
+<td align="left">SC</td>
+<td align="left">Information for pipe and socketpair system calls</td>
+</tr>
+<tr>
+<td align="left">AUDIT_OBJ_PID</td>
+<td align="right">1318</td>
+<td align="left">KERN</td>
+<td align="left">SC</td>
+<td align="left">ptrace target</td>
+</tr>
+<tr>
+<td align="left">AUDIT_TTY</td>
+<td align="right">1319</td>
+<td align="left">KERN</td>
+<td align="left">IND</td>
+<td align="left">Input on an administrative TTY</td>
+</tr>
+<tr>
+<td align="left">AUDIT_EOE</td>
+<td align="right">1320</td>
+<td align="left">KERN</td>
+<td align="left">CTL</td>
+<td align="left">End of multi-record event</td>
+</tr>
+<tr>
+<td align="left">AUDIT_BPRM_FCAPS</td>
+<td align="right">1321</td>
+<td align="left">KERN</td>
+<td align="left">SC</td>
+<td align="left">Information about file system capabilities increasing permissions</td>
+</tr>
+<tr>
+<td align="left">AUDIT_CAPSET</td>
+<td align="right">1322</td>
+<td align="left">KERN</td>
+<td align="left">SC</td>
+<td align="left">Record showing argument to sys_capset setting process-based capabilities</td>
+</tr>
+<tr>
+<td align="left">AUDIT_MMAP</td>
+<td align="right">1323</td>
+<td align="left">KERN</td>
+<td align="left">SC</td>
+<td align="left">Mmap system call file descriptor and flags</td>
+</tr>
+<tr>
+<td align="left">AUDIT_NETFILTER_PKT</td>
+<td align="right">1324</td>
+<td align="left">KERN</td>
+<td align="left">IND</td>
+<td align="left">Packets traversing netfilter chains</td>
+</tr>
+<tr>
+<td align="left">AUDIT_NETFILTER_CFG</td>
+<td align="right">1325</td>
+<td align="left">KERN</td>
+<td align="left">IND/SC</td>
+<td align="left">Netfilter chain modifications</td>
+</tr>
+<tr>
+<td align="left">AUDIT_SECCOMP</td>
+<td align="right">1326</td>
+<td align="left">KERN</td>
+<td align="left">IND</td>
+<td align="left">Secure Computing event</td>
+</tr>
+<tr>
+<td align="left">AUDIT_PROCTITLE</td>
+<td align="right">1327</td>
+<td align="left">KERN</td>
+<td align="left">SC</td>
+<td align="left">Process Title info</td>
+</tr>
+<tr>
+<td align="left">AUDIT_FEATURE_CHANGE</td>
+<td align="right">1328</td>
+<td align="left">KERN</td>
+<td align="left">IND</td>
+<td align="left">Audit feature changed value</td>
+</tr>
+<tr>
+<td align="left">AUDIT_REPLACE</td>
+<td align="right">1329</td>
+<td align="left">KERN</td>
+<td align="left">CTL</td>
+<td align="left">Replace auditd if this probe unanswerd</td>
+</tr>
+<tr>
+<td align="left">AUDIT_KERN_MODULE</td>
+<td align="right">1330</td>
+<td align="left">KERN</td>
+<td align="left">SC</td>
+<td align="left">Kernel Module events</td>
+</tr>
+<tr>
+<td align="left">AUDIT_FANOTIFY</td>
+<td align="right">1331</td>
+<td align="left">KERN</td>
+<td align="left">SC</td>
+<td align="left">Fanotify access decision</td>
+</tr>
+<tr>
+<td align="left">AUDIT_TIME_INJOFFSET</td>
+<td align="right">1332</td>
+<td align="left">KERN</td>
+<td align="left">SC</td>
+<td align="left">Timekeeping offset injected</td>
+</tr>
+<tr>
+<td align="left">AUDIT_TIME_ADJNTPVAL</td>
+<td align="right">1333</td>
+<td align="left">KERN</td>
+<td align="left">SC</td>
+<td align="left">NTP value adjustment</td>
+</tr>
+<tr>
+<td align="left">AUDIT_BPF</td>
+<td align="right">1334</td>
+<td align="left">KERN</td>
+<td align="left">SC</td>
+<td align="left">BPF load/unload</td>
+</tr>
+<tr>
+<td align="left">AUDIT_EVENT_LISTENER</td>
+<td align="right">1335</td>
+<td align="left">KERN</td>
+<td align="left">SC</td>
+<td align="left">audit mcast sock join/part</td>
+</tr>
+<tr>
+<td align="left">AUDIT_URINGOP</td>
+<td align="right">1336</td>
+<td align="left">KERN</td>
+<td align="left">SC</td>
+<td align="left">io_uring operation</td>
+</tr>
+<tr>
+<td align="left">AUDIT_OPENAT2</td>
+<td align="right">1337</td>
+<td align="left">KERN</td>
+<td align="left">SC</td>
+<td align="left">Record showing openat2 how args</td>
+</tr>
+<tr>
+<td align="left">AUDIT_DM_CTRL</td>
+<td align="right">1338</td>
+<td align="left">KERN</td>
+<td align="left">SC</td>
+<td align="left">Device Mapper target control</td>
+</tr>
+<tr>
+<td align="left">AUDIT_DM_EVENT</td>
+<td align="right">1339</td>
+<td align="left">KERN</td>
+<td align="left">SC</td>
+<td align="left">Device Mapper events</td>
+</tr>
+<tr>
+<td align="left">AUDIT_AVC</td>
+<td align="right">1400</td>
+<td align="left">KERN</td>
+<td align="left">SC</td>
+<td align="left">SELinux AVC (Access Vector Cache) denial or grant</td>
+</tr>
+<tr>
+<td align="left">AUDIT_SELINUX_ERR</td>
+<td align="right">1401</td>
+<td align="left">KERN</td>
+<td align="left">SC</td>
+<td align="left">Internal SELinux errors</td>
+</tr>
+<tr>
+<td align="left">AUDIT_AVC_PATH</td>
+<td align="right">1402</td>
+<td align="left">KERN</td>
+<td align="left">SC</td>
+<td align="left">dentry, vfsmount pair from AVC</td>
+</tr>
+<tr>
+<td align="left">AUDIT_MAC_POLICY_LOAD</td>
+<td align="right">1403</td>
+<td align="left">KERN</td>
+<td align="left">SC</td>
+<td align="left">SELinux Policy file load</td>
+</tr>
+<tr>
+<td align="left">AUDIT_MAC_STATUS</td>
+<td align="right">1404</td>
+<td align="left">KERN</td>
+<td align="left">SC</td>
+<td align="left">SELinux mode (enforcing, permissive, off) changed</td>
+</tr>
+<tr>
+<td align="left">AUDIT_MAC_CONFIG_CHANGE</td>
+<td align="right">1405</td>
+<td align="left">KERN</td>
+<td align="left">SC</td>
+<td align="left">SELinux Boolean value modification</td>
+</tr>
+<tr>
+<td align="left">AUDIT_MAC_UNLBL_ALLOW</td>
+<td align="right">1406</td>
+<td align="left">KERN</td>
+<td align="left">SC</td>
+<td align="left">NetLabel: allow unlabeled traffic</td>
+</tr>
+<tr>
+<td align="left">AUDIT_MAC_CIPSOV4_ADD</td>
+<td align="right">1407</td>
+<td align="left">KERN</td>
+<td align="left">SC</td>
+<td align="left">NetLabel: add CIPSOv4 (Commercial Internet Protocol Security Option) DOI (Domain of Interpretation) entry</td>
+</tr>
+<tr>
+<td align="left">AUDIT_MAC_CIPSOV4_DEL</td>
+<td align="right">1408</td>
+<td align="left">KERN</td>
+<td align="left">SC</td>
+<td align="left">NetLabel: del CIPSOv4 (Commercial Internet Protocol Security Option) DOI (Domain of Interpretation) entry</td>
+</tr>
+<tr>
+<td align="left">AUDIT_MAC_MAP_ADD</td>
+<td align="right">1409</td>
+<td align="left">KERN</td>
+<td align="left">SC</td>
+<td align="left">NetLabel: add LSM (Linux Security Module) domain mapping</td>
+</tr>
+<tr>
+<td align="left">AUDIT_MAC_MAP_DEL</td>
+<td align="right">1410</td>
+<td align="left">KERN</td>
+<td align="left">SC</td>
+<td align="left">NetLabel: del LSM (Linux Security Module) domain mapping</td>
+</tr>
+<tr>
+<td align="left">AUDIT_MAC_IPSEC_ADDSA</td>
+<td align="right">1411</td>
+<td align="left">KERN</td>
+<td align="left">DEP</td>
+<td align="left">Not used</td>
+</tr>
+<tr>
+<td align="left">AUDIT_MAC_IPSEC_DELSA</td>
+<td align="right">1412</td>
+<td align="left">KERN</td>
+<td align="left">DEP</td>
+<td align="left">Not used</td>
+</tr>
+<tr>
+<td align="left">AUDIT_MAC_IPSEC_ADDSPD</td>
+<td align="right">1413</td>
+<td align="left">KERN</td>
+<td align="left">DEP</td>
+<td align="left">Not used</td>
+</tr>
+<tr>
+<td align="left">AUDIT_MAC_IPSEC_DELSPD</td>
+<td align="right">1414</td>
+<td align="left">KERN</td>
+<td align="left">DEP</td>
+<td align="left">Not used</td>
+</tr>
+<tr>
+<td align="left">AUDIT_MAC_IPSEC_EVENT</td>
+<td align="right">1415</td>
+<td align="left">KERN</td>
+<td align="left">SC</td>
+<td align="left">Audit an IPsec event</td>
+</tr>
+<tr>
+<td align="left">AUDIT_MAC_UNLBL_STCADD</td>
+<td align="right">1416</td>
+<td align="left">KERN</td>
+<td align="left">SC</td>
+<td align="left">NetLabel: add a static label</td>
+</tr>
+<tr>
+<td align="left">AUDIT_MAC_UNLBL_STCDEL</td>
+<td align="right">1417</td>
+<td align="left">KERN</td>
+<td align="left">SC</td>
+<td align="left">NetLabel: del a static label</td>
+</tr>
+<tr>
+<td align="left">AUDIT_MAC_CALIPSO_ADD</td>
+<td align="right">1418</td>
+<td align="left">KERN</td>
+<td align="left">SC</td>
+<td align="left">NetLabel: add CALIPSO DOI (Domain of Interpretation) entry</td>
+</tr>
+<tr>
+<td align="left">AUDIT_MAC_CALIPSO_DEL</td>
+<td align="right">1419</td>
+<td align="left">KERN</td>
+<td align="left">SC</td>
+<td align="left">NetLabel: delete CALIPSO DOI (Domain of Interpretation) entry</td>
+</tr>
+<tr>
+<td align="left">AUDIT_AA</td>
+<td align="right">1500</td>
+<td align="left">KERN</td>
+<td align="left">?</td>
+<td align="left">nan</td>
+</tr>
+<tr>
+<td align="left">AUDIT_APPARMOR_AUDIT</td>
+<td align="right">1501</td>
+<td align="left">KERN</td>
+<td align="left">SC</td>
+<td align="left">nan</td>
+</tr>
+<tr>
+<td align="left">AUDIT_APPARMOR_ALLOWED</td>
+<td align="right">1502</td>
+<td align="left">KERN</td>
+<td align="left">SC</td>
+<td align="left">nan</td>
+</tr>
+<tr>
+<td align="left">AUDIT_APPARMOR_DENIED</td>
+<td align="right">1503</td>
+<td align="left">KERN</td>
+<td align="left">SC</td>
+<td align="left">nan</td>
+</tr>
+<tr>
+<td align="left">AUDIT_APPARMOR_HINT</td>
+<td align="right">1504</td>
+<td align="left">KERN</td>
+<td align="left">SC</td>
+<td align="left">nan</td>
+</tr>
+<tr>
+<td align="left">AUDIT_APPARMOR_STATUS</td>
+<td align="right">1505</td>
+<td align="left">KERN</td>
+<td align="left">SC</td>
+<td align="left">nan</td>
+</tr>
+<tr>
+<td align="left">AUDIT_APPARMOR_ERROR</td>
+<td align="right">1506</td>
+<td align="left">KERN</td>
+<td align="left">SC</td>
+<td align="left">nan</td>
+</tr>
+<tr>
+<td align="left">AUDIT_APPARMOR_KILL</td>
+<td align="right">1507</td>
+<td align="left">KERN</td>
+<td align="left">SC</td>
+<td align="left">nan</td>
+</tr>
+<tr>
+<td align="left">AUDIT_ANOM_PROMISCUOUS</td>
+<td align="right">1700</td>
+<td align="left">KERN</td>
+<td align="left">SC/IND</td>
+<td align="left">Device changed promiscuous mode</td>
+</tr>
+<tr>
+<td align="left">AUDIT_ANOM_ABEND</td>
+<td align="right">1701</td>
+<td align="left">KERN</td>
+<td align="left">IND</td>
+<td align="left">Process ended abnormally</td>
+</tr>
+<tr>
+<td align="left">AUDIT_ANOM_LINK</td>
+<td align="right">1702</td>
+<td align="left">KERN</td>
+<td align="left">SC?</td>
+<td align="left">Suspicious use of file links</td>
+</tr>
+<tr>
+<td align="left">AUDIT_ANOM_CREAT</td>
+<td align="right">1703</td>
+<td align="left">KERN</td>
+<td align="left">SC?</td>
+<td align="left">Suspicious file creation</td>
+</tr>
+<tr>
+<td align="left">AUDIT_INTEGRITY_DATA</td>
+<td align="right">1800</td>
+<td align="left">KERN</td>
+<td align="left">SC</td>
+<td align="left">Data integrity verification</td>
+</tr>
+<tr>
+<td align="left">AUDIT_INTEGRITY_METADATA</td>
+<td align="right">1801</td>
+<td align="left">KERN</td>
+<td align="left">SC</td>
+<td align="left">Metadata integrity verification</td>
+</tr>
+<tr>
+<td align="left">AUDIT_INTEGRITY_STATUS</td>
+<td align="right">1802</td>
+<td align="left">KERN</td>
+<td align="left">SC</td>
+<td align="left">Integrity enable status</td>
+</tr>
+<tr>
+<td align="left">AUDIT_INTEGRITY_HASH</td>
+<td align="right">1803</td>
+<td align="left">KERN</td>
+<td align="left">SC</td>
+<td align="left">Integrity HASH type</td>
+</tr>
+<tr>
+<td align="left">AUDIT_INTEGRITY_PCR</td>
+<td align="right">1804</td>
+<td align="left">KERN</td>
+<td align="left">SC</td>
+<td align="left">PCR (Platform Configuration Register) invalidation messages</td>
+</tr>
+<tr>
+<td align="left">AUDIT_INTEGRITY_RULE</td>
+<td align="right">1805</td>
+<td align="left">KERN</td>
+<td align="left">SC/IND</td>
+<td align="left">Integrity Policy action</td>
+</tr>
+<tr>
+<td align="left">AUDIT_INTEGRITY_EVM_XATTR</td>
+<td align="right">1806</td>
+<td align="left">KERN</td>
+<td align="left">SC</td>
+<td align="left">EVM XATTRS modifications</td>
+</tr>
+<tr>
+<td align="left">AUDIT_INTEGRITY_POLICY_RULE</td>
+<td align="right">1807</td>
+<td align="left">KERN</td>
+<td align="left">SC</td>
+<td align="left">Integrity Policy rule</td>
+</tr>
+<tr>
+<td align="left">AUDIT_KERNEL</td>
+<td align="right">2000</td>
+<td align="left">KERN</td>
+<td align="left">IND</td>
+<td align="left">Kernel audit status</td>
+</tr>
+<tr>
+<td align="left">AUDIT_ANOM_LOGIN_FAILURES</td>
+<td align="right">2100</td>
+<td align="left">USER</td>
+<td align="left">IND</td>
+<td align="left">Failed login limit reached</td>
+</tr>
+<tr>
+<td align="left">AUDIT_ANOM_LOGIN_TIME</td>
+<td align="right">2101</td>
+<td align="left">USER</td>
+<td align="left">IND</td>
+<td align="left">Login attempted at bad time</td>
+</tr>
+<tr>
+<td align="left">AUDIT_ANOM_LOGIN_SESSIONS</td>
+<td align="right">2102</td>
+<td align="left">USER</td>
+<td align="left">IND</td>
+<td align="left">Maximum concurrent sessions reached</td>
+</tr>
+<tr>
+<td align="left">AUDIT_ANOM_LOGIN_ACCT</td>
+<td align="right">2103</td>
+<td align="left">USER</td>
+<td align="left">IND</td>
+<td align="left">Login attempted to watched account</td>
+</tr>
+<tr>
+<td align="left">AUDIT_ANOM_LOGIN_LOCATION</td>
+<td align="right">2104</td>
+<td align="left">USER</td>
+<td align="left">IND</td>
+<td align="left">Login from forbidden location</td>
+</tr>
+<tr>
+<td align="left">AUDIT_ANOM_MAX_DAC</td>
+<td align="right">2105</td>
+<td align="left">USER</td>
+<td align="left">IND</td>
+<td align="left">Max DAC (Discretionary Access Control) failures reached</td>
+</tr>
+<tr>
+<td align="left">AUDIT_ANOM_MAX_MAC</td>
+<td align="right">2106</td>
+<td align="left">USER</td>
+<td align="left">IND</td>
+<td align="left">Max MAC (Mandatory Access Control) failures reached</td>
+</tr>
+<tr>
+<td align="left">AUDIT_ANOM_AMTU_FAIL</td>
+<td align="right">2107</td>
+<td align="left">USER</td>
+<td align="left">IND</td>
+<td align="left">AMTU (Abstract Machine Test Utility) failure</td>
+</tr>
+<tr>
+<td align="left">AUDIT_ANOM_RBAC_FAIL</td>
+<td align="right">2108</td>
+<td align="left">USER</td>
+<td align="left">IND</td>
+<td align="left">RBAC (Role-Based Access Control) self test failure</td>
+</tr>
+<tr>
+<td align="left">AUDIT_ANOM_RBAC_INTEGRITY_FAIL</td>
+<td align="right">2109</td>
+<td align="left">USER</td>
+<td align="left">IND</td>
+<td align="left">RBAC (Role-Based Access Control) file integrity test failure</td>
+</tr>
+<tr>
+<td align="left">AUDIT_ANOM_CRYPTO_FAIL</td>
+<td align="right">2110</td>
+<td align="left">USER</td>
+<td align="left">IND</td>
+<td align="left">Crypto system test failure</td>
+</tr>
+<tr>
+<td align="left">AUDIT_ANOM_ACCESS_FS</td>
+<td align="right">2111</td>
+<td align="left">USER</td>
+<td align="left">IND</td>
+<td align="left">Access of file or directory ended abnormally</td>
+</tr>
+<tr>
+<td align="left">AUDIT_ANOM_EXEC</td>
+<td align="right">2112</td>
+<td align="left">USER</td>
+<td align="left">IND</td>
+<td align="left">Execution of file ended abnormally</td>
+</tr>
+<tr>
+<td align="left">AUDIT_ANOM_MK_EXEC</td>
+<td align="right">2113</td>
+<td align="left">USER</td>
+<td align="left">IND</td>
+<td align="left">Make an executable</td>
+</tr>
+<tr>
+<td align="left">AUDIT_ANOM_ADD_ACCT</td>
+<td align="right">2114</td>
+<td align="left">USER</td>
+<td align="left">IND</td>
+<td align="left">Adding a user account ended abnormally</td>
+</tr>
+<tr>
+<td align="left">AUDIT_ANOM_DEL_ACCT</td>
+<td align="right">2115</td>
+<td align="left">USER</td>
+<td align="left">IND</td>
+<td align="left">Deleting a user account ended abnormally</td>
+</tr>
+<tr>
+<td align="left">AUDIT_ANOM_MOD_ACCT</td>
+<td align="right">2116</td>
+<td align="left">USER</td>
+<td align="left">IND</td>
+<td align="left">Changing an account ended abnormally</td>
+</tr>
+<tr>
+<td align="left">AUDIT_ANOM_ROOT_TRANS</td>
+<td align="right">2117</td>
+<td align="left">USER</td>
+<td align="left">IND</td>
+<td align="left">User became root</td>
+</tr>
+<tr>
+<td align="left">AUDIT_ANOM_LOGIN_SERVICE</td>
+<td align="right">2118</td>
+<td align="left">USER</td>
+<td align="left">IND</td>
+<td align="left">Service acct attempted login</td>
+</tr>
+<tr>
+<td align="left">AUDIT_RESP_ANOMALY</td>
+<td align="right">2200</td>
+<td align="left">USER</td>
+<td align="left">IND</td>
+<td align="left">Anomaly not reacted to</td>
+</tr>
+<tr>
+<td align="left">AUDIT_RESP_ALERT</td>
+<td align="right">2201</td>
+<td align="left">USER</td>
+<td align="left">IND</td>
+<td align="left">Alert email was sent</td>
+</tr>
+<tr>
+<td align="left">AUDIT_RESP_KILL_PROC</td>
+<td align="right">2202</td>
+<td align="left">USER</td>
+<td align="left">IND</td>
+<td align="left">Kill program</td>
+</tr>
+<tr>
+<td align="left">AUDIT_RESP_TERM_ACCESS</td>
+<td align="right">2203</td>
+<td align="left">USER</td>
+<td align="left">IND</td>
+<td align="left">Terminate session</td>
+</tr>
+<tr>
+<td align="left">AUDIT_RESP_ACCT_REMOTE</td>
+<td align="right">2204</td>
+<td align="left">USER</td>
+<td align="left">IND</td>
+<td align="left">User account locked from remote access</td>
+</tr>
+<tr>
+<td align="left">AUDIT_RESP_ACCT_LOCK_TIMED</td>
+<td align="right">2205</td>
+<td align="left">USER</td>
+<td align="left">IND</td>
+<td align="left">User account locked for time</td>
+</tr>
+<tr>
+<td align="left">AUDIT_RESP_ACCT_UNLOCK_TIMED</td>
+<td align="right">2206</td>
+<td align="left">USER</td>
+<td align="left">IND</td>
+<td align="left">User account unlocked from time</td>
+</tr>
+<tr>
+<td align="left">AUDIT_RESP_ACCT_LOCK</td>
+<td align="right">2207</td>
+<td align="left">USER</td>
+<td align="left">IND</td>
+<td align="left">User account was locked</td>
+</tr>
+<tr>
+<td align="left">AUDIT_RESP_TERM_LOCK</td>
+<td align="right">2208</td>
+<td align="left">USER</td>
+<td align="left">IND</td>
+<td align="left">Terminal was locked</td>
+</tr>
+<tr>
+<td align="left">AUDIT_RESP_SEBOOL</td>
+<td align="right">2209</td>
+<td align="left">USER</td>
+<td align="left">IND</td>
+<td align="left">Set an SELinux boolean</td>
+</tr>
+<tr>
+<td align="left">AUDIT_RESP_EXEC</td>
+<td align="right">2210</td>
+<td align="left">USER</td>
+<td align="left">IND</td>
+<td align="left">Execute a script</td>
+</tr>
+<tr>
+<td align="left">AUDIT_RESP_SINGLE</td>
+<td align="right">2211</td>
+<td align="left">USER</td>
+<td align="left">IND</td>
+<td align="left">Go to single user mode</td>
+</tr>
+<tr>
+<td align="left">AUDIT_RESP_HALT</td>
+<td align="right">2212</td>
+<td align="left">USER</td>
+<td align="left">IND</td>
+<td align="left">Take the system down</td>
+</tr>
+<tr>
+<td align="left">AUDIT_RESP_ORIGIN_BLOCK</td>
+<td align="right">2213</td>
+<td align="left">USER</td>
+<td align="left">IND</td>
+<td align="left">Address blocked by iptables</td>
+</tr>
+<tr>
+<td align="left">AUDIT_RESP_ORIGIN_BLOCK_TIMED</td>
+<td align="right">2214</td>
+<td align="left">USER</td>
+<td align="left">IND</td>
+<td align="left">Address blocked for time</td>
+</tr>
+<tr>
+<td align="left">AUDIT_USER_ROLE_CHANGE</td>
+<td align="right">2300</td>
+<td align="left">USER</td>
+<td align="left">IND</td>
+<td align="left">User changed to a new SELinux role</td>
+</tr>
+<tr>
+<td align="left">AUDIT_ROLE_ASSIGN</td>
+<td align="right">2301</td>
+<td align="left">USER</td>
+<td align="left">IND</td>
+<td align="left">Administrator assigned user to SELinux role</td>
+</tr>
+<tr>
+<td align="left">AUDIT_ROLE_REMOVE</td>
+<td align="right">2302</td>
+<td align="left">USER</td>
+<td align="left">IND</td>
+<td align="left">Administrator removed user from SELinux role</td>
+</tr>
+<tr>
+<td align="left">AUDIT_LABEL_OVERRIDE</td>
+<td align="right">2303</td>
+<td align="left">USER</td>
+<td align="left">IND</td>
+<td align="left">Administrator is overriding a SELinux label</td>
+</tr>
+<tr>
+<td align="left">AUDIT_LABEL_LEVEL_CHANGE</td>
+<td align="right">2304</td>
+<td align="left">USER</td>
+<td align="left">IND</td>
+<td align="left">Object level SELinux label modified</td>
+</tr>
+<tr>
+<td align="left">AUDIT_USER_LABELED_EXPORT</td>
+<td align="right">2305</td>
+<td align="left">USER</td>
+<td align="left">IND</td>
+<td align="left">Object exported with SELinux label</td>
+</tr>
+<tr>
+<td align="left">AUDIT_USER_UNLABELED_EXPORT</td>
+<td align="right">2306</td>
+<td align="left">USER</td>
+<td align="left">IND</td>
+<td align="left">Object exported without SELinux label</td>
+</tr>
+<tr>
+<td align="left">AUDIT_DEV_ALLOC</td>
+<td align="right">2307</td>
+<td align="left">USER</td>
+<td align="left">IND</td>
+<td align="left">Device was allocated</td>
+</tr>
+<tr>
+<td align="left">AUDIT_DEV_DEALLOC</td>
+<td align="right">2308</td>
+<td align="left">USER</td>
+<td align="left">IND</td>
+<td align="left">Device was deallocated</td>
+</tr>
+<tr>
+<td align="left">AUDIT_FS_RELABEL</td>
+<td align="right">2309</td>
+<td align="left">USER</td>
+<td align="left">IND</td>
+<td align="left">Filesystem relabeled</td>
+</tr>
+<tr>
+<td align="left">AUDIT_USER_MAC_POLICY_LOAD</td>
+<td align="right">2310</td>
+<td align="left">USER</td>
+<td align="left">IND</td>
+<td align="left">Usersapce daemon loaded SELinux policy</td>
+</tr>
+<tr>
+<td align="left">AUDIT_ROLE_MODIFY</td>
+<td align="right">2311</td>
+<td align="left">USER</td>
+<td align="left">IND</td>
+<td align="left">Administrator modified an SELinux role</td>
+</tr>
+<tr>
+<td align="left">AUDIT_USER_MAC_CONFIG_CHANGE</td>
+<td align="right">2312</td>
+<td align="left">USER</td>
+<td align="left">IND</td>
+<td align="left">Change made to MAC (Mandatory Access Control) policy</td>
+</tr>
+<tr>
+<td align="left">AUDIT_USER_MAC_STATUS</td>
+<td align="right">2313</td>
+<td align="left">USER</td>
+<td align="left">IND</td>
+<td align="left">Userspc daemon enforcing change</td>
+</tr>
+<tr>
+<td align="left">AUDIT_CRYPTO_TEST_USER</td>
+<td align="right">2400</td>
+<td align="left">USER</td>
+<td align="left">IND</td>
+<td align="left">Cryptographic test results</td>
+</tr>
+<tr>
+<td align="left">AUDIT_CRYPTO_PARAM_CHANGE_USER</td>
+<td align="right">2401</td>
+<td align="left">USER</td>
+<td align="left">IND</td>
+<td align="left">Cryptographic attribute change</td>
+</tr>
+<tr>
+<td align="left">AUDIT_CRYPTO_LOGIN</td>
+<td align="right">2402</td>
+<td align="left">USER</td>
+<td align="left">IND</td>
+<td align="left">Cryptographic officer login</td>
+</tr>
+<tr>
+<td align="left">AUDIT_CRYPTO_LOGOUT</td>
+<td align="right">2403</td>
+<td align="left">USER</td>
+<td align="left">IND</td>
+<td align="left">Cryptographic officer logout</td>
+</tr>
+<tr>
+<td align="left">AUDIT_CRYPTO_KEY_USER</td>
+<td align="right">2404</td>
+<td align="left">USER</td>
+<td align="left">IND</td>
+<td align="left">Create, delete, negotiate cryptographic key identifier</td>
+</tr>
+<tr>
+<td align="left">AUDIT_CRYPTO_FAILURE_USER</td>
+<td align="right">2405</td>
+<td align="left">USER</td>
+<td align="left">IND</td>
+<td align="left">Fail decrypt, encrypt or randomize operation</td>
+</tr>
+<tr>
+<td align="left">AUDIT_CRYPTO_REPLAY_USER</td>
+<td align="right">2406</td>
+<td align="left">USER</td>
+<td align="left">IND</td>
+<td align="left">Cryptographic replay attack detected</td>
+</tr>
+<tr>
+<td align="left">AUDIT_CRYPTO_SESSION</td>
+<td align="right">2407</td>
+<td align="left">USER</td>
+<td align="left">IND</td>
+<td align="left">Parameters set during TLS session establishment</td>
+</tr>
+<tr>
+<td align="left">AUDIT_CRYPTO_IKE_SA</td>
+<td align="right">2408</td>
+<td align="left">USER</td>
+<td align="left">IND</td>
+<td align="left">Parameters related to IKE SA</td>
+</tr>
+<tr>
+<td align="left">AUDIT_CRYPTO_IPSEC_SA</td>
+<td align="right">2409</td>
+<td align="left">USER</td>
+<td align="left">IND</td>
+<td align="left">Parameters related to IPSEC SA</td>
+</tr>
+<tr>
+<td align="left">AUDIT_VIRT_CONTROL</td>
+<td align="right">2500</td>
+<td align="left">USER</td>
+<td align="left">IND</td>
+<td align="left">Start, Pause, Stop VM</td>
+</tr>
+<tr>
+<td align="left">AUDIT_VIRT_RESOURCE</td>
+<td align="right">2501</td>
+<td align="left">USER</td>
+<td align="left">IND</td>
+<td align="left">Resource assignment</td>
+</tr>
+<tr>
+<td align="left">AUDIT_VIRT_MACHINE_ID</td>
+<td align="right">2502</td>
+<td align="left">USER</td>
+<td align="left">IND</td>
+<td align="left">Binding of label to VM</td>
+</tr>
+<tr>
+<td align="left">AUDIT_VIRT_INTEGRITY_CHECK</td>
+<td align="right">2503</td>
+<td align="left">USER</td>
+<td align="left">IND</td>
+<td align="left">Guest integrity results</td>
+</tr>
+<tr>
+<td align="left">AUDIT_VIRT_CREATE</td>
+<td align="right">2504</td>
+<td align="left">USER</td>
+<td align="left">IND</td>
+<td align="left">Creation of guest image</td>
+</tr>
+<tr>
+<td align="left">AUDIT_VIRT_DESTROY</td>
+<td align="right">2505</td>
+<td align="left">USER</td>
+<td align="left">IND</td>
+<td align="left">Destruction of guest image</td>
+</tr>
+<tr>
+<td align="left">AUDIT_VIRT_MIGRATE_IN</td>
+<td align="right">2506</td>
+<td align="left">USER</td>
+<td align="left">IND</td>
+<td align="left">Inbound guest migration info</td>
+</tr>
+<tr>
+<td align="left">AUDIT_VIRT_MIGRATE_OUT</td>
+<td align="right">2507</td>
+<td align="left">USER</td>
+<td align="left">IND</td>
+<td align="left">Outbound guest migration info</td>
+</tr>
+</tbody>
+</table>
+<h2 id="message-dictionary-ranges">Message-dictionary Ranges</h2>
+<ul>
+<li>1000 - 1099 are for commanding the audit system</li>
+<li>1100 - 1199 user space trusted application messages</li>
+<li>1200 - 1299 messages internal to the audit daemon</li>
+<li>1300 - 1399 audit event messages</li>
+<li>1400 - 1499 kernel SELinux use</li>
+<li>1500 - 1599 AppArmor events</li>
+<li>1500 - 1599 kernel LSPP events</li>
+<li>1600 - 1699 kernel crypto events</li>
+<li>1700 - 1799 kernel anomaly records</li>
+<li>1800 - 1899 kernel integrity labels and related events</li>
+<li>1900 - 1999 future kernel use</li>
+<li>2000 is for otherwise unclassified kernel audit messages (legacy)</li>
+<li>2001 - 2099 unused (kernel)</li>
+<li>2100 - 2199 user space anomaly records</li>
+<li>2200 - 2299 user space actions taken in response to anomalies</li>
+<li>2300 - 2399 user space generated LSPP events</li>
+<li>2400 - 2499 user space crypto events</li>
+<li>2500 - 2599 user space virtualization management events</li>
+<li>2600 - 2999 future user space (maybe integrity labels and related events)</li>
+</ul>
+<h2 id="_1">日志解析示例</h2>
+<ul>
+<li><a href="https://documentation.suse.com/sles/12-SP4/html/SLES-all/cha-audit-comp.html#sec-audit-aureport-ustand">Understanding Linux Audit | SUSE</a></li>
+<li><a href="https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/7/html/security_guide/sec-understanding_audit_log_files">Understanding Linux Audit | RHEL</a></li>
+</ul>
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+    <nav class="md-footer__inner md-grid" aria-label="Footer" >
+      
+        
+        <a href="../../../Python%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86/1NumPy%E5%85%A5%E9%97%A8/" class="md-footer__link md-footer__link--prev" aria-label="Previous: 1 NumPy入门" rel="prev">
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+          </div>
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              1 NumPy入门
+            </div>
+          </div>
+        </a>
+      
+      
+        
+        <a href="../../Zeek%E5%8F%82%E8%80%83/Zeek%E5%8F%82%E8%80%83/" class="md-footer__link md-footer__link--next" aria-label="Next: Zeek参考" rel="next">
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              Zeek参考
+            </div>
+          </div>
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4Z"/></svg>
+          </div>
+        </a>
+      
+    </nav>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    <script id="__config" type="application/json">{"base": "../../..", "features": ["navigation.tabs", "search.suggest", "search.highlight", "toc.integrate"], "search": "../../../assets/javascripts/workers/search.16e2a7d4.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version.title": "Select version"}}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.5a2dcb6a.min.js"></script>
+      
+        <script src="../../../javascripts/mathjax.js"></script>
+      
+        <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+    
+    
+  </body>
+</html>

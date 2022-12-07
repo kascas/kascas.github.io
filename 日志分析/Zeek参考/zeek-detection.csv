@@ -1,0 +1,53 @@
+LOG_NAME,LOG_DESC,FIELD_NAME,FIELD_TYPE,FIELD_DESC
+intel.log,Intelligence data matches,file_mime_type,string &log &optional,(present if base/frameworks/intel/files.zeek is loaded) A mime type if the intelligence hit is related to a file. If the $f field is provided this will be automatically filled out. 
+intel.log,Intelligence data matches,id,conn_id &log &optional,If a connection was associated with this intelligence hit， this is the conn_id for the connection. 
+intel.log,Intelligence data matches,seen,Intel::Seen &log,Where the data was seen. 
+intel.log,Intelligence data matches,file_desc,string &log &optional,(present if base/frameworks/intel/files.zeek is loaded) Frequently files can be "described" to give a bit more context. If the $f field is provided this field will be automatically filled out. 
+intel.log,Intelligence data matches,fuid,string &log &optional,(present if base/frameworks/intel/files.zeek is loaded) If a file was associated with this intelligence hit， this is the uid for the file. 
+intel.log,Intelligence data matches,matched,Intel::TypeSet &log,Which indicator types matched. 
+intel.log,Intelligence data matches,sources,set [string] &log &default = {  } &optional,Sources which supplied data that resulted in this match. 
+intel.log,Intelligence data matches,cif,Intel::CIF &log &optional,(present if policy/integration/collective-intel/main.zeek is loaded) 
+intel.log,Intelligence data matches,ts,time &log,Timestamp when the data was discovered. 
+intel.log,Intelligence data matches,uid,string &log &optional,If a connection was associated with this intelligence hit， this is the uid for the connection 
+notice_alarm.log,The alarm stream,remote_location,geo_location &log &optional,(present if base/frameworks/notice/actions/add-geodata.zeek is loaded) If GeoIP support is built in， notices can have geographic information attached to them. 
+notice_alarm.log,The alarm stream,p,port &log &optional,Associated port， if we don't have a conn_id. 
+notice_alarm.log,The alarm stream,fuid,string &log &optional,A file unique ID if this notice is related to a file.  If the f field is provided， this will be automatically filled out. 
+notice_alarm.log,The alarm stream,src,addr &log &optional,Source address， if we don't have a conn_id. 
+notice_alarm.log,The alarm stream,file_desc,string &log &optional,Frequently files can be "described" to give a bit more context.  This field will typically be automatically filled out from an fa_file record.  For example， if a notice was related to a file over HTTP， the URL of the request would be shown. 
+notice_alarm.log,The alarm stream,proto,transport_proto &log &optional,The transport protocol. Filled automatically when either conn， iconn or p is specified. 
+notice_alarm.log,The alarm stream,dst,addr &log &optional,Destination address. 
+notice_alarm.log,The alarm stream,dropped,bool &log &default = F &optional,(present if policy/frameworks/notice/actions/drop.zeek is loaded) Indicate if the $src IP address was dropped and denied network access. 
+notice_alarm.log,The alarm stream,email_delay_tokens,set [string] &optional,Adding a string "token" to this set will cause the notice framework's built-in emailing functionality to delay sending the email until either the token has been removed or the email has been delayed for Notice::max_email_delay. 
+notice_alarm.log,The alarm stream,email_body_sections,vector of string &optional,By adding chunks of text into this element， other scripts can expand on notices that are being emailed.  The normal way to add text is to extend the vector by handling the Notice::notice event and modifying the notice in place. 
+notice_alarm.log,The alarm stream,actions,Notice::ActionSet &log &default = {  } &optional,The actions which have been applied to this notice. 
+notice_alarm.log,The alarm stream,note,Notice::Type &log,The Notice::Type of the notice. 
+notice_alarm.log,The alarm stream,msg,string &log &optional,The human readable message for the notice. 
+notice_alarm.log,The alarm stream,peer_name,string &optional,Name of remote peer that raised this notice. 
+notice_alarm.log,The alarm stream,n,count &log &optional,Associated count， or perhaps a status code. 
+notice_alarm.log,The alarm stream,file_mime_type,string &log &optional,A mime type if the notice is related to a file.  If the f field is provided， this will be automatically filled out. 
+notice_alarm.log,The alarm stream,ts,time &log &optional,An absolute time indicating when the notice occurred， defaults to the current network time. 
+notice_alarm.log,The alarm stream,f,fa_file &optional,A file record if the notice is related to a file.  The reference to the actual fa_file record will be deleted after applying the notice policy. 
+notice_alarm.log,The alarm stream,iconn,icmp_conn &optional,A shorthand way of giving the uid and id to a notice.  The reference to the actual connection will be deleted after applying the notice policy. 
+notice_alarm.log,The alarm stream,conn,connection &optional,A shorthand way of giving the uid and id to a notice.  The reference to the actual connection will be deleted after applying the notice policy. 
+notice_alarm.log,The alarm stream,id,conn_id &log &optional,A connection 4-tuple identifying the endpoints concerned with the notice. 
+notice_alarm.log,The alarm stream,uid,string &log &optional,A connection UID which uniquely identifies the endpoints concerned with the notice. 
+notice_alarm.log,The alarm stream,sub,string &log &optional,The human readable sub-message. 
+notice_alarm.log,The alarm stream,identifier,string &optional,This field is to be provided when a notice is generated for the purpose of deduplicating notices.  The identifier string should be unique for a single instance of the notice.  This field should be filled out in almost all cases when generating notices to define when a notice is conceptually a duplicate of a previous notice. For example， an SSL certificate that is going to expire soon should always have the same identifier no matter the client IP address that connected and resulted in the certificate being exposed.  In this case， the resp_h， resp_p， and hash of the certificate would be used to create this value.  The hash of the cert is included because servers can return multiple certificates on the same port. Another example might be a host downloading a file which triggered a notice because the MD5 sum of the file it downloaded was known by some set of intelligence.  In that case， the orig_h (client) and MD5 sum would be used in this field to dedup because if the same file is downloaded over and over again you really only want to know about it a single time.  This makes it possible to send those notices to email without worrying so much about sending thousands of emails. 
+notice_alarm.log,The alarm stream,suppress_for,interval &log &default = Notice::default_suppression_interval &optional,This field indicates the length of time that this unique notice should be suppressed. 
+notice_alarm.log,The alarm stream,peer_descr,string &log &optional,Textual description for the peer that raised this notice， including name， host address and port. 
+signatures.log,Signature matches,ts,time &log,The network time at which a signature matching type of event to be logged has occurred. 
+signatures.log,Signature matches,src_addr,addr &log &optional,The host which triggered the signature match event. 
+signatures.log,Signature matches,src_port,port &log &optional,The host port on which the signature-matching activity occurred. 
+signatures.log,Signature matches,dst_addr,addr &log &optional,The destination host which was sent the payload that triggered the signature match. 
+signatures.log,Signature matches,dst_port,port &log &optional,The destination host port which was sent the payload that triggered the signature match. 
+signatures.log,Signature matches,note,Notice::Type &log,Notice associated with signature event. 
+signatures.log,Signature matches,sig_id,string &log &optional,The name of the signature that matched. 
+signatures.log,Signature matches,event_msg,string &log &optional,A more descriptive message of the signature-matching event. 
+signatures.log,Signature matches,sig_count,count &log &optional,Number of sigs， usually from summary count. 
+signatures.log,Signature matches,host_count,count &log &optional,Number of hosts， from a summary count. 
+signatures.log,Signature matches,uid,string &log &optional,A unique identifier of the connection which triggered the signature match event. 
+signatures.log,Signature matches,sub_msg,string &log &optional,Extracted payload data or extra message. 
+traceroute.log,Traceroute detection,src,addr &log,Address initiating the traceroute. 
+traceroute.log,Traceroute detection,proto,string &log,Protocol used for the traceroute. 
+traceroute.log,Traceroute detection,dst,addr &log,Destination address of the traceroute. 
+traceroute.log,Traceroute detection,ts,time &log,Timestamp 

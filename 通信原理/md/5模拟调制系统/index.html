@@ -1,0 +1,1706 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      <link rel="icon" href="../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.4.2, mkdocs-material-8.5.10">
+    
+    
+      
+        <title>5.模拟调制系统 - Kascas's Blogs</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.975780f9.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.2505c338.min.css">
+        
+      
+      
+
+    
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="None" data-md-color-accent="None">
+  
+    
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#5" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../.." title="Kascas&#39;s Blogs" class="md-header__button md-logo" aria-label="Kascas's Blogs" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Kascas's Blogs
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              5.模拟调制系统
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/kascas/kascas.github.io" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.2.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-tabs__inner md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="../../.." class="md-tabs__link">
+      主页
+    </a>
+  </li>
+
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="../../../%E4%BF%A1%E6%81%AF%E8%AE%BA%E4%B8%8E%E7%BC%96%E7%A0%81/%E4%BF%A1%E6%81%AF%E8%AE%BA%E4%B8%8E%E7%BC%96%E7%A0%81/" class="md-tabs__link">
+      信息论与编码
+    </a>
+  </li>
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../%E4%BF%A1%E5%8F%B7%E4%B8%8E%E7%B3%BB%E7%BB%9F/1%E4%BF%A1%E5%8F%B7%E4%B8%8E%E7%B3%BB%E7%BB%9F/" class="md-tabs__link">
+        信号与系统
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+    
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../4%E4%BF%A1%E9%81%93/" class="md-tabs__link md-tabs__link--active">
+        通信原理
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/2%E9%97%AE%E9%A2%98%E6%B1%82%E8%A7%A3/" class="md-tabs__link">
+        人工智能
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../%E5%9B%BE%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/%E4%BA%8C%E3%80%81%E5%9B%BE%E8%AE%BA%E5%9F%BA%E7%A1%80/" class="md-tabs__link">
+        图深度学习
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../Python%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86/1NumPy%E5%85%A5%E9%97%A8/" class="md-tabs__link">
+        Python数据处理
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../%E6%97%A5%E5%BF%97%E5%88%86%E6%9E%90/Linux-Audit%E5%8F%82%E8%80%83/Linux-Audit%E5%8F%82%E8%80%83/" class="md-tabs__link">
+        日志分析
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E7%B3%BB%E7%BB%9F%E7%BA%A7%E6%BA%AF%E6%BA%90%E5%9B%BE%E4%B8%8E%E5%A8%81%E8%83%81%E6%A3%80%E6%B5%8B/" class="md-tabs__link">
+        学习笔记
+      </a>
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+  
+
+
+  
+
+<nav class="md-nav md-nav--primary md-nav--lifted md-nav--integrated" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="Kascas&#39;s Blogs" class="md-nav__button md-logo" aria-label="Kascas's Blogs" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    Kascas's Blogs
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/kascas/kascas.github.io" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.2.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
+        主页
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../%E4%BF%A1%E6%81%AF%E8%AE%BA%E4%B8%8E%E7%BC%96%E7%A0%81/%E4%BF%A1%E6%81%AF%E8%AE%BA%E4%B8%8E%E7%BC%96%E7%A0%81/" class="md-nav__link">
+        信息论与编码
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3" type="checkbox" id="__nav_3" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_3">
+          信号与系统
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="信号与系统" data-md-level="1">
+        <label class="md-nav__title" for="__nav_3">
+          <span class="md-nav__icon md-icon"></span>
+          信号与系统
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../%E4%BF%A1%E5%8F%B7%E4%B8%8E%E7%B3%BB%E7%BB%9F/1%E4%BF%A1%E5%8F%B7%E4%B8%8E%E7%B3%BB%E7%BB%9F/" class="md-nav__link">
+        1.信号与系统
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../%E4%BF%A1%E5%8F%B7%E4%B8%8E%E7%B3%BB%E7%BB%9F/2%E7%BA%BF%E6%80%A7%E6%97%B6%E4%B8%8D%E5%8F%98%E7%B3%BB%E7%BB%9F/" class="md-nav__link">
+        2.线性时不变系统
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../%E4%BF%A1%E5%8F%B7%E4%B8%8E%E7%B3%BB%E7%BB%9F/3%E5%91%A8%E6%9C%9F%E4%BF%A1%E5%8F%B7%E7%9A%84%E5%82%85%E9%87%8C%E5%8F%B6%E7%BA%A7%E6%95%B0%E8%A1%A8%E7%A4%BA/" class="md-nav__link">
+        3.周期信号的傅里叶级数表示
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../%E4%BF%A1%E5%8F%B7%E4%B8%8E%E7%B3%BB%E7%BB%9F/4%E8%BF%9E%E7%BB%AD%E6%97%B6%E9%97%B4%E5%82%85%E9%87%8C%E5%8F%B6%E5%8F%98%E6%8D%A2/" class="md-nav__link">
+        4.连续时间傅里叶变换
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../%E4%BF%A1%E5%8F%B7%E4%B8%8E%E7%B3%BB%E7%BB%9F/5%E7%A6%BB%E6%95%A3%E6%97%B6%E9%97%B4%E5%82%85%E9%87%8C%E5%8F%B6%E5%8F%98%E6%8D%A2/" class="md-nav__link">
+        5.离散时间傅里叶变换
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../%E4%BF%A1%E5%8F%B7%E4%B8%8E%E7%B3%BB%E7%BB%9F/9%E6%8B%89%E6%99%AE%E6%8B%89%E6%96%AF%E5%8F%98%E6%8D%A2/" class="md-nav__link">
+        9.拉普拉斯变换
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../%E4%BF%A1%E5%8F%B7%E4%B8%8E%E7%B3%BB%E7%BB%9F/10Z%E5%8F%98%E6%8D%A2/" class="md-nav__link">
+        10.Z变换
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../%E4%BF%A1%E5%8F%B7%E4%B8%8E%E7%B3%BB%E7%BB%9F/%E5%85%AC%E5%BC%8F%E6%80%BB%E7%BB%93/" class="md-nav__link">
+        公式总结
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4" type="checkbox" id="__nav_4" checked>
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_4">
+          通信原理
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="通信原理" data-md-level="1">
+        <label class="md-nav__title" for="__nav_4">
+          <span class="md-nav__icon md-icon"></span>
+          通信原理
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../4%E4%BF%A1%E9%81%93/" class="md-nav__link">
+        4.信道
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          5.模拟调制系统
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        5.模拟调制系统
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#50" class="md-nav__link">
+    5.0 引言
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#51" class="md-nav__link">
+    5.1 线性调制原理
+  </a>
+  
+    <nav class="md-nav" aria-label="5.1 线性调制原理">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#511-am" class="md-nav__link">
+    5.1.1 调幅AM
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#512-dsb" class="md-nav__link">
+    5.1.2 双边带调制DSB
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#513-ssb" class="md-nav__link">
+    5.1.3 单边带调制SSB
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#514-vsb" class="md-nav__link">
+    5.1.4 残留边带调制VSB
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#515" class="md-nav__link">
+    5.1.5 相干解调
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#52" class="md-nav__link">
+    5.2 线性调制系统的抗噪声性能
+  </a>
+  
+    <nav class="md-nav" aria-label="5.2 线性调制系统的抗噪声性能">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#521-dsb" class="md-nav__link">
+    5.2.1 DSB相干解调
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#522-ssb" class="md-nav__link">
+    5.2.2 SSB相干解调
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#523-am" class="md-nav__link">
+    5.2.3 AM包络检波
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#53" class="md-nav__link">
+    5.3 角度调制原理
+  </a>
+  
+    <nav class="md-nav" aria-label="5.3 角度调制原理">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#531" class="md-nav__link">
+    5.3.1 频率调制
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#532" class="md-nav__link">
+    5.3.2 调频信号的产生与解调
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#54" class="md-nav__link">
+    5.4 调频系统的抗噪声性能
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#55" class="md-nav__link">
+    5.5 模拟调制系统的性能比较
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#56" class="md-nav__link">
+    5.6 频分复用
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../6%E6%95%B0%E5%AD%97%E5%9F%BA%E5%B8%A6%E4%BC%A0%E8%BE%93/" class="md-nav__link">
+        6.数字基带传输
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../7%E6%95%B0%E5%AD%97%E5%B8%A6%E9%80%9A%E4%BC%A0%E8%BE%93%E7%B3%BB%E7%BB%9F/" class="md-nav__link">
+        7.数字带通传输系统
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../8%E6%96%B0%E5%9E%8B%E6%95%B0%E5%AD%97%E5%B8%A6%E9%80%9A%E8%B0%83%E5%88%B6%E6%8A%80%E6%9C%AF/" class="md-nav__link">
+        8.新型数字带通调制技术
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../9%E6%9C%80%E4%BD%B3%E6%8E%A5%E6%94%B6%E6%9C%BA%E8%AE%BE%E8%AE%A1/" class="md-nav__link">
+        9.最佳接收机设计
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../10%E4%BF%A1%E6%BA%90%E7%BC%96%E7%A0%81/" class="md-nav__link">
+        10.信源编码
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../11%E5%B7%AE%E9%94%99%E6%8E%A7%E5%88%B6%E7%BC%96%E7%A0%81/" class="md-nav__link">
+        11.差错控制编码
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E5%85%AC%E5%BC%8F%E6%B1%87%E6%80%BB/" class="md-nav__link">
+        12.公式汇总
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_5" type="checkbox" id="__nav_5" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_5">
+          人工智能
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="人工智能" data-md-level="1">
+        <label class="md-nav__title" for="__nav_5">
+          <span class="md-nav__icon md-icon"></span>
+          人工智能
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/2%E9%97%AE%E9%A2%98%E6%B1%82%E8%A7%A3/" class="md-nav__link">
+        2.问题求解
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/3%E5%8D%9A%E5%BC%88%E9%97%AE%E9%A2%98/" class="md-nav__link">
+        3.博弈问题
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/4%E6%8E%A8%E7%90%86%E6%8A%80%E6%9C%AF/" class="md-nav__link">
+        4.推理技术
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/6%E4%B8%8D%E7%A1%AE%E5%AE%9A%E6%80%A7%E6%8E%A8%E7%90%86/" class="md-nav__link">
+        6.不确定性推理
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6" type="checkbox" id="__nav_6" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_6">
+          图深度学习
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="图深度学习" data-md-level="1">
+        <label class="md-nav__title" for="__nav_6">
+          <span class="md-nav__icon md-icon"></span>
+          图深度学习
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../%E5%9B%BE%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/%E4%BA%8C%E3%80%81%E5%9B%BE%E8%AE%BA%E5%9F%BA%E7%A1%80/" class="md-nav__link">
+        1.图论基础
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../%E5%9B%BE%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/%E4%B8%89%E3%80%81%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E5%9F%BA%E7%A1%80/" class="md-nav__link">
+        2.深度学习基础
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../%E5%9B%BE%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/%E5%9B%9B%E3%80%81%E5%9B%BE%E5%B5%8C%E5%85%A5/" class="md-nav__link">
+        3.图嵌入
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../%E5%9B%BE%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/%E4%BA%94%E3%80%81%E5%9B%BE%E4%BF%A1%E5%8F%B7%E5%A4%84%E7%90%86%E4%B8%8E%E5%9B%BE%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/" class="md-nav__link">
+        4.图信号处理与图卷积神经网络
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_7" type="checkbox" id="__nav_7" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_7">
+          Python数据处理
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Python数据处理" data-md-level="1">
+        <label class="md-nav__title" for="__nav_7">
+          <span class="md-nav__icon md-icon"></span>
+          Python数据处理
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../Python%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86/1NumPy%E5%85%A5%E9%97%A8/" class="md-nav__link">
+        1 NumPy入门
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_8" type="checkbox" id="__nav_8" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_8">
+          日志分析
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="日志分析" data-md-level="1">
+        <label class="md-nav__title" for="__nav_8">
+          <span class="md-nav__icon md-icon"></span>
+          日志分析
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../%E6%97%A5%E5%BF%97%E5%88%86%E6%9E%90/Linux-Audit%E5%8F%82%E8%80%83/Linux-Audit%E5%8F%82%E8%80%83/" class="md-nav__link">
+        Linux-Audit参考
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../%E6%97%A5%E5%BF%97%E5%88%86%E6%9E%90/Zeek%E5%8F%82%E8%80%83/Zeek%E5%8F%82%E8%80%83/" class="md-nav__link">
+        Zeek参考
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../%E6%97%A5%E5%BF%97%E5%88%86%E6%9E%90/syslog%E5%8D%8F%E8%AE%AE/" class="md-nav__link">
+        syslog日志
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_9" type="checkbox" id="__nav_9" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_9">
+          学习笔记
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="学习笔记" data-md-level="1">
+        <label class="md-nav__title" for="__nav_9">
+          <span class="md-nav__icon md-icon"></span>
+          学习笔记
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E7%B3%BB%E7%BB%9F%E7%BA%A7%E6%BA%AF%E6%BA%90%E5%9B%BE%E4%B8%8E%E5%A8%81%E8%83%81%E6%A3%80%E6%B5%8B/" class="md-nav__link">
+        系统级溯源图与威胁检测
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+  <a href="https://github.com/kascas/kascas.github.io/edit/master/docs/通信原理/md/5模拟调制系统.md" title="Edit this page" class="md-content__button md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25Z"/></svg>
+  </a>
+
+
+<h1 id="5">5 模拟调制系统</h1>
+<h2 id="50">5.0 引言</h2>
+<p><strong>载波调制</strong>：用调制信号控制高频载波的几个或某几个参量，使之随调制信号而变化</p>
+<p><strong>调制信号</strong>：来自信源的基带信号（模拟/数字）</p>
+<p><strong>载波</strong>：未受调制的周期性振荡信号（正弦/非正弦）</p>
+<p><strong>已调信号</strong>：载波受调制后形成已调信号，含有调制信号的全部特征</p>
+<p><strong>解调</strong>：调制的逆过程，将已调信号中的调制信号恢复出来</p>
+<p><strong>调制的目的</strong>：</p>
+<ul>
+<li>使信号适于在信道中传输</li>
+<li>实现信道的多路复用</li>
+<li>改善系统的抗噪声性能</li>
+<li>实现传输带宽与信噪比之间的互换</li>
+</ul>
+<p><strong>调制的分类</strong>：</p>
+<ul>
+<li>按载波形式：连续波调制、脉冲调制</li>
+<li>按调制信号：模拟调制、数字调制</li>
+<li>按已调信号频谱：线性调制、非线性调制</li>
+</ul>
+<h2 id="51">5.1 线性调制原理</h2>
+<p><strong>幅度调制器的一般模型</strong>：幅度调制是由调制信号去控制高频载波的幅度，使之随调制信号作线性变化的过程</p>
+<ul>
+<li>在波形上，幅度已调信号的幅度随基带信号的规律而呈正比地变化</li>
+<li>在频谱结构上，它的频谱完全是基带信号频谱在频域内的简单搬移</li>
+<li>由于搬移是线性的，因此幅度调制通常称为<code>线性调制</code></li>
+<li>线性并不意味着已调信号与调制信号之间符合线性变换关系</li>
+<li>事实上，任何调制过程都是一种<code>非线性变换过程</code></li>
+</ul>
+<p><img alt="幅度调制器的一般模型" src="../../img/5.1.bmp" /></p>
+<h3 id="511-am">5.1.1 调幅AM</h3>
+<p>标准调幅就是常规双边带调幅，简称调幅</p>
+<ul>
+<li>AM时域表达式：<span class="arithmatex">\(s_{AM}(t)=[A_0+m(t)]cos\omega_ct=A_0cos\omega_ct+m(t)cos\omega_ct\)</span></li>
+<li><span class="arithmatex">\(m(t)\)</span>可以是确知信号或随机信号</li>
+<li>调制信号为确知信号：<ul>
+<li><code>AM频域表达式</code>：<span class="arithmatex">\(S_{AM}(\omega)=\pi A_0[\delta(\omega+\omega_c)+\delta(\omega-\omega_c)]+\frac{1}{2}[M(\omega+\omega_c)+M(\omega-\omega_c)]\)</span></li>
+</ul>
+</li>
+<li>调制信号为随机信号：<ul>
+<li>已调信号的频域表示必须用<code>功率谱</code>描述</li>
+</ul>
+</li>
+<li>当满足条件<span class="arithmatex">\(|m(t)|_{max}\leq A_0\)</span>时，使用包络检波能够恢复出原始调制信号</li>
+<li>不满足上述条件时，出现“过调幅”现象，包络检波会发生失真，但是可以使用相干解调等其他方式</li>
+<li>AM的频谱：</li>
+<li>AM信号是带有载频分量的双边带信号</li>
+<li>载频分量、上边带、下边带三部分组成</li>
+<li>带宽是基带信号带宽的2倍，即<span class="arithmatex">\(B_{AM}=2f_H\)</span></li>
+<li>AM信号的功率：<span class="arithmatex">\(P_{AM}=\frac{A_0^2}{2}+\frac{\overline{m^2(t)} }{2}=P_c+P_s\)</span></li>
+<li><span class="arithmatex">\(P_c\)</span>为载波功率，<span class="arithmatex">\(P_s\)</span>为边带功率</li>
+<li>调制效率：<span class="arithmatex">\(\eta_{AM}=\frac{\overline{m^2(t)}}{A_0^2+\overline{m^2(t)}}\)</span></li>
+</ul>
+<p><img alt="调幅AM" src="../../img/5.2.bmp" /></p>
+<p><img alt="AM信号波形和频谱" src="../../img/5.3.bmp" /></p>
+<p><strong>AM信号总结</strong>：</p>
+<ul>
+<li><span class="arithmatex">\(a\leq 1\)</span>时，包络与<span class="arithmatex">\(m(t)\)</span>呈正比</li>
+<li>已调信号时域：<span class="arithmatex">\(s_{AM}(t)=[A_0+m(t)]cos\omega_ct=A_0cos\omega_ct+m(t)cos\omega_ct\)</span></li>
+<li>已调信号频谱：<span class="arithmatex">\(S_{AM}(\omega)=\pi A_0[\delta(\omega+\omega_c)+\delta(\omega-\omega_c)]+\frac{1}{2}[M(\omega+\omega_c)+M(\omega-\omega_c)]\)</span></li>
+<li>已调信号带宽：<span class="arithmatex">\(B_{AM}=2f_H\)</span></li>
+<li>已调信号功率：<span class="arithmatex">\(P_{AM}=\frac{A_0^2}{2}+\frac{\overline{m^2(t)} }{2}=P_c+P_s\)</span></li>
+<li>调制效率：<span class="arithmatex">\(\eta_{AM}=\frac{\overline{m^2(t)}}{A_0^2+\overline{m^2(t)}}\)</span></li>
+<li>特点：功率利用率低，系统结构简单、价格低廉</li>
+</ul>
+<h3 id="512-dsb">5.1.2 双边带调制DSB</h3>
+<p><strong>DSB信号总结</strong>：</p>
+<ul>
+<li>包络与<span class="arithmatex">\(m(t)\)</span>不成正比，解调需要相干解调</li>
+<li><span class="arithmatex">\(m(t)\)</span>过零点处，高频载波相位有180突变</li>
+<li>已调信号时域：<span class="arithmatex">\(s_{DSB}(t)=m(t)cos\omega_ct\)</span></li>
+<li>已调信号频谱：<span class="arithmatex">\(S_{DSB}(\omega)=\frac{1}{2}[M(\omega+\omega_c)+M(\omega-\omega_c)]\)</span></li>
+<li>已调信号带宽：<span class="arithmatex">\(B_{DSB}=2f_H\)</span></li>
+<li>特点：利用率高，调制效率为100%</li>
+</ul>
+<p><img alt="DSB调制" src="../../img/5.4.bmp" /></p>
+<p><img alt="DSB信号波形和频谱" src="../../img/5.5.bmp" /></p>
+<h3 id="513-ssb">5.1.3 单边带调制SSB</h3>
+<p>DSB信号中两个边带中任意一个都包含了<span class="arithmatex">\(M(\omega)\)</span>的所有频谱成分，因此只传输一个边带即可。</p>
+<ul>
+<li>根据滤除方法的不同，产生SSB信号的方法有：滤波法、相移法</li>
+<li>滤波法：先产生一个双边带信号，然后使其通过边带滤波器，滤除不需要的边带</li>
+<li>SSB频域表示：<span class="arithmatex">\(S_{SSB}(\omega)=S_{DSB}(\omega)\cdot H(\omega)\)</span></li>
+<li>保留上边带（USB）：<span class="arithmatex">\(H(\omega)=H_{USB}(\omega)=\begin{cases}1 &amp; |\omega|&gt;\omega_c \\ 0 &amp; |\omega|\leq\omega_c\end{cases}\)</span></li>
+<li>保留下边带（LSB）：<span class="arithmatex">\(H(\omega)=H_{LSB}(\omega)=\begin{cases}1 &amp; |\omega|&lt;\omega_c \\ 0 &amp; |\omega|\geq\omega_c\end{cases}\)</span></li>
+<li>技术难点：边带滤波器的制作，不具有理想特性，需要有过渡带</li>
+<li>解决思路：多级DSB调制及边带滤波（调制信号中有直流以及低频分量时不适用）</li>
+<li>相移法：利用相移网络，对载波和调制信号进行适当相移，在合成过程中将其中一个边带抵消</li>
+<li>SSB时域表示：<span class="arithmatex">\(s_{SSB}=\frac{1}{2}m(t)cos\omega_ct\mp \frac{1}{2}\hat{m(t)}sin\omega_ct\)</span></li>
+<li>技术难点：宽带相移网络的制作，对调制信号所有频率分量均精确相移<span class="arithmatex">\(\frac{\pi}{2}\)</span></li>
+<li>解决思路：维弗法</li>
+</ul>
+<p><strong>SSB信号总结</strong>：</p>
+<ul>
+<li>已调信号时域：<span class="arithmatex">\(s_{SSB}=\frac{1}{2}m(t)cos\omega_ct\mp \frac{1}{2}\hat{m(t)}sin\omega_ct\)</span></li>
+<li>已调信号带宽：<span class="arithmatex">\(B_{SSB}=f_H\)</span></li>
+<li>特点：节省发射功率、功率利用率高，SSB实现比AM和DSB复杂</li>
+</ul>
+<p><img alt="滤波法" src="../../img/5.6.bmp" /></p>
+<p><img alt="相移法" src="../../img/5.8.bmp" /></p>
+<p><img alt="波形和频谱" src="../../img/5.7.bmp" /></p>
+<h3 id="514-vsb">5.1.4 残留边带调制VSB</h3>
+<p>残留边带调制VSB介于DSB与SSB之间，即克服了DSB占用频带宽的缺点，也克服了SSB信号实现中的困难。VSB对边带的处理中，并不是完全抑制，而是逐渐切割，使之残留一小部分。</p>
+<ul>
+<li>已调信号频域：<span class="arithmatex">\(S_{VSB}(\omega)=S_{DSB}(\omega)\cdot H_{VSB}(\omega)\)</span></li>
+<li>残留边带滤波器的特性<span class="arithmatex">\(H(\omega)\)</span>在<span class="arithmatex">\(\pm \omega_c\)</span>处必须具有互补对称（奇对称）特性，相干解调时才能无失真地恢复调制信号</li>
+</ul>
+<p><img alt="VSB调制" src="../../img/5.9.bmp" /></p>
+<p><img alt="VSB相干解调" src="../../img/5.10.bmp" /></p>
+<p><strong>相干解调</strong>：</p>
+<pre class="arithmatex">\[
+\begin{aligned}
+  s_p(t)&amp;=s_{VSB}(t)cos\omega_ct \\
+  S_p(\omega)&amp;=\frac{1}{2}[S_{VSB}(\omega+\omega_c)+S_{VSB}(\omega-\omega_c)] \\
+  &amp;=\frac{1}{4}[M(\omega+2\omega_c)+M(\omega)]H_{VSB}(\omega+\omega_c)+\frac{1}{4}[M(\omega-2\omega_c)+M(\omega)]H_{VSB}(\omega-\omega_c) \\
+  &amp; \stackrel{LPF}{\longrightarrow} \frac{1}{4}M(\omega)[H_{VSB}(\omega+\omega_c)+H_{VSB}(\omega-\omega_c)]
+\end{aligned}
+\]</pre>
+<ul>
+<li>残留边带滤波器必须满足：<span class="arithmatex">\(H_{VSB}(\omega+\omega_c)+H_{VSB}(\omega-\omega_c)=const, \ |\omega|\leq \omega_H\)</span></li>
+<li><span class="arithmatex">\(\omega_H\)</span>为截止角频率</li>
+</ul>
+<p><img alt="VSB滤波器" src="../../img/5.11.bmp" /></p>
+<p><strong>VSB信号总结</strong>：</p>
+<ul>
+<li>已调信号频域：<span class="arithmatex">\(S_{VSB}(\omega)=S_{DSB}(\omega)\cdot H_{VSB}(\omega)\)</span></li>
+<li>残留边带滤波器：<span class="arithmatex">\(H_{VSB}(\omega+\omega_c)+H_{VSB}(\omega-\omega_c)=const, \ |\omega|\leq \omega_H\)</span></li>
+<li>即克服了DSB占用频带宽的缺点，也克服了SSB信号实现中的困难</li>
+<li>带宽与滤波器实现难易程度之间存在矛盾</li>
+</ul>
+<h3 id="515">5.1.5 相干解调</h3>
+<p><strong>相干解调</strong>；</p>
+<ul>
+<li>解调与调制的实质是频谱搬移</li>
+<li>关键：相干解调时，为了无失真恢复原始基带信号，接收端需要提供与接受的已调载波严格同步（同频同相）的本地载波（相干载波）</li>
+<li>本地载波与已调信号相乘后，经过LPF取出低频分量，得到原始的基带信号</li>
+<li>适用于：AM、DSB、SSB、VSB（AM需要在解调后增加隔直流电容）</li>
+</ul>
+<p><img alt="相干解调一般模型" src="../../img/5.12.bmp" /></p>
+<p><strong>包络检波</strong>：</p>
+<ul>
+<li>直接从已调信号的幅度中提取原调制信号，结构简单</li>
+<li>包络检波输出是相干解调输出的2倍</li>
+<li>AM信号在满足的条件下，其包络与调制信号形状完全一样，因此AM信号几乎无例外地使用包络检波</li>
+</ul>
+<p><img alt="包络检波" src="../../img/5.13.png" />  </p>
+<h2 id="52">5.2 线性调制系统的抗噪声性能</h2>
+<p><strong>解调器抗噪声性能分析模型</strong>：</p>
+<p><img alt="解调器抗噪声性能分析模型" src="../../img/5.14.png" />  </p>
+<p><strong>带通滤波器的传输特性</strong>：滤波后为平稳窄带高斯噪声</p>
+<pre class="arithmatex">\[
+\begin{aligned}
+  &amp;n_i(t)=n_c(t)cos\omega_0t-n_s(t)sin\omega_0t \\
+  &amp;\overline{n_c(t)}=\overline{n_s(t)}=\overline{n_i(t)}=0 \\
+  &amp;\overline{n_c^2(t)}=\overline{n_c^2(t)}=\overline{n_c^2(t)}=N_i=n_0B
+\end{aligned}
+\]</pre>
+<p><strong>解调器输出信噪比</strong>：模拟通信系统的主要质量指标</p>
+<pre class="arithmatex">\[
+\frac{S_O}{N_O}=\frac{\overline{m_o^2(t)}}{\overline{n_o^2(t)}}=\frac{解调器输出有用信号的平均功率}{解调器输出噪声的平均功率}
+\]</pre>
+<p><strong>解调器输入信噪比</strong>：</p>
+<pre class="arithmatex">\[
+\frac{S_i}{N_i}=\frac{\overline{s_m^2(t)}}{\overline{n_i^2(t)}}=\frac{解调器输入已调信号的平均功率}{解调器输入噪声的平均功率}
+\]</pre>
+<p><strong>调制制度增益（信噪比增益）</strong>：</p>
+<ul>
+<li>便于比较同来调制系统采用不同解调器的性能</li>
+<li>同一调制方式，信噪比增益G越大，抗噪声性能越好</li>
+</ul>
+<pre class="arithmatex">\[
+G=\frac{S_o/N_o}{S_i/N_i}
+\]</pre>
+<h3 id="521-dsb">5.2.1 DSB相干解调</h3>
+<p><strong>带通滤波器</strong>：</p>
+<ul>
+<li>BPF：<span class="arithmatex">\(f_0=f_c\)</span>，<span class="arithmatex">\(B=2f_H\)</span></li>
+<li>带通滤波器中心频率<span class="arithmatex">\(f_0\)</span>与调制载频<span class="arithmatex">\(f_c\)</span>相同</li>
+</ul>
+<p><img alt="DSB相干解调" src="../../img/5.15.png" />  </p>
+<p><strong>性能分析</strong>：</p>
+<ul>
+<li>输入信号功率：<span class="arithmatex">\(S_i=\overline{s_m^2(t)}=\frac{1}{2}\overline{m^2(t)}\)</span></li>
+<li>有用信号功率：<span class="arithmatex">\(S_o=\overline{m_o^2(t)}=\frac{1}{4}\overline{m^2(t)}\)</span></li>
+<li>输出噪声功率：<span class="arithmatex">\(N_o=\overline{n_o^2(t)}=\frac{1}{4}N_i\)</span></li>
+<li>输入信噪比：<span class="arithmatex">\(\frac{S_i}{N_i}=\frac{\frac{1}{2}\overline{m^2(t)}}{n_0B}\)</span></li>
+<li>输出信噪比：<span class="arithmatex">\(\frac{S_o}{N_o}=\frac{\overline{m^2(t)}}{n_0B}\)</span></li>
+<li>调制制度增益：<span class="arithmatex">\(G_{DSB}=2\)</span></li>
+</ul>
+<h3 id="522-ssb">5.2.2 SSB相干解调</h3>
+<p><strong>带通滤波器</strong>：</p>
+<ul>
+<li>BPF：<span class="arithmatex">\(f_0=f_c\pm \frac{1}{2}f_H\)</span>，<span class="arithmatex">\(B=f_H\)</span></li>
+<li>带通滤波器中心频率<span class="arithmatex">\(f_0\)</span>与调制载频<span class="arithmatex">\(f_c\)</span>不同</li>
+</ul>
+<p><img alt="SSB相干解调" src="../../img/5.16.png" />  </p>
+<p><strong>性能分析</strong>：</p>
+<ul>
+<li>输入信号功率：<span class="arithmatex">\(S_i=\overline{s_m^2(t)}=\frac{1}{4}\overline{m^2(t)}\)</span></li>
+<li>有用信号功率：<span class="arithmatex">\(S_o=\overline{m_o^2(t)}=\frac{1}{16}\overline{m^2(t)}\)</span></li>
+<li>输出噪声功率：<span class="arithmatex">\(N_o=\overline{n_o^2(t)}=\frac{1}{4}N_i\)</span></li>
+<li>输入信噪比：<span class="arithmatex">\(\frac{S_i}{N_i}=\frac{\overline{m^2(t)}}{4n_0B}\)</span></li>
+<li>输出信噪比：<span class="arithmatex">\(\frac{S_o}{N_o}=\frac{\overline{m^2(t)}}{4n_0B}\)</span></li>
+<li>调制制度增益：<span class="arithmatex">\(G_{SSB}=1\)</span></li>
+</ul>
+<p><strong>DSB调制与SSB调制分析</strong>：</p>
+<ul>
+<li>两者输入信号功率不同、带宽不同，在相同噪声功率谱密度<span class="arithmatex">\(n_0\)</span>条件下，二者的输入噪声功率也不同</li>
+<li>当<span class="arithmatex">\(S_i\)</span>、<span class="arithmatex">\(n_0\)</span>、<span class="arithmatex">\(f_H\)</span>相同的情况下，二者的输出信噪比相同，即二者抗噪声性能相同</li>
+</ul>
+<h3 id="523-am">5.2.3 AM包络检波</h3>
+<p><strong>带通滤波器</strong>：</p>
+<ul>
+<li>BPF：<span class="arithmatex">\(f_0=f_c\)</span>，<span class="arithmatex">\(B=2f_H\)</span></li>
+<li>带通滤波器中心频率<span class="arithmatex">\(f_0\)</span>与调制载频<span class="arithmatex">\(f_c\)</span>相同</li>
+</ul>
+<p><img alt="包络检波" src="../../img/5.17.png" />  </p>
+<p><strong>性能分析</strong>：</p>
+<ul>
+<li>输入信号功率：<span class="arithmatex">\(S_i=\frac{A_0^2}{2}+\frac{\overline{m^2(t)}}{2}\)</span></li>
+<li>输出噪声功率：<span class="arithmatex">\(N_i=n_0B\)</span></li>
+<li>输出合成包络<span class="arithmatex">\(E(t)\)</span>（检波器传输系数为1）：</li>
+<li><span class="arithmatex">\(s_m(t)+n_i(t)=E(t)cos[\omega_ct+\phi(t)]\)</span></li>
+<li><span class="arithmatex">\(E(t)=\sqrt{[A_0+m(t)+n_c(t)]^2+n_s^2(t)}\)</span></li>
+<li>输入信噪比：<span class="arithmatex">\(\frac{S_i}{N_i}=\frac{A_02+\overline{m^2(t)}}{2n_0B}\)</span></li>
+<li>大信噪比：（<span class="arithmatex">\([A_0+m(t)]&gt;&gt;\sqrt{n_c^2(t)+n_s^2(t)}\)</span>）</li>
+<li>输出信噪比：<span class="arithmatex">\(\frac{S_o}{N_o}=\frac{\overline{m^2(t)}}{n_0B}\)</span></li>
+<li>调制制度增益：<span class="arithmatex">\(G_{AM}=\frac{2\overline{m^2(t)}}{A_0^2+\overline{m^2(t)}}\)</span></li>
+<li><span class="arithmatex">\(G_{AM}\)</span>随<span class="arithmatex">\(A_0\)</span>的减小而增加；为了不发生过调制，<span class="arithmatex">\(G_{AM}\)</span>总小于1（最大值为2/3）</li>
+<li>包络检波对输入信噪比没有改善</li>
+<li>AM包络检波性能几乎与相干解调一样</li>
+<li>小信噪比：（<span class="arithmatex">\([A_0+m(t)]&lt;&lt;\sqrt{n_c^2(t)+n_s^2(t)}\)</span>）</li>
+<li>合成包络中没有单独的信号项，有用信号被噪声扰乱</li>
+<li>输出信噪比不是按比例随输入信噪比下降，而是急剧恶化 -&gt; 门限效应</li>
+<li>开始出现门限效应的输入信噪比为门限值</li>
+<li>门限效应由包络检波器的非线性作用解调引起</li>
+</ul>
+<p><strong>门限效应</strong>：</p>
+<ul>
+<li>相干解调的方法解调各种线性调制信号时不存在门限效应</li>
+<li>信号与噪声可以分别解调，解调器输出端总有单独存在的有用信号项</li>
+</ul>
+<h2 id="53">5.3 角度调制原理</h2>
+<p><strong>角度调制</strong>：调制信号不仅可以载荷于载波幅度，还可以载荷于载波频率或载波相位变化，分别为频率调制（FM）和相位调制（PM）</p>
+<ul>
+<li>角度调制信号<span class="arithmatex">\(s_m(t)=Acos[w_ct+\phi(t)]\)</span>；基带调制信号<span class="arithmatex">\(m(t)\)</span></li>
+<li>恒定振幅A，瞬时相位<span class="arithmatex">\(\theta(t)=w_ct+\phi(t)\)</span>，瞬时相位偏移<span class="arithmatex">\(\phi(t)\)</span>，瞬时角频率<span class="arithmatex">\(\omega(t)=\frac{d[w_ct+\phi(t)]}{dt}\)</span>，瞬时频偏<span class="arithmatex">\(\frac{d\phi(t)}{dt}\)</span></li>
+<li>相位调制信号PM：</li>
+<li><span class="arithmatex">\(\phi(t)=K_pm(t)\)</span>，<span class="arithmatex">\(K_p\)</span>为调相灵敏度</li>
+<li><span class="arithmatex">\(s_{PM}(t)=Acos[\omega_ct+K_pm(t)]\)</span></li>
+<li>频率调制信号FM：</li>
+<li><span class="arithmatex">\(\frac{d\phi(t)}{dt}=K_jm(t)\)</span>，<span class="arithmatex">\(K_j\)</span>为调频灵敏度</li>
+<li><span class="arithmatex">\(s_{FM}(t)=Acos[\omega_ct+K_f\int m(t)dt]\)</span></li>
+</ul>
+<p><strong>FM与PM</strong>：</p>
+<ul>
+<li>频率与相位之间存在微分和积分的关系</li>
+<li>间接调相：调制信号先微分，后调频，获得调相波</li>
+<li>间接调频：调制信号先积分，后调相，获得调频波</li>
+<li>PM是相位偏移随<span class="arithmatex">\(m(t)\)</span>线性变化</li>
+<li>FM是相位偏移随<span class="arithmatex">\(m(t)\)</span>的积分线性变化</li>
+</ul>
+<p><img alt="FM与PM" src="../../img/5.18.png" />  </p>
+<p><strong>单音调制FM与PM</strong>：</p>
+<ul>
+<li><span class="arithmatex">\(s_{PM}=Acos[\omega_ct+K_pA_mcos\omega_mt]=Acos[\omega_ct+m_pcos\omega_mt]\)</span></li>
+<li>调相指数：<span class="arithmatex">\(m_p=K_pA_m\)</span>，表示最大相位偏移</li>
+<li><span class="arithmatex">\(s_{AM}=Acos[\omega_ct+K_fA_m\int cos\omega_m\tau d\tau]=Acos[\omega_ct+m_fsin\omega_mt]\)</span></li>
+<li>调频指数：<span class="arithmatex">\(m_f=\frac{K_fA_m}{\omega_m}=\frac{\Delta \omega}{\omega_m}=\frac{\Delta f}{f_m}\)</span>，表示最大相位偏移，<span class="arithmatex">\(\Delta \omega=K_fA_m\)</span>为最大角频偏，<span class="arithmatex">\(\Delta f=m_f\cdot f_m\)</span>为最大频偏</li>
+</ul>
+<h3 id="531">5.3.1 频率调制</h3>
+<p><strong>窄带调频NBFM与宽带调频WBFM</strong>：</p>
+<ul>
+<li>FM最大瞬时相位偏移：<span class="arithmatex">\(|K_f\int m(t)dt|_{max}&lt;&lt;\frac{\pi}{6}\)</span> -&gt; 窄带调频，反之为宽带调频</li>
+<li>窄带调频占据带宽更窄，抗干扰性能比AM好</li>
+<li>窄带调频有较为简单的时域表达式，宽带调频代表了更一般的情形</li>
+<li>窄带调频的带宽与AM相同，均为调制信号最高频率的2倍</li>
+<li>宽带调频的相关证明见教材P109</li>
+</ul>
+<p><strong>关于宽带调频单音调制的讨论</strong>：</p>
+<ul>
+<li>对于单音调制信号<span class="arithmatex">\(m(t)=A_mcos\omega_mt\)</span>：</li>
+<li>时域展开表达式：<span class="arithmatex">\(s_{FM}(t)=A\sum_{n=-\infty}^{+\infty}J_n(m_f)cos(\omega_c+n\omega_m)t\)</span></li>
+<li>频域展开表达式：<span class="arithmatex">\(s_{FM}(t)=\pi A\sum_{n=-\infty}^{+\infty}J_n(m_f)[\delta(\omega-\omega_c-n\omega_m)+\delta(\omega+\omega_c+n\omega_m)]\)</span></li>
+</ul>
+<p><strong>卡森公式</strong>：</p>
+<ul>
+<li>调频波的有效带宽为<span class="arithmatex">\(B_{FM}=2(m_f+1)f_m=2(\Delta f+f_m)\)</span></li>
+<li>当<span class="arithmatex">\(m_f&lt;&lt;1\)</span>时，窄带调频的带宽为<span class="arithmatex">\(B_{FM}=2f_m\)</span></li>
+<li>当<span class="arithmatex">\(m_f&gt;&gt;1\)</span>时，宽带调频的带宽为<span class="arithmatex">\(B_{FM}=2\Delta f\)</span></li>
+<li><span class="arithmatex">\(f_m\)</span>为调制频率，<span class="arithmatex">\(\Delta f\)</span>为最大频偏</li>
+<li>以上两个结论为单音调频的条件下的结果</li>
+<li>对于多音或任意带限信号，卡森公式仍然适用（<span class="arithmatex">\(f_m\)</span>为调制信号的最高频率）</li>
+</ul>
+<p><strong>调制信号的功率</strong>：</p>
+<ul>
+<li><span class="arithmatex">\(P_{FM}=\frac{A^2}{2}=P_c\)</span></li>
+<li>调频信号的平均功率等于未调载波的平均功率，即调制后的总功率不变，只是功率的重分配</li>
+</ul>
+<h3 id="532">5.3.2 调频信号的产生与解调</h3>
+<p><strong>调频信号的产生</strong>；</p>
+<ul>
+<li>直接调频法：用调制信号直接控制载波振荡器频率</li>
+<li>优点：实现线性调频的要求下可获得加大频偏</li>
+<li>缺点：频率稳定度不高</li>
+<li>间接调制法（阿姆斯特朗法）：先将调制信号积分，然后对载波进行调相得到NBFM信号，再经过n次倍频器得到WBFM信号</li>
+<li>优点：频率稳定性好</li>
+<li>缺点：需要多次倍频和混频，结构复杂</li>
+</ul>
+<p><strong>调频信号的解调</strong>：</p>
+<ul>
+<li>非相干解调：</li>
+<li>鉴频器：产生与输入调频信号的频率呈线性关系的输出电压</li>
+<li>相干解调：</li>
+<li>仅适用于NBFM信号，因为NBFM可分解为同相分量与正交分量</li>
+</ul>
+<h2 id="54">5.4 调频系统的抗噪声性能</h2>
+<p><strong>非相干解调抗噪声性能分析模型</strong>：</p>
+<p><img alt="非相干解调抗噪声性能分析模型" src="../../img/5.19.png" />  </p>
+<ul>
+<li>带通滤波器：已知信号带宽外的噪声</li>
+<li>噪声：加性高斯白噪声</li>
+<li>限幅器：消除由于噪声和其他原因引起的接收信号的幅度起伏</li>
+</ul>
+<p><strong>输入信噪比</strong>：</p>
+<ul>
+<li>调频信号：<span class="arithmatex">\(S_{FM}(t)=Acos[\omega_ct+K_f\int m(\tau)d\tau]\)</span></li>
+<li>输入信号功率：<span class="arithmatex">\(S_i=\frac{A^2}{2}\)</span></li>
+<li>输入噪声功率：<span class="arithmatex">\(N_i=n_0B_{FM}\)</span></li>
+<li>解调器输入信噪比：<span class="arithmatex">\(\frac{S_i}{N_i}=\frac{A^2}{2n_0B_{FM}}\)</span></li>
+</ul>
+<p><strong>大信噪比解调增益</strong>：</p>
+<ul>
+<li>输出信噪比：<span class="arithmatex">\(\frac{S_o}{N_o}=\frac{3A^2K_f^2\overline{m^2(t)}}{8\pi^2n_0f_m^3}\)</span></li>
+<li>单频余弦波：<span class="arithmatex">\(G_{FM}=\frac{3}{2}m_f^2\frac{A^2/2}{n_0f_m}\)</span></li>
+<li>宽带调频：<span class="arithmatex">\(G_{FM}=3m_f^2(m_f+1)\)</span></li>
+</ul>
+<p><strong>大信噪比下FM与AM包络检波对比</strong>：</p>
+<ul>
+<li>若接收端输入信号幅度与噪声功率谱密度相同，宽带FM输出信噪比是AM系统的<span class="arithmatex">\(3m_f^2\)</span>倍</li>
+<li>FM系统在制度增益的优越性是以增加传输带宽获得的，但改善非无止境-&gt;传输带宽增加导致输入噪声增大，输入信噪比下降</li>
+</ul>
+<p><strong>小信噪比的门限效应</strong>：</p>
+<ul>
+<li>当FM系统的解调器输入低于一定值，输出信噪比急剧恶化，称为FM信号解调的门限效应-&gt; 门限值</li>
+<li>随着调制指数的上升，门限值增大但浮动不大，门限值一般认为在10 dB左右</li>
+<li>降低门限值-&gt;锁相环解调器和辅反馈解调器，或预加重和去加重改善</li>
+</ul>
+<p><strong>预加重与去加重</strong>：</p>
+<ul>
+<li>预加重：发送端条之前通过预加重滤波器<span class="arithmatex">\(H_p(f)\)</span>，提高信号的高频分量</li>
+<li>去加重：接收端FM解调后通过去加重滤波器<span class="arithmatex">\(H_d(f)\)</span>，频域传输特性与预加重滤波器相反，从而将高频噪声衰减的同时不造成传输信号的频率失真</li>
+<li><span class="arithmatex">\(H_p(f)=\frac{1}{H_d(f)}\)</span></li>
+</ul>
+<p><img alt="预加重与去加重" src="../../img/5.20.png" />  </p>
+<h2 id="55">5.5 模拟调制系统的性能比较</h2>
+<p>假设所有系统以下参数相同：</p>
+<ul>
+<li>解调器输入信号功率<span class="arithmatex">\(S_i\)</span></li>
+<li>噪声单边功率谱密度<span class="arithmatex">\(n_0\)</span></li>
+<li>基带信号带宽<span class="arithmatex">\(f_m\)</span></li>
+<li>AM为100%调制，且调制信号为单频正弦波</li>
+</ul>
+<p><img alt="模拟调制系统的性能比较" src="../../img/5.21.png" />  </p>
+<p><img alt="结论" src="../../img/5.22.png" />  </p>
+<h2 id="56">5.6 频分复用</h2>
+<p><strong>复用技术的定义</strong>：</p>
+<ul>
+<li>将多个彼此独立的信号合并为一个符合信号，在同一个信道中传输</li>
+</ul>
+<p><strong>复用技术的分类</strong>：</p>
+<ul>
+<li>频分复用FDM</li>
+<li>时分复用TDM</li>
+<li>码分复用CDM</li>
+</ul>
+<p><img alt="频分复用FDM" src="../../img/5.23.png" />  </p>
+<p>模拟电话多路复用：</p>
+<ul>
+<li>12路-&gt;一个基群</li>
+<li>5个基群-&gt;一个超群</li>
+<li>10个超群-&gt;一个主群</li>
+<li>每路电话信号标准带宽：4 kHz</li>
+<li>例题见教材P125</li>
+</ul>
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+    <nav class="md-footer__inner md-grid" aria-label="Footer" >
+      
+        
+        <a href="../4%E4%BF%A1%E9%81%93/" class="md-footer__link md-footer__link--prev" aria-label="Previous: 4.信道" rel="prev">
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+          </div>
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              4.信道
+            </div>
+          </div>
+        </a>
+      
+      
+        
+        <a href="../6%E6%95%B0%E5%AD%97%E5%9F%BA%E5%B8%A6%E4%BC%A0%E8%BE%93/" class="md-footer__link md-footer__link--next" aria-label="Next: 6.数字基带传输" rel="next">
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              6.数字基带传输
+            </div>
+          </div>
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4Z"/></svg>
+          </div>
+        </a>
+      
+    </nav>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    <script id="__config" type="application/json">{"base": "../../..", "features": ["navigation.tabs", "search.suggest", "search.highlight", "toc.integrate"], "search": "../../../assets/javascripts/workers/search.16e2a7d4.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version.title": "Select version"}}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.5a2dcb6a.min.js"></script>
+      
+        <script src="../../../javascripts/mathjax.js"></script>
+      
+        <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+    
+    
+  </body>
+</html>

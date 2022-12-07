@@ -1,0 +1,26 @@
+LOG_NAME,LOG_DESC,FIELD_NAME,FIELD_TYPE,FIELD_DESC
+known_certs.log,SSL certificates,port_num,port &log &optional,If the certificate was handed out by a server， this is the port that the server was listening on. 
+known_certs.log,SSL certificates,host,addr &log,The address that offered the certificate. 
+known_certs.log,SSL certificates,subject,string &log &optional,Certificate subject. 
+known_certs.log,SSL certificates,issuer_subject,string &log &optional,Certificate issuer subject. 
+known_certs.log,SSL certificates,serial,string &log &optional,Serial number for the certificate. 
+known_certs.log,SSL certificates,ts,time &log,The timestamp when the certificate was detected. 
+known_hosts.log,Hosts that have completed TCP handshakes,host,addr &log,The address that was detected originating or responding to a TCP connection. 
+known_hosts.log,Hosts that have completed TCP handshakes,ts,time &log,The timestamp at which the host was detected. 
+known_modbus.log,Modbus masters and slaves,ts,time &log,The time the device was discovered. 
+known_modbus.log,Modbus masters and slaves,device_type,Known::ModbusDeviceType &log,The type of device being tracked. 
+known_modbus.log,Modbus masters and slaves,host,addr &log,The IP address of the host. 
+known_services.log,Services running on hosts,service,set [string] &log,A set of protocols that match the service's connection payloads. 
+known_services.log,Services running on hosts,host,addr &log,The host address on which the service is running. 
+known_services.log,Services running on hosts,port_num,port &log,The port number on which the service is running. 
+known_services.log,Services running on hosts,port_proto,transport_proto &log,The transport-layer protocol which the service uses. 
+known_services.log,Services running on hosts,ts,time &log,The time at which the service was detected. 
+software.log,Software being used on the network,name,string &log &optional,Name of the software (e.g. Apache). 
+software.log,Software being used on the network,software_type,Software::Type &log &default = Software::UNKNOWN &optional,The type of software detected (e.g. HTTP::SERVER). 
+software.log,Software being used on the network,ts,time &log &optional,The time at which the software was detected. 
+software.log,Software being used on the network,host,addr &log,The IP address detected running the software. 
+software.log,Software being used on the network,url,string &optional &log,(present if policy/protocols/http/detect-webapps.zeek is loaded) Most root URL where the software was discovered. 
+software.log,Software being used on the network,force_log,bool &default = F &optional,This can indicate that this software being detected should definitely be sent onward to the logging framework.  By default， only software that is "interesting" due to a change in version or it being currently unknown is sent to the logging framework.  This can be set to T to force the record to be sent to the logging framework if some amount of this tracking needs to happen in a specific way to the software. 
+software.log,Software being used on the network,unparsed_version,string &log &optional,The full unparsed version string found because the version parsing doesn't always work reliably in all cases and this acts as a fallback in the logs. 
+software.log,Software being used on the network,version,Software::Version &log &optional,Version of the software. 
+software.log,Software being used on the network,host_p,port &log &optional,The port on which the software is running. Only sensible for server software. 

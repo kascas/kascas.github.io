@@ -1,0 +1,1506 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.4.2, mkdocs-material-8.5.10">
+    
+    
+      
+        <title>syslog日志 - Kascas's Blogs</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.975780f9.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.2505c338.min.css">
+        
+      
+      
+
+    
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="None" data-md-color-accent="None">
+  
+    
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#syslogrfc5424" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="Kascas&#39;s Blogs" class="md-header__button md-logo" aria-label="Kascas's Blogs" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Kascas's Blogs
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              syslog日志
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/kascas/kascas.github.io" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.2.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-tabs__inner md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="../.." class="md-tabs__link">
+      主页
+    </a>
+  </li>
+
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="../../%E4%BF%A1%E6%81%AF%E8%AE%BA%E4%B8%8E%E7%BC%96%E7%A0%81/%E4%BF%A1%E6%81%AF%E8%AE%BA%E4%B8%8E%E7%BC%96%E7%A0%81/" class="md-tabs__link">
+      信息论与编码
+    </a>
+  </li>
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../%E4%BF%A1%E5%8F%B7%E4%B8%8E%E7%B3%BB%E7%BB%9F/1%E4%BF%A1%E5%8F%B7%E4%B8%8E%E7%B3%BB%E7%BB%9F/" class="md-tabs__link">
+        信号与系统
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../%E9%80%9A%E4%BF%A1%E5%8E%9F%E7%90%86/md/4%E4%BF%A1%E9%81%93/" class="md-tabs__link">
+        通信原理
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/2%E9%97%AE%E9%A2%98%E6%B1%82%E8%A7%A3/" class="md-tabs__link">
+        人工智能
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../%E5%9B%BE%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/%E4%BA%8C%E3%80%81%E5%9B%BE%E8%AE%BA%E5%9F%BA%E7%A1%80/" class="md-tabs__link">
+        图深度学习
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../Python%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86/1NumPy%E5%85%A5%E9%97%A8/" class="md-tabs__link">
+        Python数据处理
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+    
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../Linux-Audit%E5%8F%82%E8%80%83/Linux-Audit%E5%8F%82%E8%80%83/" class="md-tabs__link md-tabs__link--active">
+        日志分析
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E7%B3%BB%E7%BB%9F%E7%BA%A7%E6%BA%AF%E6%BA%90%E5%9B%BE%E4%B8%8E%E5%A8%81%E8%83%81%E6%A3%80%E6%B5%8B/" class="md-tabs__link">
+        学习笔记
+      </a>
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+  
+
+
+  
+
+<nav class="md-nav md-nav--primary md-nav--lifted md-nav--integrated" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Kascas&#39;s Blogs" class="md-nav__button md-logo" aria-label="Kascas's Blogs" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    Kascas's Blogs
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/kascas/kascas.github.io" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.2.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        主页
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E4%BF%A1%E6%81%AF%E8%AE%BA%E4%B8%8E%E7%BC%96%E7%A0%81/%E4%BF%A1%E6%81%AF%E8%AE%BA%E4%B8%8E%E7%BC%96%E7%A0%81/" class="md-nav__link">
+        信息论与编码
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3" type="checkbox" id="__nav_3" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_3">
+          信号与系统
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="信号与系统" data-md-level="1">
+        <label class="md-nav__title" for="__nav_3">
+          <span class="md-nav__icon md-icon"></span>
+          信号与系统
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E4%BF%A1%E5%8F%B7%E4%B8%8E%E7%B3%BB%E7%BB%9F/1%E4%BF%A1%E5%8F%B7%E4%B8%8E%E7%B3%BB%E7%BB%9F/" class="md-nav__link">
+        1.信号与系统
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E4%BF%A1%E5%8F%B7%E4%B8%8E%E7%B3%BB%E7%BB%9F/2%E7%BA%BF%E6%80%A7%E6%97%B6%E4%B8%8D%E5%8F%98%E7%B3%BB%E7%BB%9F/" class="md-nav__link">
+        2.线性时不变系统
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E4%BF%A1%E5%8F%B7%E4%B8%8E%E7%B3%BB%E7%BB%9F/3%E5%91%A8%E6%9C%9F%E4%BF%A1%E5%8F%B7%E7%9A%84%E5%82%85%E9%87%8C%E5%8F%B6%E7%BA%A7%E6%95%B0%E8%A1%A8%E7%A4%BA/" class="md-nav__link">
+        3.周期信号的傅里叶级数表示
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E4%BF%A1%E5%8F%B7%E4%B8%8E%E7%B3%BB%E7%BB%9F/4%E8%BF%9E%E7%BB%AD%E6%97%B6%E9%97%B4%E5%82%85%E9%87%8C%E5%8F%B6%E5%8F%98%E6%8D%A2/" class="md-nav__link">
+        4.连续时间傅里叶变换
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E4%BF%A1%E5%8F%B7%E4%B8%8E%E7%B3%BB%E7%BB%9F/5%E7%A6%BB%E6%95%A3%E6%97%B6%E9%97%B4%E5%82%85%E9%87%8C%E5%8F%B6%E5%8F%98%E6%8D%A2/" class="md-nav__link">
+        5.离散时间傅里叶变换
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E4%BF%A1%E5%8F%B7%E4%B8%8E%E7%B3%BB%E7%BB%9F/9%E6%8B%89%E6%99%AE%E6%8B%89%E6%96%AF%E5%8F%98%E6%8D%A2/" class="md-nav__link">
+        9.拉普拉斯变换
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E4%BF%A1%E5%8F%B7%E4%B8%8E%E7%B3%BB%E7%BB%9F/10Z%E5%8F%98%E6%8D%A2/" class="md-nav__link">
+        10.Z变换
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E4%BF%A1%E5%8F%B7%E4%B8%8E%E7%B3%BB%E7%BB%9F/%E5%85%AC%E5%BC%8F%E6%80%BB%E7%BB%93/" class="md-nav__link">
+        公式总结
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4" type="checkbox" id="__nav_4" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_4">
+          通信原理
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="通信原理" data-md-level="1">
+        <label class="md-nav__title" for="__nav_4">
+          <span class="md-nav__icon md-icon"></span>
+          通信原理
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E9%80%9A%E4%BF%A1%E5%8E%9F%E7%90%86/md/4%E4%BF%A1%E9%81%93/" class="md-nav__link">
+        4.信道
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E9%80%9A%E4%BF%A1%E5%8E%9F%E7%90%86/md/5%E6%A8%A1%E6%8B%9F%E8%B0%83%E5%88%B6%E7%B3%BB%E7%BB%9F/" class="md-nav__link">
+        5.模拟调制系统
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E9%80%9A%E4%BF%A1%E5%8E%9F%E7%90%86/md/6%E6%95%B0%E5%AD%97%E5%9F%BA%E5%B8%A6%E4%BC%A0%E8%BE%93/" class="md-nav__link">
+        6.数字基带传输
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E9%80%9A%E4%BF%A1%E5%8E%9F%E7%90%86/md/7%E6%95%B0%E5%AD%97%E5%B8%A6%E9%80%9A%E4%BC%A0%E8%BE%93%E7%B3%BB%E7%BB%9F/" class="md-nav__link">
+        7.数字带通传输系统
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E9%80%9A%E4%BF%A1%E5%8E%9F%E7%90%86/md/8%E6%96%B0%E5%9E%8B%E6%95%B0%E5%AD%97%E5%B8%A6%E9%80%9A%E8%B0%83%E5%88%B6%E6%8A%80%E6%9C%AF/" class="md-nav__link">
+        8.新型数字带通调制技术
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E9%80%9A%E4%BF%A1%E5%8E%9F%E7%90%86/md/9%E6%9C%80%E4%BD%B3%E6%8E%A5%E6%94%B6%E6%9C%BA%E8%AE%BE%E8%AE%A1/" class="md-nav__link">
+        9.最佳接收机设计
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E9%80%9A%E4%BF%A1%E5%8E%9F%E7%90%86/md/10%E4%BF%A1%E6%BA%90%E7%BC%96%E7%A0%81/" class="md-nav__link">
+        10.信源编码
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E9%80%9A%E4%BF%A1%E5%8E%9F%E7%90%86/md/11%E5%B7%AE%E9%94%99%E6%8E%A7%E5%88%B6%E7%BC%96%E7%A0%81/" class="md-nav__link">
+        11.差错控制编码
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E9%80%9A%E4%BF%A1%E5%8E%9F%E7%90%86/md/%E5%85%AC%E5%BC%8F%E6%B1%87%E6%80%BB/" class="md-nav__link">
+        12.公式汇总
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_5" type="checkbox" id="__nav_5" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_5">
+          人工智能
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="人工智能" data-md-level="1">
+        <label class="md-nav__title" for="__nav_5">
+          <span class="md-nav__icon md-icon"></span>
+          人工智能
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/2%E9%97%AE%E9%A2%98%E6%B1%82%E8%A7%A3/" class="md-nav__link">
+        2.问题求解
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/3%E5%8D%9A%E5%BC%88%E9%97%AE%E9%A2%98/" class="md-nav__link">
+        3.博弈问题
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/4%E6%8E%A8%E7%90%86%E6%8A%80%E6%9C%AF/" class="md-nav__link">
+        4.推理技术
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/6%E4%B8%8D%E7%A1%AE%E5%AE%9A%E6%80%A7%E6%8E%A8%E7%90%86/" class="md-nav__link">
+        6.不确定性推理
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6" type="checkbox" id="__nav_6" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_6">
+          图深度学习
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="图深度学习" data-md-level="1">
+        <label class="md-nav__title" for="__nav_6">
+          <span class="md-nav__icon md-icon"></span>
+          图深度学习
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E5%9B%BE%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/%E4%BA%8C%E3%80%81%E5%9B%BE%E8%AE%BA%E5%9F%BA%E7%A1%80/" class="md-nav__link">
+        1.图论基础
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E5%9B%BE%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/%E4%B8%89%E3%80%81%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E5%9F%BA%E7%A1%80/" class="md-nav__link">
+        2.深度学习基础
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E5%9B%BE%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/%E5%9B%9B%E3%80%81%E5%9B%BE%E5%B5%8C%E5%85%A5/" class="md-nav__link">
+        3.图嵌入
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E5%9B%BE%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/%E4%BA%94%E3%80%81%E5%9B%BE%E4%BF%A1%E5%8F%B7%E5%A4%84%E7%90%86%E4%B8%8E%E5%9B%BE%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/" class="md-nav__link">
+        4.图信号处理与图卷积神经网络
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_7" type="checkbox" id="__nav_7" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_7">
+          Python数据处理
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Python数据处理" data-md-level="1">
+        <label class="md-nav__title" for="__nav_7">
+          <span class="md-nav__icon md-icon"></span>
+          Python数据处理
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Python%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86/1NumPy%E5%85%A5%E9%97%A8/" class="md-nav__link">
+        1 NumPy入门
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_8" type="checkbox" id="__nav_8" checked>
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_8">
+          日志分析
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="日志分析" data-md-level="1">
+        <label class="md-nav__title" for="__nav_8">
+          <span class="md-nav__icon md-icon"></span>
+          日志分析
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Linux-Audit%E5%8F%82%E8%80%83/Linux-Audit%E5%8F%82%E8%80%83/" class="md-nav__link">
+        Linux-Audit参考
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Zeek%E5%8F%82%E8%80%83/Zeek%E5%8F%82%E8%80%83/" class="md-nav__link">
+        Zeek参考
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          syslog日志
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        syslog日志
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-header" class="md-nav__link">
+    1 HEADER
+  </a>
+  
+    <nav class="md-nav" aria-label="1 HEADER">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#11-pri" class="md-nav__link">
+    1.1 PRI
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#12-version" class="md-nav__link">
+    1.2 VERSION
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#13-timestamp" class="md-nav__link">
+    1.3 TIMESTAMP
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#14-hostname" class="md-nav__link">
+    1.4 HOSTNAME
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#15-app-name" class="md-nav__link">
+    1.5 APP-NAME
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#16-procid" class="md-nav__link">
+    1.6 PROCID
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#17-msgid" class="md-nav__link">
+    1.7 MSGID
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-structured-data" class="md-nav__link">
+    2 STRUCTURED-DATA
+  </a>
+  
+    <nav class="md-nav" aria-label="2 STRUCTURED-DATA">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#21-sd-element" class="md-nav__link">
+    2.1 SD-ELEMENT
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#22-sd-id" class="md-nav__link">
+    2.2 SD-ID
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#23-sd-param" class="md-nav__link">
+    2.3 SD-PARAM
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#24-change-control" class="md-nav__link">
+    2.4 Change Control
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-msg" class="md-nav__link">
+    3 MSG
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-structure-datasd-ids" class="md-nav__link">
+    4 STRUCTURE-DATA的SD-IDs
+  </a>
+  
+    <nav class="md-nav" aria-label="4 STRUCTURE-DATA的SD-IDs">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#41-timequality" class="md-nav__link">
+    4.1 timeQuality
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#42-origin" class="md-nav__link">
+    4.2 origin
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#43-meta" class="md-nav__link">
+    4.3 meta
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_9" type="checkbox" id="__nav_9" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_9">
+          学习笔记
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="学习笔记" data-md-level="1">
+        <label class="md-nav__title" for="__nav_9">
+          <span class="md-nav__icon md-icon"></span>
+          学习笔记
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E7%B3%BB%E7%BB%9F%E7%BA%A7%E6%BA%AF%E6%BA%90%E5%9B%BE%E4%B8%8E%E5%A8%81%E8%83%81%E6%A3%80%E6%B5%8B/" class="md-nav__link">
+        系统级溯源图与威胁检测
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+  <a href="https://github.com/kascas/kascas.github.io/edit/master/docs/日志分析/syslog协议.md" title="Edit this page" class="md-content__button md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25Z"/></svg>
+  </a>
+
+
+<h1 id="syslogrfc5424">syslog日志分析（RFC5424）</h1>
+<p>syslog消息格式遵守ABNF定义（RFC5234）：</p>
+<pre><code class="language-raw">      SYSLOG-MSG      = HEADER SP STRUCTURED-DATA [SP MSG]
+
+      HEADER          = PRI VERSION SP TIMESTAMP SP HOSTNAME
+                        SP APP-NAME SP PROCID SP MSGID
+      PRI             = &quot;&lt;&quot; PRIVAL &quot;&gt;&quot;
+      PRIVAL          = 1*3DIGIT ; range 0 .. 191
+      VERSION         = NONZERO-DIGIT 0*2DIGIT
+      HOSTNAME        = NILVALUE / 1*255PRINTUSASCII
+
+      APP-NAME        = NILVALUE / 1*48PRINTUSASCII
+      PROCID          = NILVALUE / 1*128PRINTUSASCII
+      MSGID           = NILVALUE / 1*32PRINTUSASCII
+
+      TIMESTAMP       = NILVALUE / FULL-DATE &quot;T&quot; FULL-TIME
+      FULL-DATE       = DATE-FULLYEAR &quot;-&quot; DATE-MONTH &quot;-&quot; DATE-MDAY
+      DATE-FULLYEAR   = 4DIGIT
+      DATE-MONTH      = 2DIGIT  ; 01-12
+      DATE-MDAY       = 2DIGIT  ; 01-28, 01-29, 01-30, 01-31 based on
+                                ; month/year
+      FULL-TIME       = PARTIAL-TIME TIME-OFFSET
+      PARTIAL-TIME    = TIME-HOUR &quot;:&quot; TIME-MINUTE &quot;:&quot; TIME-SECOND
+                        [TIME-SECFRAC]
+      TIME-HOUR       = 2DIGIT  ; 00-23
+      TIME-MINUTE     = 2DIGIT  ; 00-59
+      TIME-SECOND     = 2DIGIT  ; 00-59
+      TIME-SECFRAC    = &quot;.&quot; 1*6DIGIT
+      TIME-OFFSET     = &quot;Z&quot; / TIME-NUMOFFSET
+      TIME-NUMOFFSET  = (&quot;+&quot; / &quot;-&quot;) TIME-HOUR &quot;:&quot; TIME-MINUTE
+
+
+      STRUCTURED-DATA = NILVALUE / 1*SD-ELEMENT
+      SD-ELEMENT      = &quot;[&quot; SD-ID *(SP SD-PARAM) &quot;]&quot;
+      SD-PARAM        = PARAM-NAME &quot;=&quot; %d34 PARAM-VALUE %d34
+      SD-ID           = SD-NAME
+      PARAM-NAME      = SD-NAME
+      PARAM-VALUE     = UTF-8-STRING ; characters '&quot;', '\' and
+                                     ; ']' MUST be escaped.
+      SD-NAME         = 1*32PRINTUSASCII
+                        ; except '=', SP, ']', %d34 (&quot;)
+
+      MSG             = MSG-ANY / MSG-UTF8
+      MSG-ANY         = *OCTET ; not starting with BOM
+      MSG-UTF8        = BOM UTF-8-STRING
+      BOM             = %xEF.BB.BF
+      UTF-8-STRING    = *OCTET ; UTF-8 string as specified
+                        ; in RFC 3629
+
+      OCTET           = %d00-255
+      SP              = %d32
+      PRINTUSASCII    = %d33-126
+      NONZERO-DIGIT   = %d49-57
+      DIGIT           = %d48 / NONZERO-DIGIT
+      NILVALUE        = &quot;-&quot;
+</code></pre>
+<p>syslog消息大小限制取决于所使用的传输映射。每种传输映射定义了支持的最小最大消息长度，并且该值MUST至少480字节。任何接收者MUST能够接收480字节及以上的消息，所有接收者的实现SHOULD能够接收2048字节及以上的消息。如果接收者收到了大于所支持的最大消息长度，则SHOULD截断载荷或MAY丢弃消息。如果接收者截断消息，则截断MUST发生在消息的末端，截断之后消息MAY包含非法的UTF-8编码或非法的STRUCTURE-DATA，接收者MAY丢弃消息或在这种情况下尽可能处理。</p>
+<h2 id="1-header">1 HEADER</h2>
+<p>HEADER中使用的字符集MUST是7位ASCII（RFC5234）。</p>
+<h3 id="11-pri">1.1 PRI</h3>
+<p>PRI部分MUST包含3~5字符，由尖括号作为起始（%d60）和结束（%d62）。尖括号内的数字为为PRIVAL，表示设施和严重性（Facility and Severity）。</p>
+<p>设施类型范围MUST在0~23之间。</p>
+<pre><code class="language-raw">          Numerical             Facility
+             Code
+
+              0             kernel messages
+              1             user-level messages
+              2             mail system
+              3             system daemons
+              4             security/authorization messages
+              5             messages generated internally by syslogd
+              6             line printer subsystem
+              7             network news subsystem
+              8             UUCP subsystem
+              9             clock daemon
+             10             security/authorization messages
+             11             FTP daemon
+             12             NTP subsystem
+             13             log audit
+             14             log alert
+             15             clock daemon (note 2)
+             16             local use 0  (local0)
+             17             local use 1  (local1)
+             18             local use 2  (local2)
+             19             local use 3  (local3)
+             20             local use 4  (local4)
+             21             local use 5  (local5)
+             22             local use 6  (local6)
+             23             local use 7  (local7)
+
+</code></pre>
+<p>严重性等级指标范围是0~7。</p>
+<pre><code class="language-raw">           Numerical         Severity
+             Code
+
+              0       Emergency: system is unusable
+              1       Alert: action must be taken immediately
+              2       Critical: critical conditions
+              3       Error: error conditions
+              4       Warning: warning conditions
+              5       Notice: normal but significant condition
+              6       Informational: informational messages
+              7       Debug: debug-level messages
+</code></pre>
+<p>PRI计算时首先将设施数值乘8然后加上严重性数值（8*Facility+Severity），因此优先级数值范围为0~191。</p>
+<h3 id="12-version">1.2 VERSION</h3>
+<p>VERSION表示syslog协议的版本。</p>
+<h3 id="13-timestamp">1.3 TIMESTAMP</h3>
+<p>TIMESTAMP为RFC3339提出的格式化时间戳，但是同时需要遵循以下限制：</p>
+<ul>
+<li>T和Z必须大写</li>
+<li>T是REQUIRED的</li>
+<li>MUST NOT使用闰秒</li>
+</ul>
+<p>如果时钟准确且性能允许，originator SHOULD包含TIME-SECFRAC。如果syslog应用无法获取系统时间，则MUST使用NILVALUE作为TIMESTAMP。</p>
+<h3 id="14-hostname">1.4 HOSTNAME</h3>
+<p>HOSTNAME SHOULD按照STD 13（RFC1034）指定的格式包含主机名和originator的域名，这种格式称为FQDN。然而不是所有syslog应用都能提供FQDN，因此一些其它值也可以作为HOSTNAME：</p>
+<ul>
+<li>FQDN</li>
+<li>静态IP地址</li>
+<li>主机名</li>
+<li>动态IP地址</li>
+<li>NILVALUE</li>
+</ul>
+<p>syslog应用SHOULD在尽可能长的时间内持续使用相同的值。NILVALUE SHOULD只在真实主机名无法获取时被使用。</p>
+<h3 id="15-app-name">1.5 APP-NAME</h3>
+<p>APP-NAME SHOULD标识产生消息的设备或应用，可以用来在relay或collector上过滤消息。NILVALUE MAY在syslog应用无法确定APP-NAME或不能提供该信息时使用。该字段可由操作者指定。</p>
+<h3 id="16-procid">1.6 PROCID</h3>
+<p>PROCID是包含在消息中的值，没有互操作的含义，除了值的变化表示syslog报告发生过中断。该字段没有特定的语法或语义信息，字段的值依赖于协议实现或操作者指定。NILVALUE MAY在无值提供时被使用。</p>
+<p>PROCID通常用来提供与syslog系统相关的进程名称或进程ID，NILVALUE可能在进程ID不可用时使用。虽然PROCID能帮助分析人员检测syslog报告中的中断，但是PROCID对于syslog的重启并不是一个可靠的标识，因为重启的syslog进程可能与之前syslog进程分配到相同的进程ID。</p>
+<p>PROCID也可以用于识别哪些消息属于一个组，例如SMTP邮件传输代理可能将SMTP事务ID放在PROCID，使得collector或relay根据SMTP事务将消息分组。</p>
+<h3 id="17-msgid">1.7 MSGID</h3>
+<p>MSGID SHOULD识别消息的类型，具有相同MSGID的消息SHOULD反映具有相同语义的事件。MSGID本身是没有引申语义的字符串，但是可以用于过滤消息。NILVALUE SHOULD用于syslog应用不能提供任何值时。</p>
+<h2 id="2-structured-data">2 STRUCTURED-DATA</h2>
+<p>STRUCTURED-DATA提供了一种机制，能够以定义明确、容易解析、可解释的数据格式表达信息。它有多种应用场景，例如它可能表述syslog消息的元信息或特定应用的信息（例如流量计数器或IP地址）。</p>
+<p>STRUCTURED-DATA可包含若干结构化的元素，这些元素称为SD-ELEMENT。对于0个元素的情况，STRUCTURED-DATA字段必须包含NILVALUE。STRUCTURED-DATA应用的字符集必须是7-bit的ASCII，一种例外情况是PARAM_VALUE字段，该字段必须使用UTF-8。</p>
+<p>collector MAY忽略畸形的STRUCTURED-DATA元素，relay MUST原封不动地传递畸形的STRUCTURED-DATA元素。</p>
+<h3 id="21-sd-element">2.1 SD-ELEMENT</h3>
+<p>SD-ELEMENT由name和若干name-value对组成。name称为SD-ID，name-value称为SD-PARAM。</p>
+<h3 id="22-sd-id">2.2 SD-ID</h3>
+<p>SD-ID是大小写敏感的，且唯一地标识SD-ELEMENT的类型和目的。相同的SD-ID MUST NOT在同一消息存在一次以上。</p>
+<p>SD-ID有两种格式：</p>
+<ul>
+<li>不含'@'的name保留给IETF Review分配，这种格式的name仅在由IANA首次注册的情况下是合法的。注册后的名字MUST NOT包含@、=、]、"、空格或控制字符。</li>
+<li>任何人可以使用<code>name@&lt;private enterprise number&gt;</code>定义SD-ID。@前的部分内容没有明确规定，但MUST是可打印的US-ASCII字符，且MUST NOT包含@、=、]、"、空格或控制字符；@后的部分需要参考7.2.2节。</li>
+</ul>
+<h3 id="23-sd-param">2.3 SD-PARAM</h3>
+<p>每个SD-PARAM包含PARAM-NAME和PARAM-VALUE。PARAM-NAME是大小写敏感的，除非SD-ID中name包含@，IANA控制所有PARAM-NAME。PARAM-NAME作用域在指定的SD-ID中，因此两个不同SD-ID中相同的PARAM-NAME的值是不同的。</p>
+<p>PARAM-VALUE字段MUST使用UTF-8编码。一个syslog应用MAY以“shortest form”的格式产生任何合法的UTF-8序列。如果控制字符出现在PARAM-VALUE中，MUST NOT失败。syslog应用MAY修改包含控制字符的消息。在PARAM-VALUE内，"、\和]字符MUST跳过，且\"、\\、\]都MUST跳过。</p>
+<p>在一个SD-ELEMENT中，SD-PARAM MAY重复多次。</p>
+<h3 id="24-change-control">2.4 Change Control</h3>
+<p>一旦SD-ID和PARAM-NAME定义后，这些对象的语法和语义MUST NOT被更改。如果需要对现有对象进行更改，则新的SD-ID或PARAM-NAME MUST被创建而旧的保持不变。OPTIONAL PARAM-NAME MAY被加入到已存在的SD-ID中。</p>
+<h2 id="3-msg">3 MSG</h2>
+<p>没有格式要求，MSG SHOULD是使用UTF-8编码的UNICODE（RFC3629）。</p>
+<h2 id="4-structure-datasd-ids">4 STRUCTURE-DATA的SD-IDs</h2>
+<p>本节定义了IANA注册的初始化SD-ID。这里定义的所有SD-ID为OPTIONAL。</p>
+<h3 id="41-timequality">4.1 timeQuality</h3>
+<p>originator MAY使用该字段描述自己的系统时间的概念。该SD-ID SHOULD在originator不能与可靠的外部时间源正确同步或不知道时区信息是否正确时被使用。</p>
+<ul>
+<li>tzKnown：originator是否知道自己的时区</li>
+<li>isSynced：originator是否与可靠的外部时间源同步</li>
+<li>synAccuracy：originator时间同步的精度</li>
+</ul>
+<h3 id="42-origin">4.2 origin</h3>
+<p>该SD-ID MAY用来标识syslog消息的来源。指定这些参数的主要是为了帮助日志分析员和相似的应用。</p>
+<ul>
+<li>ip：originator在产生消息时知道它拥有的IP</li>
+<li>enterpriseId：该字段MUST是SMI Network Management Private Enterprise Code</li>
+<li>software：唯一地标识产生该消息的软件</li>
+<li>swVersion：唯一地标识产生该消息的软件的版本</li>
+</ul>
+<h3 id="43-meta">4.3 meta</h3>
+<p>该SD-ID MAY用于提供消息的元信息。</p>
+<ul>
+<li>sequenceId：跟踪originator提交消息到syslog传输的序列</li>
+<li>sysUpTime：可能用于在消息中包含SNMP的sysUpTime参数</li>
+<li>language：MSG中的自然语言</li>
+</ul>
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+    <nav class="md-footer__inner md-grid" aria-label="Footer" >
+      
+        
+        <a href="../Zeek%E5%8F%82%E8%80%83/Zeek%E5%8F%82%E8%80%83/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Zeek参考" rel="prev">
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+          </div>
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              Zeek参考
+            </div>
+          </div>
+        </a>
+      
+      
+        
+        <a href="../../%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E7%B3%BB%E7%BB%9F%E7%BA%A7%E6%BA%AF%E6%BA%90%E5%9B%BE%E4%B8%8E%E5%A8%81%E8%83%81%E6%A3%80%E6%B5%8B/" class="md-footer__link md-footer__link--next" aria-label="Next: 系统级溯源图与威胁检测" rel="next">
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              系统级溯源图与威胁检测
+            </div>
+          </div>
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4Z"/></svg>
+          </div>
+        </a>
+      
+    </nav>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.tabs", "search.suggest", "search.highlight", "toc.integrate"], "search": "../../assets/javascripts/workers/search.16e2a7d4.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version.title": "Select version"}}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.5a2dcb6a.min.js"></script>
+      
+        <script src="../../javascripts/mathjax.js"></script>
+      
+        <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+    
+    
+  </body>
+</html>

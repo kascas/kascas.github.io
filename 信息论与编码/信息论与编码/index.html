@@ -1,0 +1,2519 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.4.2, mkdocs-material-8.5.10">
+    
+    
+      
+        <title>信息论与编码 - Kascas's Blogs</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.975780f9.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.2505c338.min.css">
+        
+      
+      
+
+    
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="None" data-md-color-accent="None">
+  
+    
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#_1" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="Kascas&#39;s Blogs" class="md-header__button md-logo" aria-label="Kascas's Blogs" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Kascas's Blogs
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              信息论与编码
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/kascas/kascas.github.io" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.2.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-tabs__inner md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="../.." class="md-tabs__link">
+      主页
+    </a>
+  </li>
+
+      
+        
+  
+  
+    
+  
+
+
+  <li class="md-tabs__item">
+    <a href="./" class="md-tabs__link md-tabs__link--active">
+      信息论与编码
+    </a>
+  </li>
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../%E4%BF%A1%E5%8F%B7%E4%B8%8E%E7%B3%BB%E7%BB%9F/1%E4%BF%A1%E5%8F%B7%E4%B8%8E%E7%B3%BB%E7%BB%9F/" class="md-tabs__link">
+        信号与系统
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../%E9%80%9A%E4%BF%A1%E5%8E%9F%E7%90%86/md/4%E4%BF%A1%E9%81%93/" class="md-tabs__link">
+        通信原理
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/2%E9%97%AE%E9%A2%98%E6%B1%82%E8%A7%A3/" class="md-tabs__link">
+        人工智能
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../%E5%9B%BE%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/%E4%BA%8C%E3%80%81%E5%9B%BE%E8%AE%BA%E5%9F%BA%E7%A1%80/" class="md-tabs__link">
+        图深度学习
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../Python%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86/1NumPy%E5%85%A5%E9%97%A8/" class="md-tabs__link">
+        Python数据处理
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../%E6%97%A5%E5%BF%97%E5%88%86%E6%9E%90/Linux-Audit%E5%8F%82%E8%80%83/Linux-Audit%E5%8F%82%E8%80%83/" class="md-tabs__link">
+        日志分析
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E7%B3%BB%E7%BB%9F%E7%BA%A7%E6%BA%AF%E6%BA%90%E5%9B%BE%E4%B8%8E%E5%A8%81%E8%83%81%E6%A3%80%E6%B5%8B/" class="md-tabs__link">
+        学习笔记
+      </a>
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+  
+
+
+  
+
+<nav class="md-nav md-nav--primary md-nav--lifted md-nav--integrated" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Kascas&#39;s Blogs" class="md-nav__button md-logo" aria-label="Kascas's Blogs" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    Kascas's Blogs
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/kascas/kascas.github.io" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.2.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        主页
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          信息论与编码
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        信息论与编码
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1" class="md-nav__link">
+    1 引论
+  </a>
+  
+    <nav class="md-nav" aria-label="1 引论">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#11" class="md-nav__link">
+    1.1 信息论的基本概念
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#12" class="md-nav__link">
+    * 1.2 信息论与编码的发展简史
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#13" class="md-nav__link">
+    * 1.3 香农与经典信息论
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-" class="md-nav__link">
+    2 信源编码-唯一可译码
+  </a>
+  
+    <nav class="md-nav" aria-label="2 信源编码-唯一可译码">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#21" class="md-nav__link">
+    2.1 信源的数学模型
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#22" class="md-nav__link">
+    2.2 信源编码
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#23" class="md-nav__link">
+    2.3 唯一可译码
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#24" class="md-nav__link">
+    2.4 信源编码的分类
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-" class="md-nav__link">
+    3 信源编码-即时码的构造
+  </a>
+  
+    <nav class="md-nav" aria-label="3 信源编码-即时码的构造">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#31" class="md-nav__link">
+    3.1 图论的观点：码树
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#32-kraft" class="md-nav__link">
+    3.2 Kraft不等式
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#33-mcmillans" class="md-nav__link">
+    3.3 McMillan's不等式
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#34" class="md-nav__link">
+    3.4 即时码的最小期望长度
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-huffman" class="md-nav__link">
+    4 信源编码-Huffman编码
+  </a>
+  
+    <nav class="md-nav" aria-label="4 信源编码-Huffman编码">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#41" class="md-nav__link">
+    4.1 最优码
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#42-huffman" class="md-nav__link">
+    4.2 二元Huffman编码
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#43-huffman" class="md-nav__link">
+    4.3 二元Huffman编码的平均码长
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#44-huffman" class="md-nav__link">
+    4.4 二元Huffman编码的最优性
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5" class="md-nav__link">
+    5 信息量
+  </a>
+  
+    <nav class="md-nav" aria-label="5 信息量">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#51" class="md-nav__link">
+    5.1 非平均互信息量
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#52" class="md-nav__link">
+    5.2 非平均自信息量
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6" class="md-nav__link">
+    6 熵
+  </a>
+  
+    <nav class="md-nav" aria-label="6 熵">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#61-" class="md-nav__link">
+    6.1 离散集的平均自信息量-熵
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#62" class="md-nav__link">
+    6.2 离散集的平均互信息量
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7" class="md-nav__link">
+    7 信息不等式
+  </a>
+  
+    <nav class="md-nav" aria-label="7 信息不等式">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#71" class="md-nav__link">
+    7.1 信息不等式
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#72" class="md-nav__link">
+    7.2 相对熵、熵和互信息量的凸性
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8" class="md-nav__link">
+    8 渐进均分性
+  </a>
+  
+    <nav class="md-nav" aria-label="8 渐进均分性">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#81-aep" class="md-nav__link">
+    8.1 渐进均分性定理AEP
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#82-aep" class="md-nav__link">
+    * 8.2 AEP的结果应用：数据压缩
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#83" class="md-nav__link">
+    * 8.3 高概率与典型集
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#9" class="md-nav__link">
+    9 熵界和几种典型信源编码
+  </a>
+  
+    <nav class="md-nav" aria-label="9 熵界和几种典型信源编码">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#91" class="md-nav__link">
+    9.1 熵与平均码长
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#10" class="md-nav__link">
+    10 香农第一定理
+  </a>
+  
+    <nav class="md-nav" aria-label="10 香农第一定理">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#101" class="md-nav__link">
+    10.1 信源的扩张
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#102" class="md-nav__link">
+    10.2 香农第一定理
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#103-lz" class="md-nav__link">
+    * 10.3 LZ编码
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#11_1" class="md-nav__link">
+    11 信道
+  </a>
+  
+    <nav class="md-nav" aria-label="11 信道">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#111" class="md-nav__link">
+    11.1信道分类
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#112" class="md-nav__link">
+    11.2 公式和定义
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#113" class="md-nav__link">
+    * 11.3 香农第一定理的推广
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#12_1" class="md-nav__link">
+    12 信道容量
+  </a>
+  
+    <nav class="md-nav" aria-label="12 信道容量">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#121" class="md-nav__link">
+    12.1 信道容量的定义
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#122" class="md-nav__link">
+    12.2 信道容量的计算
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#13_1" class="md-nav__link">
+    * 13 信道组合
+  </a>
+  
+    <nav class="md-nav" aria-label="* 13 信道组合">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#131" class="md-nav__link">
+    13.1 积信道（并联信道）
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#132" class="md-nav__link">
+    13.2 和信道（合信道）
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#133" class="md-nav__link">
+    13.3 级联信道（串联信道）
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#14-aep" class="md-nav__link">
+    14 译码规则与联合AEP
+  </a>
+  
+    <nav class="md-nav" aria-label="14 译码规则与联合AEP">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#141" class="md-nav__link">
+    14.1 译码规则
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#142" class="md-nav__link">
+    14.2 编码方法和错误概率
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#143-aep" class="md-nav__link">
+    14.3 联合典型序列与联合AEP
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#15" class="md-nav__link">
+    15 信道编码定理
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#16" class="md-nav__link">
+    16 汉明码与线性码
+  </a>
+  
+    <nav class="md-nav" aria-label="16 汉明码与线性码">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#161-hamming" class="md-nav__link">
+    * 16.1 Hamming与汉明码
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#162" class="md-nav__link">
+    16.2 汉明码
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#163" class="md-nav__link">
+    * 16.3 线性码
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#164" class="md-nav__link">
+    * 16.4 译码错误概率和不可检错概率
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3" type="checkbox" id="__nav_3" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_3">
+          信号与系统
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="信号与系统" data-md-level="1">
+        <label class="md-nav__title" for="__nav_3">
+          <span class="md-nav__icon md-icon"></span>
+          信号与系统
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E4%BF%A1%E5%8F%B7%E4%B8%8E%E7%B3%BB%E7%BB%9F/1%E4%BF%A1%E5%8F%B7%E4%B8%8E%E7%B3%BB%E7%BB%9F/" class="md-nav__link">
+        1.信号与系统
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E4%BF%A1%E5%8F%B7%E4%B8%8E%E7%B3%BB%E7%BB%9F/2%E7%BA%BF%E6%80%A7%E6%97%B6%E4%B8%8D%E5%8F%98%E7%B3%BB%E7%BB%9F/" class="md-nav__link">
+        2.线性时不变系统
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E4%BF%A1%E5%8F%B7%E4%B8%8E%E7%B3%BB%E7%BB%9F/3%E5%91%A8%E6%9C%9F%E4%BF%A1%E5%8F%B7%E7%9A%84%E5%82%85%E9%87%8C%E5%8F%B6%E7%BA%A7%E6%95%B0%E8%A1%A8%E7%A4%BA/" class="md-nav__link">
+        3.周期信号的傅里叶级数表示
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E4%BF%A1%E5%8F%B7%E4%B8%8E%E7%B3%BB%E7%BB%9F/4%E8%BF%9E%E7%BB%AD%E6%97%B6%E9%97%B4%E5%82%85%E9%87%8C%E5%8F%B6%E5%8F%98%E6%8D%A2/" class="md-nav__link">
+        4.连续时间傅里叶变换
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E4%BF%A1%E5%8F%B7%E4%B8%8E%E7%B3%BB%E7%BB%9F/5%E7%A6%BB%E6%95%A3%E6%97%B6%E9%97%B4%E5%82%85%E9%87%8C%E5%8F%B6%E5%8F%98%E6%8D%A2/" class="md-nav__link">
+        5.离散时间傅里叶变换
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E4%BF%A1%E5%8F%B7%E4%B8%8E%E7%B3%BB%E7%BB%9F/9%E6%8B%89%E6%99%AE%E6%8B%89%E6%96%AF%E5%8F%98%E6%8D%A2/" class="md-nav__link">
+        9.拉普拉斯变换
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E4%BF%A1%E5%8F%B7%E4%B8%8E%E7%B3%BB%E7%BB%9F/10Z%E5%8F%98%E6%8D%A2/" class="md-nav__link">
+        10.Z变换
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E4%BF%A1%E5%8F%B7%E4%B8%8E%E7%B3%BB%E7%BB%9F/%E5%85%AC%E5%BC%8F%E6%80%BB%E7%BB%93/" class="md-nav__link">
+        公式总结
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4" type="checkbox" id="__nav_4" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_4">
+          通信原理
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="通信原理" data-md-level="1">
+        <label class="md-nav__title" for="__nav_4">
+          <span class="md-nav__icon md-icon"></span>
+          通信原理
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E9%80%9A%E4%BF%A1%E5%8E%9F%E7%90%86/md/4%E4%BF%A1%E9%81%93/" class="md-nav__link">
+        4.信道
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E9%80%9A%E4%BF%A1%E5%8E%9F%E7%90%86/md/5%E6%A8%A1%E6%8B%9F%E8%B0%83%E5%88%B6%E7%B3%BB%E7%BB%9F/" class="md-nav__link">
+        5.模拟调制系统
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E9%80%9A%E4%BF%A1%E5%8E%9F%E7%90%86/md/6%E6%95%B0%E5%AD%97%E5%9F%BA%E5%B8%A6%E4%BC%A0%E8%BE%93/" class="md-nav__link">
+        6.数字基带传输
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E9%80%9A%E4%BF%A1%E5%8E%9F%E7%90%86/md/7%E6%95%B0%E5%AD%97%E5%B8%A6%E9%80%9A%E4%BC%A0%E8%BE%93%E7%B3%BB%E7%BB%9F/" class="md-nav__link">
+        7.数字带通传输系统
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E9%80%9A%E4%BF%A1%E5%8E%9F%E7%90%86/md/8%E6%96%B0%E5%9E%8B%E6%95%B0%E5%AD%97%E5%B8%A6%E9%80%9A%E8%B0%83%E5%88%B6%E6%8A%80%E6%9C%AF/" class="md-nav__link">
+        8.新型数字带通调制技术
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E9%80%9A%E4%BF%A1%E5%8E%9F%E7%90%86/md/9%E6%9C%80%E4%BD%B3%E6%8E%A5%E6%94%B6%E6%9C%BA%E8%AE%BE%E8%AE%A1/" class="md-nav__link">
+        9.最佳接收机设计
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E9%80%9A%E4%BF%A1%E5%8E%9F%E7%90%86/md/10%E4%BF%A1%E6%BA%90%E7%BC%96%E7%A0%81/" class="md-nav__link">
+        10.信源编码
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E9%80%9A%E4%BF%A1%E5%8E%9F%E7%90%86/md/11%E5%B7%AE%E9%94%99%E6%8E%A7%E5%88%B6%E7%BC%96%E7%A0%81/" class="md-nav__link">
+        11.差错控制编码
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E9%80%9A%E4%BF%A1%E5%8E%9F%E7%90%86/md/%E5%85%AC%E5%BC%8F%E6%B1%87%E6%80%BB/" class="md-nav__link">
+        12.公式汇总
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_5" type="checkbox" id="__nav_5" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_5">
+          人工智能
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="人工智能" data-md-level="1">
+        <label class="md-nav__title" for="__nav_5">
+          <span class="md-nav__icon md-icon"></span>
+          人工智能
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/2%E9%97%AE%E9%A2%98%E6%B1%82%E8%A7%A3/" class="md-nav__link">
+        2.问题求解
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/3%E5%8D%9A%E5%BC%88%E9%97%AE%E9%A2%98/" class="md-nav__link">
+        3.博弈问题
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/4%E6%8E%A8%E7%90%86%E6%8A%80%E6%9C%AF/" class="md-nav__link">
+        4.推理技术
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/6%E4%B8%8D%E7%A1%AE%E5%AE%9A%E6%80%A7%E6%8E%A8%E7%90%86/" class="md-nav__link">
+        6.不确定性推理
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6" type="checkbox" id="__nav_6" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_6">
+          图深度学习
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="图深度学习" data-md-level="1">
+        <label class="md-nav__title" for="__nav_6">
+          <span class="md-nav__icon md-icon"></span>
+          图深度学习
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E5%9B%BE%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/%E4%BA%8C%E3%80%81%E5%9B%BE%E8%AE%BA%E5%9F%BA%E7%A1%80/" class="md-nav__link">
+        1.图论基础
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E5%9B%BE%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/%E4%B8%89%E3%80%81%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E5%9F%BA%E7%A1%80/" class="md-nav__link">
+        2.深度学习基础
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E5%9B%BE%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/%E5%9B%9B%E3%80%81%E5%9B%BE%E5%B5%8C%E5%85%A5/" class="md-nav__link">
+        3.图嵌入
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E5%9B%BE%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/%E4%BA%94%E3%80%81%E5%9B%BE%E4%BF%A1%E5%8F%B7%E5%A4%84%E7%90%86%E4%B8%8E%E5%9B%BE%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/" class="md-nav__link">
+        4.图信号处理与图卷积神经网络
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_7" type="checkbox" id="__nav_7" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_7">
+          Python数据处理
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Python数据处理" data-md-level="1">
+        <label class="md-nav__title" for="__nav_7">
+          <span class="md-nav__icon md-icon"></span>
+          Python数据处理
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Python%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86/1NumPy%E5%85%A5%E9%97%A8/" class="md-nav__link">
+        1 NumPy入门
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_8" type="checkbox" id="__nav_8" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_8">
+          日志分析
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="日志分析" data-md-level="1">
+        <label class="md-nav__title" for="__nav_8">
+          <span class="md-nav__icon md-icon"></span>
+          日志分析
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E6%97%A5%E5%BF%97%E5%88%86%E6%9E%90/Linux-Audit%E5%8F%82%E8%80%83/Linux-Audit%E5%8F%82%E8%80%83/" class="md-nav__link">
+        Linux-Audit参考
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E6%97%A5%E5%BF%97%E5%88%86%E6%9E%90/Zeek%E5%8F%82%E8%80%83/Zeek%E5%8F%82%E8%80%83/" class="md-nav__link">
+        Zeek参考
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E6%97%A5%E5%BF%97%E5%88%86%E6%9E%90/syslog%E5%8D%8F%E8%AE%AE/" class="md-nav__link">
+        syslog日志
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_9" type="checkbox" id="__nav_9" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_9">
+          学习笔记
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="学习笔记" data-md-level="1">
+        <label class="md-nav__title" for="__nav_9">
+          <span class="md-nav__icon md-icon"></span>
+          学习笔记
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E7%B3%BB%E7%BB%9F%E7%BA%A7%E6%BA%AF%E6%BA%90%E5%9B%BE%E4%B8%8E%E5%A8%81%E8%83%81%E6%A3%80%E6%B5%8B/" class="md-nav__link">
+        系统级溯源图与威胁检测
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+  <a href="https://github.com/kascas/kascas.github.io/edit/master/docs/信息论与编码/信息论与编码.md" title="Edit this page" class="md-content__button md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25Z"/></svg>
+  </a>
+
+
+<h1 id="_1">信息论与编码</h1>
+<h2 id="1">1 引论</h2>
+<h3 id="11">1.1 信息论的基本概念</h3>
+<p><strong>信息论</strong>：研究（概率）信息的传输、存储和处理</p>
+<p><strong>要素</strong>：信源、编码器、信道、译码器、信宿、干扰源</p>
+<p><strong>信息</strong>表征客体变化、客体之间的差异和关系，表征客体的行为和能力而不是客体本身</p>
+<p><strong>概率信息</strong>（香农信息）：从事件的不确定度和概率测度出发</p>
+<p><strong>信息</strong>（包含在消息中）、<strong>消息</strong>（具体的但不是物理的）、<strong>信号</strong>（消息的载荷者）</p>
+<p>经典信息论（香农信息论）、工程信息论（一般信息论）、广义信息论（信息科学）</p>
+<h3 id="12">* 1.2 信息论与编码的发展简史</h3>
+<h3 id="13">* 1.3 香农与经典信息论</h3>
+<h2 id="2-">2 信源编码-唯一可译码</h2>
+<h3 id="21">2.1 信源的数学模型</h3>
+<p><strong>离散信源</strong>：每隔定长时间发出随机变量<span class="arithmatex">\(X_1,X_2,X_3,...\)</span></p>
+<ul>
+<li>假设每个X~n~都是取值在有限集合<span class="arithmatex">\(S=\{s_1,s_2,...,s_q\}\)</span>上的离散随机变量</li>
+<li>S称为信源字母表</li>
+</ul>
+<p><strong>离散无记忆信源</strong>：随机变量<span class="arithmatex">\(X_1,X_2,X_3,...\)</span>彼此统计独立</p>
+<p><strong>离散无记忆简单信源</strong>：随机变量<span class="arithmatex">\(X_1,X_2,X_3,...\)</span>具有相同概率分布的离散无记忆信源</p>
+<h3 id="22">2.2 信源编码</h3>
+<p><strong>r-元编码</strong>：</p>
+<ul>
+<li><span class="arithmatex">\(S=\{s_1,s_2,...,s_q\}\)</span>，信源字母表</li>
+<li><span class="arithmatex">\(T=\{t_1,t_2,...,t_r\}\)</span>，信道的基本符号组合</li>
+<li><span class="arithmatex">\(C=\{w_1,w_2,...,w_q\}\)</span>，输出的码字集合</li>
+</ul>
+<p>T中的一个<strong>字</strong>（word）w是由T中字母组成的有限序列，字的长度即为序列中字母的个数。</p>
+<ul>
+<li><span class="arithmatex">\(T^n=T\times T...\times T\)</span></li>
+<li><span class="arithmatex">\(\varepsilon\)</span>：空字</li>
+<li><span class="arithmatex">\(T^*=\bigcup_{n\geq 0}T^n\)</span>：所有字集合</li>
+<li><span class="arithmatex">\(T^+=\bigcup_{n&gt;0} T^n\)</span>：所有非空字集合</li>
+</ul>
+<p><strong>信源编码</strong>：<span class="arithmatex">\(C:S\rightarrow T^+\)</span>，<span class="arithmatex">\(C=\{w_1,w_2,....,w_q\}\)</span></p>
+<p><strong>信源序列编码</strong>：<span class="arithmatex">\(C^*:S^*\rightarrow T^*\)</span>，<span class="arithmatex">\(C^*=\{w_{i1},w_{i2},...,w_{in}|w_{ij}\in C,n\geq 0\}\)</span></p>
+<p><strong>平均码字长度</strong>：<span class="arithmatex">\(L(C)=\sum_{k=1}^{K}p_kl_k\)</span></p>
+<p><strong>信源编码最主要目的</strong>：易于实现、平均码长最短（编码效率尽可能大）</p>
+<h3 id="23">2.3 唯一可译码</h3>
+<p><strong>定义</strong>【唯一可译码】：<span class="arithmatex">\(C:S^*\rightarrow T^*\)</span>是唯一可译码，若对<span class="arithmatex">\(\forall t\in T^*\)</span>，至多存在一个<span class="arithmatex">\(s\in S^*\)</span>与之对应。即<span class="arithmatex">\(C:S^*\rightarrow T^*\)</span>是一一对应的。</p>
+<p><strong>定理</strong>：若C中每个码字w~i~具有相同长度，则C是唯一可译码</p>
+<ul>
+<li>若C中码字长度都相同，则称之为长度为L的分组码</li>
+</ul>
+<p><strong>定义</strong>：定义C~0~C~1~...为非空字集合<span class="arithmatex">\(C_n\subseteq T^+\)</span>，特别地，定义C~0~=C，且<span class="arithmatex">\(C_n=\{w\in T^*|uw=v,其中u\in C,v\in C_{n-1} 或 u\in C_{n-1},v\in C \},n\geq 1\)</span>；<span class="arithmatex">\(C_{\infty}=\bigcup_{n=1}^{\infty}C_n\)</span>；</p>
+<p><strong>定理</strong>【唯一可译码的充要条件】：码C为唯一可译码的充要条件为<span class="arithmatex">\(C\bigcap C_{\infty}=\empty\)</span></p>
+<ul>
+<li>反证法可证明</li>
+</ul>
+<p><strong>定义</strong>【即时码】：如果对每个码字序列<span class="arithmatex">\(w_{i1},w_{i2},...,w_{in}...\)</span>，每个以<span class="arithmatex">\(w_{i1},w_{i2},...,w_{in}...\)</span>开头的马子序列t都唯一地被译为<span class="arithmatex">\(s_{i1},s_{i2},...,s_{in}...\)</span>，无论t中后续字母是什么</p>
+<p><strong>定义</strong>【前缀码】：如果每个码字都不是其他码字的前缀</p>
+<p><strong>定理</strong>：一个码C为即时码的充要条件为C是前缀码</p>
+<p><strong>逗点码</strong>（延长码）：每个码字的开头都是相同的字母串，且这个字母串只出现在码字的开头</p>
+<h3 id="24">2.4 信源编码的分类</h3>
+<p>码</p>
+<ul>
+<li>奇异码</li>
+<li>非奇异码<ul>
+<li>非唯一可译码</li>
+<li>唯一可译码<ul>
+<li>等长码</li>
+<li>变长码<ul>
+<li>前缀码/即时码</li>
+<li>逗点码/延长码</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="3-">3 信源编码-即时码的构造</h2>
+<h3 id="31">3.1 图论的观点：码树</h3>
+<p>一个码C可看作树<span class="arithmatex">\(T^*\)</span>中一些顶点的有限集合</p>
+<p>码字<span class="arithmatex">\(w_i\)</span>是<span class="arithmatex">\(w_j\)</span>的前缀当且仅当存在一条从<span class="arithmatex">\(w_i\)</span>到<span class="arithmatex">\(w_j\)</span>的路径</p>
+<p>码C是即时码当且仅当每个码字都不受其他码字支配</p>
+<h3 id="32-kraft">3.2 Kraft不等式</h3>
+<p><strong>定理</strong>：设信源消息集合为<span class="arithmatex">\(S={s_1,s_2,...s_q}\)</span>，信道基本符号的种类为r，码字集合为<span class="arithmatex">\(C={w_1,w_2,...,w_q}\)</span>，对应的码长集合为<span class="arithmatex">\(b={l_1,l_2,...,l_q}\)</span>，则存在即时码的充要条件为下列不等式：<span class="arithmatex">\(\sum_{i=1}^{q}r^{-l_i}\leq 1\)</span></p>
+<ul>
+<li>Kraft不等式为前缀码约束条件</li>
+<li>适用于即时码的存在性问题，但不能给出具体的码</li>
+<li>能判定不是即时码，但不能判定是即时码</li>
+</ul>
+<h3 id="33-mcmillans">3.3 McMillan's不等式</h3>
+<p><strong>定理</strong>：任意唯一可译码的码长必然满足Kraft不等式<span class="arithmatex">\(\sum_{i=1}^{q}r^{-l_i}\)</span></p>
+<p><strong>引理</strong>：存在码长为<span class="arithmatex">\(l_1,l_2,...,l_q\)</span>的即时码，当且仅当存在码长为<span class="arithmatex">\(l_1,l_2,...,l_q\)</span>的唯一可译码</p>
+<h3 id="34">3.4 即时码的最小期望长度</h3>
+<p>期望的码字长度：<span class="arithmatex">\(L^*=-\sum{p_ilog_r p_i}\)</span></p>
+<p><strong>最佳码长原则</strong>：大概率对应短码长，小概率对应长码长</p>
+<h2 id="4-huffman">4 信源编码-Huffman编码</h2>
+<h3 id="41">4.1 最优码</h3>
+<p><strong>定义</strong>【最优码】：给定信道的符号个数r以及概率分布<span class="arithmatex">\(p_i\)</span>，期望码长最小的即时码称为最优码</p>
+<p><strong>定理</strong>：若<span class="arithmatex">\(p_j&gt;p_k\)</span>，则<span class="arithmatex">\(l_j&lt;l_k\)</span></p>
+<p><strong>引理</strong>：给定信源S和整数r，{L(C),C为对信源S的唯一可译码}={L(C),C为对信源S的即时码}。{L(C),C为对信源S的即时码}下界为0，记L~min~(S)为集合下确界，则一个r元即时码C为最优码满足L(C)=L~min~(S)</p>
+<p><strong>定理</strong>：对于任意信源，总存在r元最优码（<span class="arithmatex">\(r\geq2\)</span>）</p>
+<h3 id="42-huffman">4.2 二元Huffman编码</h3>
+<p><strong>缩减信源</strong>：对信源S的信源符号重新编号，使之对应的概率从大到小排序。将两个概率最小的信源符号合并为一个新符号，并将两个信源符号的概率之和作为新符号的概率，得到包含q-1个信源符号的缩减信源S'</p>
+<p><strong>引理</strong>：若C'使即时码，则C也是即时码</p>
+<p><strong>构建方法</strong>：q个字母的信源S的二元即时码C可由q-1个字母的信源S'的二元即时码得到。以此类推：</p>
+<p><span class="arithmatex">\(S \rightarrow S'\rightarrow S'',...,\rightarrow S^{q-1}\)</span>，<span class="arithmatex">\(C \leftarrow C'\leftarrow C'',...,\leftarrow C^{q-1},\)</span>C即为信源S的Huffman编码</p>
+<p><strong>注意</strong>：Huffman编码不唯一，在各次缩减信源中保持码元分配的一致性。码元分配不同，具体的码字也不同，但码长不变</p>
+<p><strong>定义</strong>【码长的方差】：码字长度的方差<span class="arithmatex">\(\sigma^2=E[(l_i-L(C))^2]=\sum_{i=1}^{q}p_i(l_i-L(C))^2\)</span></p>
+<p>在Huffman编码中，对缩减信源符号按概率由大到小的顺序重新排列，应使<strong>合并后的新符号尽可能排在靠前的位置</strong>，这样能够使合并后的新符号重复编码次数减少，使短码得到充分利用。</p>
+<h3 id="43-huffman">4.3 二元Huffman编码的平均码长</h3>
+<p>信源S对应码字集合为C，其一次缩减信源S'对应码字集合为C'，则有:</p>
+<p><span class="arithmatex">\(L(C)-L(C')=(l+1)p_q+(l+1)p_{q-1}-l(p_q+p_{q-1})=p_{q-1}+p_q=p'\)</span></p>
+<p>利用<span class="arithmatex">\(L(C^{(q-1)})=|\varepsilon|=0\)</span>，迭代可得：<span class="arithmatex">\(L(C)-L(C^{(q-1)})=L(C)=p'+p''+...+p^{(q-1)}\)</span></p>
+<p><strong>计算每次缩减信源产生的新概率之和即可得到平均码长</strong></p>
+<h3 id="44-huffman">4.4 二元Huffman编码的最优性</h3>
+<p><strong>定义</strong>【兄弟】：若两个二元码字<span class="arithmatex">\(w_1\)</span>和<span class="arithmatex">\(w_2\)</span>是同一个字<span class="arithmatex">\(x\)</span>的孩子，即形式为<span class="arithmatex">\(x0\)</span>和<span class="arithmatex">\(x1\)</span>，则它们互称为兄弟</p>
+<p><strong>引理</strong>：对于任意信源S，总存在一个二元最优即时码，其最长的两个码字为兄弟</p>
+<p><strong>定理</strong>：对于任意信源S，若C是与之对应的二元Huffman编码，则C是信源S的最优码</p>
+<h2 id="5">5 信息量</h2>
+<h3 id="51">5.1 非平均互信息量</h3>
+<p><strong>输入空间、输出空间、联合空间</strong>：</p>
+<ul>
+<li>输入空间：<span class="arithmatex">\(X=\{x_k,k=1,2,...,K\}\)</span>，概率记为<span class="arithmatex">\(Q(x_k)\)</span></li>
+<li>输出空间：<span class="arithmatex">\(Y=\{y_j,j=1,2,...,K\}\)</span>，概率记为<span class="arithmatex">\(\Omega(y_j)\)</span></li>
+<li>联合空间：<span class="arithmatex">\(XY=\{x_ky_j;k=1,2,...,K;j=1,2,...,J\}\)</span>，概率为<span class="arithmatex">\(P(x_ky_j)\)</span></li>
+<li><span class="arithmatex">\(P(x_ky_j)=P(k_k|y_j)\Omega(y_j)=P(y_j|x_k)Q(x_k)\)</span></li>
+<li>先验概率<span class="arithmatex">\(Q(x_k)\)</span>，后验概率<span class="arithmatex">\(P(x_k|y_j)\)</span></li>
+</ul>
+<p>信息量只与后验概率和先验概率有关。先验概率越大，得到的信息量越小，反之信息量越大。</p>
+<p><strong>定义</strong>【非平均互信息量】：二维离散型随机变量<span class="arithmatex">\(\{(X,Y),(x_k,y_j),P(x_K,y_j),k=1\sim K;j=1\sim J\}\)</span>。因此给定了两个离散型随机变量<span class="arithmatex">\(\{X,x_k,Q_k,k=1\sim K\}\)</span>，<span class="arithmatex">\(\{Y,y_j,\Omega_j,j=1\sim J\}\)</span>。事件<span class="arithmatex">\(x_k\)</span>与<span class="arithmatex">\(y_j\)</span>的互信息定义为<span class="arithmatex">\(I(x_k;y_j)=\log\frac{P(x_k|y_j)}{Q(x_k)}=\log\frac{P(y_j|x_k)}{\Omega(y_j)}=I(y_j;x_k)\)</span></p>
+<ul>
+<li>底数为2时，互信息量的单位为比特bit；底数为e时互信息量的单位为奈特nat</li>
+</ul>
+<p>非平均互信息=收信者收到<span class="arithmatex">\(y_j\)</span>前后，对信源发<span class="arithmatex">\(x_k\)</span>的不确定性的消除。</p>
+<p><strong>性质</strong>【非平均互信息量】：</p>
+<ul>
+<li>对称性：<span class="arithmatex">\(I(x_k;y_j)=I(y_j;x_k)\)</span></li>
+<li><span class="arithmatex">\(P(x_k,y_j)=Q_k\Omega_j\)</span>，则<span class="arithmatex">\(I(x_k;y_j)=0\)</span>（X与Y独立时成立）</li>
+<li><span class="arithmatex">\(P(x_k,y_j)&gt;Q_k\Omega_j\)</span>，则<span class="arithmatex">\(I(x_k;y_j)&gt;0\)</span></li>
+<li><span class="arithmatex">\(P(x_k,y_j)&lt;Q_k\Omega_j\)</span>，则<span class="arithmatex">\(I(x_k;y_j)&lt;0\)</span></li>
+<li>当<span class="arithmatex">\(y_j\)</span>的出现有助于肯定事件<span class="arithmatex">\(x_k\)</span>的出现，即<span class="arithmatex">\(P(x_k|y_j)&gt;Q_k\)</span>，则<span class="arithmatex">\(I(x_k;y_j)&gt;0\)</span>；否则<span class="arithmatex">\(I(x_k;y_j)&lt;0\)</span></li>
+</ul>
+<p><strong>三个事件集的条件互信息</strong>：<span class="arithmatex">\(I(u_1;u_2|u_3)=\log\frac{P(u_1|u_2,u_3)}{P(u_1|u_3)}=\log\frac{P(u_1,u_2|u_3)}{P(u_1|u_3)P(u_2|u_3)}\)</span>。</p>
+<ul>
+<li>
+<p>可加性：<span class="arithmatex">\(I(u_1;u_2,u_3)=I(u_1;u_2)+I(u_1;u_3|u_2)=I(u_1;u_3)+I(u_1;u_2|u_3)\)</span>。</p>
+<p><span class="arithmatex">\((u_2,u_3)\)</span>联合给出的关于<span class="arithmatex">\(u_1\)</span>的信息量等于<span class="arithmatex">\(u_2\)</span>给出的关于<span class="arithmatex">\(u_1\)</span>的信息量与<span class="arithmatex">\(u_2\)</span>已知条件下<span class="arithmatex">\(u_3\)</span>给出的关于<span class="arithmatex">\(u_1\)</span>的信息量之和。</p>
+</li>
+</ul>
+<h3 id="52">5.2 非平均自信息量</h3>
+<p><strong>定义</strong>【非平均自信息量】：给定一个离散型随机变量<span class="arithmatex">\({X,x_k,Q_k,k=1\sim K}\)</span>，事件<span class="arithmatex">\(x_k\in X\)</span>的自信息量定义为：<span class="arithmatex">\(I(x_k)=\log_a {\frac{1}{Q_k}}\)</span>，其中a是大于1的常数。</p>
+<p><strong>性质</strong>【非平均自信息量】：</p>
+<ol>
+<li>非负性：<span class="arithmatex">\(I(x_k)\geq 0\)</span></li>
+<li>单调性：<span class="arithmatex">\(Q_k\)</span>越小，<span class="arithmatex">\(I(x_k)\)</span>越大</li>
+<li><span class="arithmatex">\(I(x_k;y_j)\leq \min\{I(x_k),I(y_j)\}\)</span>，即互信息量不超过各自的自信息量</li>
+</ol>
+<p>非平均自信息量的物理意义：</p>
+<ul>
+<li>当<span class="arithmatex">\(x_i\)</span>发生前，表示该事件发生的不确定性</li>
+<li>当<span class="arithmatex">\(x_i\)</span>发生后，表示该事件所提供的信息量</li>
+</ul>
+<p><strong>定义</strong>【条件的非平均自信息量】：给定二位离散型随机变量<span class="arithmatex">\(\{(X,Y),(x_k,y_j),P(x_k,y_j),k=1\sim K;j=1\sim J\}\)</span>。在事件<span class="arithmatex">\(y_j\)</span>发生的条件下,事件<span class="arithmatex">\(x_k\)</span>的条件自信息量定义为：<span class="arithmatex">\(I(x_k|y_j)=\log_a{\frac{1}{P(x_k|y_j)}}=\log_a\frac{P(y_j)}{P(x_k,y_j)}\)</span></p>
+<p><strong>性质</strong>【条件的非平均自信息量】：<span class="arithmatex">\(I(x_k;y_j)=I(x_k)-I(x_k|y_j)\)</span></p>
+<p><strong>定义</strong>【联合的非平均自信息量】：给定一个二维离散型随机变量<span class="arithmatex">\(\{(X,Y),(x_k,y_j),P(x_k,y_j),k=1\sim K;j=1\sim J\}\)</span>。事件<span class="arithmatex">\((x_k,y_j)\in (X,Y)\)</span>的自信息量定义为<span class="arithmatex">\(I(x_k,y_j)=\log_a{\frac{1}{P(x_k,y_j)}}\)</span>。</p>
+<p><strong>性质</strong>【联合的非平均自信息量】：<span class="arithmatex">\(\begin{aligned}I(x_k,y_j)&amp;=I(x_k)+I(y_j|x_k)\\&amp;=I(x_k)+I(y_j)-I(x_k;y_j)\end{aligned}\)</span></p>
+<h2 id="6">6 熵</h2>
+<h3 id="61-">6.1 离散集的平均自信息量-熵</h3>
+<p><strong>定义</strong>【平均自信息量-熵】：离散型随机变量<span class="arithmatex">\(\{X,x_k,Q_k,k=1\sim K\}\)</span>的平均自信息量，即熵定义为：</p>
+<ul>
+<li><span class="arithmatex">\(H(X)=E[I(X)]=\sum_{k=1}^{K}p(x_k)I(x_k)=-\sum_{k=1}^{K}Q_k\log_a Q_k\)</span></li>
+</ul>
+<p><strong>约定</strong>：<span class="arithmatex">\(0\log0=0\)</span>，信息熵单位与自信息单位相同Bit、Nat、Det</p>
+<p>集X的平均自信息量表示集X中事件出现的平均不确定性：</p>
+<ul>
+<li>观测前，集X中每出现一个事件平均所需的信息量</li>
+<li>观测后，集X中每出现一个事件平均给出的信息量</li>
+</ul>
+<p><strong>定义</strong>【条件平均自信息量-条件熵】：给定一个二维离散型随机变量<span class="arithmatex">\(\{(X,Y),(x_k,y_j),P(x_k,y_j),k=1\sim K;j=1\sim J\}\)</span>，则X相对于Y的条件熵定义如下：<span class="arithmatex">\(H(X|Y)=-\sum_{k=1}^{K}\sum_{j=1}^{J}p(x_k,y_j)\log p(x_k|y_j)\)</span></p>
+<p><strong>定义</strong>【联合熵】：给定一个二维离散型随机变量<span class="arithmatex">\(\{(X,Y),(x_k,y_j),P(x_k,y_j),k=1\sim K;j=1\sim J\}\)</span>，则X与Y的联合熵为：</p>
+<p><span class="arithmatex">\(H(X,Y)=-\sum_{k=1}^{K}\sum_{j=1}^{J}p(x_k,y_j)\log p(x_k,y_j)\)</span></p>
+<p><strong>性质</strong>：熵、条件熵、联合熵的关系</p>
+<ul>
+<li><span class="arithmatex">\(H(X,Y)=H(X)+H(Y|X)=H(Y)+H(X|Y)\)</span></li>
+<li>当X与Y独立时，<span class="arithmatex">\(H(X,Y)=H(X)+H(Y)\)</span>，<span class="arithmatex">\(H(X|Y)=H(X),H(Y|X)=H(Y)\)</span></li>
+</ul>
+<p><strong>定义</strong>【相对熵】：两个概率密度函数p(x)与q(x)之间的相对熵定义为：<span class="arithmatex">\(D(p||q)=\sum_{x\in X}p(x)\log \frac{p(x)}{q(x)}=E_{p(x)}\log \frac{p(x)}{q(x)}\)</span></p>
+<p><strong>约定</strong>：<span class="arithmatex">\(0\log\frac{0}{q}=0\)</span>，<span class="arithmatex">\(p\log \frac{p}{0}=\infty\)</span></p>
+<p><strong>性质</strong>【相对熵】：</p>
+<ul>
+<li>相对熵总是非负的</li>
+<li>条件相对熵<span class="arithmatex">\(D(p(y|x)||q(y|x))=E_{p(x,y)}\log \frac{p(Y|X)}{q(Y|X)}\)</span></li>
+<li>链式法则：<span class="arithmatex">\(D(p(x,y)||q(x,y))=D(p(x)||q(x))+D(p(y|x)||q(y|x))\)</span></li>
+</ul>
+<h3 id="62">6.2 离散集的平均互信息量</h3>
+<p><span class="arithmatex">\(I(X;y_i)=\sum_{i=1}^{N}p(x_i|y_j)I(x_i;y_j)=\sum_{x}p(x|y_i)I(x;y_j)\)</span>【从y~i~中获取关于输入符号的平均信息量应该在条件概率空间中做统计平均】</p>
+<p><strong>定义</strong>【平均互信息量】：<span class="arithmatex">\(I(X;Y)=\sum_x\sum_yp(x,y)\log\frac{p(x,y)}{p(x)p(y)}=D(p(x,y)||p(x)p(y))=I(Y;X)\)</span></p>
+<p><strong>性质</strong>【平均互信息量】：</p>
+<ul>
+<li>对称性：<span class="arithmatex">\(I(X;Y)=I(Y;X)\)</span></li>
+<li>各种熵的关系：<span class="arithmatex">\(I(X;Y)=H(X)-H(X|Y)=H(Y)-H(Y|X)=H(X)+H(Y)-H(X,Y)\)</span></li>
+</ul>
+<p><strong>注意</strong>：联合熵、条件熵、平均互信息都是对联合概率平均</p>
+<p><strong>物理意义</strong>：</p>
+<ul>
+<li>条件熵H(X|Y)：给定Y之后X剩余的不确定度的度量</li>
+<li>联合熵H(X,Y)：X和Y一起出现时的不确定度的度量</li>
+<li>互信息I(X;Y)：给定Y后X不确定度减少的程度</li>
+</ul>
+<p><strong>推广</strong>【条件互信息】：</p>
+<ul>
+<li><span class="arithmatex">\(I(X;Y|Z)=\sum_x\sum_y\sum_z\log\frac{p(x|yz)}{p(x|z)}\)</span></li>
+<li><span class="arithmatex">\(I(X;Y|Z)=H(X|Z)-H(X|YZ)\)</span></li>
+</ul>
+<p>信道环境中，H(X|Y)称为疑义度，H(Y|X)称为噪声熵，H(X,Y)称为共熵。</p>
+<p><strong>熵的链式法则</strong>：<span class="arithmatex">\(H(X_1,X_2,...,X_n)=\sum_{i=1}^{n}H(X_i|X_{i-1},...,X_1)\)</span></p>
+<p><strong>互信息的链式法则</strong>：<span class="arithmatex">\(I(X_1,X_2,...X_n;Y)=\sum_{i=1}^{n}I(X_i;Y|X_{i-1},...,X_1)\)</span></p>
+<p><strong>熵的性质</strong>：</p>
+<ul>
+<li>非负性：<span class="arithmatex">\(H(X)\geq0\)</span>，<span class="arithmatex">\(H(X|Y)\geq0\)</span>，<span class="arithmatex">\(H(Y|X)\geq0\)</span>，<span class="arithmatex">\(H(X,Y)\geq0\)</span></li>
+<li>确定性：当一个概率分量为1时，H(X)=0</li>
+<li>可忽略性：当某个随机变量发生某个事件概率很小时，该事件对熵的贡献可以忽略不计</li>
+<li>可加性：<span class="arithmatex">\(H(X,Y)=H(X)+H(Y|X)=H(Y)+H(X|Y)\)</span></li>
+<li>极值性：<span class="arithmatex">\(H(X)\leq\log_aK\)</span>，当且仅当<span class="arithmatex">\(q_1=q_2=...=q_k=1/K\)</span>，等号成立。</li>
+</ul>
+<h2 id="7">7 信息不等式</h2>
+<h3 id="71">7.1 信息不等式</h3>
+<p><strong>定义</strong>【凸函数】：<span class="arithmatex">\(f(\theta\alpha+(1-\theta)\beta)\leq\theta f(\alpha)+(1-\theta)f(\beta)\)</span></p>
+<p><strong>性质</strong>【凸函数】：</p>
+<ul>
+<li>如果f(a)是凸的，则-f(a)是凹的</li>
+<li>如果函数f总是位于任意一条弦的下面，则是凸的</li>
+<li>若<span class="arithmatex">\(f_1(\alpha),...,f_L(\alpha)\)</span>都是凹函数且<span class="arithmatex">\(c_1,...,c_L\)</span>都是正数，则<span class="arithmatex">\(c_1f_1(\alpha)+...+c_Lf_L(\alpha)\)</span>也是凹函数</li>
+<li>如果函数f存在处处非负的二阶导数，则f为凸函数</li>
+</ul>
+<p><strong>定理</strong>【K-T条件】：（K-T条件是确定某个点为极值点的必要条件，==若目标函数为凸函数，则是充分必要条件==）<span class="arithmatex">\(f(\alpha)\)</span>是定义域R上的凹函数，a是概率矢量，偏导数<span class="arithmatex">\(\frac{\partial f(a)}{\partial a_k}\)</span>存在且连续，<span class="arithmatex">\(f(a)\)</span>在R上为极大的充分必要条件是<span class="arithmatex">\(\begin{aligned}&amp;\frac{\partial f(a)}{\partial a_k}=\lambda,a_k\neq 0\\ &amp;\frac{\partial f(a)}{\partial a_k}\leq\lambda,a_k=0\end{aligned}\)</span></p>
+<p><strong>定理</strong>【基础不等式】：<span class="arithmatex">\(\ln x\leq x-1\)</span></p>
+<p><strong>定理</strong>【Jensen不等式】：如果f为凹函数，X为随机变量，则<span class="arithmatex">\(E[f(X)]\geq f(EX)\)</span></p>
+<ul>
+<li>若函数是严格凸的，则不等式严格成立。</li>
+<li>X是个常数，即X=EX时等号成立</li>
+<li>若f为凹函数，则不等式反向</li>
+</ul>
+<p><strong>定理</strong>【信息散度不等式】：<span class="arithmatex">\(D(p||q)\geq0\)</span>，等号成立当且仅当<span class="arithmatex">\(p(x)=q(x)\)</span>对任意x成立</p>
+<p><strong>定理</strong>【互信息不等式】：</p>
+<ul>
+<li><span class="arithmatex">\(I(X;Y)=D(p(x,y)||p(x)p(y)) \geq 0\)</span>，等号成立当且仅当<span class="arithmatex">\(p(x,y)=p(x)p(y)\)</span></li>
+<li><span class="arithmatex">\(I(X;Y|Z)\geq0\)</span>，<strong>所有Shannon信息度量都可以看做I(X;Y|Z)的特例</strong></li>
+<li>若Z退化为常数，则：<span class="arithmatex">\(I(X;Y|c)=I(X;Y),I(X;X|c)=H(X),I(X;X|Z)=H(X|Z)\)</span></li>
+</ul>
+<h3 id="72">7.2 相对熵、熵和互信息量的凸性</h3>
+<p><strong>定理</strong>【最大离散熵定理】：设|X|是X中的元素数目，则<span class="arithmatex">\(H(X)\leq\log|X|\)</span>，当等概分布时等号成立。</p>
+<p><strong>定理</strong>【条件降低熵】：<span class="arithmatex">\(H(X|Y)\leq H(X)\)</span>，X与Y独立时等号成立；<span class="arithmatex">\(H(X_1,X_2,...,X_n)\leq \sum_{i=1}^{n}H(X_i)\)</span></p>
+<ul>
+<li>条件作用使上减小仅在平均意义下成立，某个特定的H(X|Y=y)可能比H(X)大或小</li>
+</ul>
+<p><strong>定理</strong>【对数和不等式】：对非负数<span class="arithmatex">\(a_1,a_2,...,a_n\)</span>和<span class="arithmatex">\(b_1,b_2,...,b_n\)</span>，有：<span class="arithmatex">\(\sum_{i=1}^{n}a_i\log\frac{a_i}{b_i}\geq(\sum_{i=1}^{n}a_i)\log\frac{\sum_{i=1}^{n}a_i}{\sum_{i=1}^{n}b_i}\)</span>，当且仅当<span class="arithmatex">\(a_i/b_i\)</span>为常数时等号成立。</p>
+<ul>
+<li>推论：<ul>
+<li><span class="arithmatex">\(D(p||q)\)</span>是(p,q)的凸函数</li>
+<li><span class="arithmatex">\(H(p)\)</span>是p的凹函数（<span class="arithmatex">\(H(p)=\log|X|-D(p||u)\)</span>）</li>
+</ul>
+</li>
+</ul>
+<p><strong>定理</strong>【互信息量的凹凸性】：已知联合概率分布<span class="arithmatex">\((X,Y)\sim p(x,y)=p(x)p(y|x)\)</span>，其互信息量为<span class="arithmatex">\(I(X;Y)=\sum_{x}\sum_{y}p(y|x)p(x)\log\frac{p(y|x)}{\sum_{x}p(y|x)p(x)}\)</span></p>
+<ul>
+<li>若<span class="arithmatex">\(p(y|x)\)</span>给定，则<span class="arithmatex">\(I(X;Y)\)</span>是关于<span class="arithmatex">\(p(x)\)</span>的凹函数</li>
+<li>若<span class="arithmatex">\(p(x)\)</span>给定，则<span class="arithmatex">\(I(X;Y)\)</span>是关于<span class="arithmatex">\(P(y|x)\)</span>的凸函数</li>
+</ul>
+<p><strong>定理</strong>【半平均互信息量】：<span class="arithmatex">\(I(X;Y)=\sum_{k=1}^{K}q_kI(X=k;Y)\)</span></p>
+<p><strong>定理</strong>【马尔可夫链】：对于3个随机变量空间XYZ，如果Z的条件分布只取决于Y而与X无关，则称XYZ构成了马尔可夫链。特别地，若<span class="arithmatex">\(P(X,Y,Z)=P(X)P(Y|X)P(Z|Y)\)</span>，则称随机变量XYZ构成了马氏链，即<span class="arithmatex">\(X\rightarrow Y\rightarrow Z\)</span>。</p>
+<ul>
+<li>马尔可夫链蕴含独立性：<span class="arithmatex">\(p(xz|y)=p(x|y)p(z|y)\)</span></li>
+</ul>
+<p><strong>定理</strong>【信息处理定理】：若存在马氏链<span class="arithmatex">\(X \rightarrow Y \rightarrow Z\)</span>，则</p>
+<ul>
+<li><span class="arithmatex">\(I(X;Y)\geq I(X;Z)\)</span>【找不到对Y的处理过程使得Y包含X的信息量增加】<ul>
+<li><span class="arithmatex">\(I(X;Y,Z)=I(X;Z)+I(X;Y|Z)=I(X;Y)+I(X;Z|Y)\)</span>，<span class="arithmatex">\(I(X;Z|Y)=0\)</span></li>
+</ul>
+</li>
+<li><span class="arithmatex">\(I(X;Y)\geq I(X;Y|Z)\)</span>【通过观察顺流的随机变量Z，X与Y的依赖性有所降低】<ul>
+<li>如果XYZ不构成马氏链，则可能<span class="arithmatex">\(I(X;Y|Z)&gt;I(X;Y)\)</span></li>
+</ul>
+</li>
+</ul>
+<p><strong>定理</strong>【Fano不等式】：设<span class="arithmatex">\(P_e=Pr\{\hat X\neq X\}\)</span>，则<span class="arithmatex">\(H(P_e)+P_e\log(|X|-1)\geq H(X|Y)\)</span>。</p>
+<ul>
+<li>减弱形式：<span class="arithmatex">\(1+P_e\log|X| \geq H(X|Y)\)</span>或<span class="arithmatex">\(P_e \geq \frac{H(X|Y)-1}{\log|X|}\)</span></li>
+</ul>
+<h2 id="8">8 渐进均分性</h2>
+<h3 id="81-aep">8.1 渐进均分性定理AEP</h3>
+<p><strong>定理</strong>【弱大数定律】：设<span class="arithmatex">\(X=\{x_1,x_2,...,x_n,...\}\)</span>为相互独立的随机变量序列，并服从相同的分布，且数学期望为<span class="arithmatex">\(EX_i=a\)</span>，则<span class="arithmatex">\(\frac{1}{n}\sum_{i=0}^{n-1}X_i\)</span>以概率收敛到a，即对任意<span class="arithmatex">\(\varepsilon&gt;0\)</span>有<span class="arithmatex">\(\lim_{n\rightarrow\infty}Pr\{|\frac{1}{n}\sum_{i=0}^{n-1}X_i-a|&lt;\varepsilon\}=1\)</span></p>
+<p><strong>定理</strong>【AEP】：对无记忆独立同分布信源<span class="arithmatex">\(\{X_k,k\geq1\}\)</span>：<span class="arithmatex">\(-\frac{1}{n}\log p(X^n)\)</span>依概率收敛到<span class="arithmatex">\(H(X)\)</span></p>
+<ul>
+<li>i.i.d：独立同分布</li>
+</ul>
+<p><strong>性质</strong>【AEP】：</p>
+<ul>
+<li>若<span class="arithmatex">\((x_1,x_2,...,x_n)\in A_\varepsilon^{(n)}\)</span>，则<span class="arithmatex">\(H(X)-\varepsilon\leq -\frac{1}{n}\log p(x_1,x_2,...,x_n)\leq H(X)+\varepsilon\)</span></li>
+<li>当n充分大时，<span class="arithmatex">\(Pr\{A_\varepsilon^{(n)}\}&gt;1-\varepsilon\)</span></li>
+<li><span class="arithmatex">\(|A_\varepsilon^{(n)}|\leq 2^{n(H(X)+\varepsilon)}\)</span></li>
+<li>当n充分大时，<span class="arithmatex">\(|A_{\varepsilon}^{(n)}\geq(1-\varepsilon)2^{n(H(X)-\varepsilon)}|\)</span></li>
+</ul>
+<h3 id="82-aep">* 8.2 AEP的结果应用：数据压缩</h3>
+<h3 id="83">* 8.3 高概率与典型集</h3>
+<h2 id="9">9 熵界和几种典型信源编码</h2>
+<h3 id="91">9.1 熵与平均码长</h3>
+<p><strong>定理</strong>【熵与平均码长】：若C时信源S的一个r元唯一可译码，则有<span class="arithmatex">\(L(C)\geq H_r(S)\)</span></p>
+<ul>
+<li><span class="arithmatex">\(H_r(S)\leq L(C)+\log_r K\leq L(C),K=\sum_{i=1}^{q}r^{-l_i}\)</span></li>
+</ul>
+<p><strong>推论</strong>【熵与平均码长】：给定信源S的概率分布<span class="arithmatex">\(p_i\)</span>，则存在一个r元唯一可译码C，其平均码长<span class="arithmatex">\(L(C)=H_r(S)\)</span>的充分必要条件为：<span class="arithmatex">\(\log_r p_i\)</span>对每个i都是一个整数，即<span class="arithmatex">\(p_i=r^{-l_i}\)</span>，<span class="arithmatex">\(l_i\)</span>为非负整数</p>
+<p><strong>定义</strong>【熵界】：信源S的任意一个r元即时码的平均码长必须大于等于熵<span class="arithmatex">\(H_r(S)\)</span>，其中等号成立当且仅当<span class="arithmatex">\(p_i=r^{-l_i}\)</span></p>
+<p><strong>定义</strong>【编码效率】：<span class="arithmatex">\(\eta=\frac{H_r(S)}{L(C)}\)</span></p>
+<p><strong>定义</strong>【冗余度】：<span class="arithmatex">\(\bar\eta=1-\eta\)</span></p>
+<p>几种典型的信源编码：</p>
+<ul>
+<li>Shannon-Fano编码</li>
+<li>Shannon-Fano-Elias编码</li>
+<li>算数编码</li>
+</ul>
+<h2 id="10">10 香农第一定理</h2>
+<p>对于给定信源空间<span class="arithmatex">\(\{X,P(X)\}\)</span>的离散信源，其熵<span class="arithmatex">\(H(X)\)</span>时确定的数值，如果信道的基本符号也是确定的话，则下界值也确定了，这就意味着如果不改变信源的统计特性，减小平均码长的潜力，到了<span class="arithmatex">\(H_r(S)\)</span>也就到了极限。因此，如果要进一步提高编码效率，必须对信源本身进行研究，例如改变信源的统计特性。</p>
+<h3 id="101">10.1 信源的扩张</h3>
+<p><strong>定义</strong>【扩展信源】：设信源字母表<span class="arithmatex">\(S=\{s_1,s_2,...,s_q\}\)</span>，则S的n次扩展信源的消息集合为：</p>
+<p><span class="arithmatex">\(S^n=\{s_{1_1},...,s_{1_n},...,s_{q_1},...,s_{q_n}\}\)</span></p>
+<ul>
+<li>信源S的扩展信源<span class="arithmatex">\(S^{n}\)</span>即为n个S的乘积</li>
+</ul>
+<p><strong>定义</strong>：设信源S和T的消息集合分别为<span class="arithmatex">\(\{s_i\}\)</span>和<span class="arithmatex">\(\{t_j\}\)</span>，对应的概率为<span class="arithmatex">\(\{p_i\}\)</span>和<span class="arithmatex">\(\{q_j\}\)</span>，定义S和T的积<span class="arithmatex">\(S \times T\)</span>为信源，消息集合为<span class="arithmatex">\(\{(s_i,t_j)\}\)</span>，对应概率为<span class="arithmatex">\(Pr(s_it_j)\)</span></p>
+<p><strong>定理</strong>【<span class="arithmatex">\(S \times T\)</span>】：设信源S与T相互独立，则<span class="arithmatex">\(H_r(S\times T)=H_r(S)+H_r(T)\)</span></p>
+<h3 id="102">10.2 香农第一定理</h3>
+<p><strong>定理</strong>【香农第一定理】：又称为Shannon信源编码定理、可变长无失真信源编码定理。通过对n足够大的<span class="arithmatex">\(S^{n}\)</span>进行编码，总可以找到信源S的一个r元即时码，其对应于S的平均码长<span class="arithmatex">\(\frac{L_n}{n}\)</span>可以与熵<span class="arithmatex">\(H_r(S)\)</span>任意接近。</p>
+<ul>
+<li><span class="arithmatex">\(\frac{L_n}{n}\)</span>表示n重符号序列中每个符号对应的平均码元数，随着n的增加，编码效率也会增加，在极限情况下达到最高</li>
+<li>但是提高编码效率是以增加编码的复杂性作为代价的</li>
+<li>揭示了：无失真信源编码的结果，在无噪离散信道中传输的有效性是有一定限度的，其极限值就是信源熵。</li>
+</ul>
+<p><strong>注意</strong>：香农第一定理成立的条件是<span class="arithmatex">\(n \rightarrow\infty\)</span>，但是在实际中，只要<span class="arithmatex">\(\frac{1}{n}\ll H(X)\)</span>，香农第一定理就能成立</p>
+<p><strong>注意</strong>：香农第一定理仅是一个存在性定理，并没有给出构造编码的方法。</p>
+<h3 id="103-lz">* 10.3 LZ编码</h3>
+<h2 id="11_1">11 信道</h2>
+<h3 id="111">11.1信道分类</h3>
+<p><strong>定义</strong>【信道】：信道是传输信息的媒质或通道</p>
+<p><strong>定义</strong>【输入事件与输出事件】：</p>
+<ul>
+<li>信道输入事件的概率空间为<span class="arithmatex">\([A \  P]\)</span></li>
+<li>信道输出事件的概率空间为<span class="arithmatex">\([B \ Q]\)</span></li>
+</ul>
+<p>信道相当于一个数学交换，可以用<strong>条件概率</strong>描述</p>
+<p><strong>信道的分类</strong>：</p>
+<ul>
+<li>根据输入输出事件的时间特性和输入输出事件集合的特点进行分类：<ul>
+<li>离散信道：AB都是离散事件集合</li>
+<li>连续信道：AB都是连续事件集合</li>
+<li>半连续信道：AB一个是离散事件集合，一个是连续事件集合</li>
+<li>时间离散的连续信道：信道输入和输出取值于连续集合的序列</li>
+<li>波形信道：信道输入和输出是随机过程</li>
+</ul>
+</li>
+<li>根据输入和输出个数进行分类：<ul>
+<li>两端信道：输入和输出只有一个事件集合，称为单用户信道</li>
+<li>多端信道：输入和输出至少有一端有两个以上的事件集合，称为多用户信道</li>
+</ul>
+</li>
+<li>根据信道的统计特性进行分类：<ul>
+<li>恒参信道：信道统计特性不随时间变化</li>
+<li>随参信道：信道统计特性随时间变化</li>
+</ul>
+</li>
+<li>根据信道的记忆特性进行分类：<ul>
+<li>无记忆信道：信道输出集合B仅与当前输入集合A有关</li>
+<li>有记忆信道：信道输出集合B与当前和以前若干输入集合有关</li>
+</ul>
+</li>
+<li>根据信道是否有固定的传播线路进行分类：<ul>
+<li>有线信道</li>
+<li>无线信道</li>
+</ul>
+</li>
+<li>根据信道是否有噪声进行分类：<ul>
+<li>无噪信道</li>
+<li>有噪信道</li>
+</ul>
+</li>
+<li>根据信道发送消息是否有丢失进行划分：<ul>
+<li>有损信道</li>
+<li>无损信道</li>
+</ul>
+</li>
+</ul>
+<p><strong>注意</strong>：无噪信道既是无损信道又是确定信道；无用信道是从输入不能得到有关输出的任何信息的信道</p>
+<p><strong>定义</strong>【信道输入输出事件】：</p>
+<ul>
+<li>信道输入事件的概率空间为<span class="arithmatex">\([A=\{a_1,...,a_r\} \ P=\{p_i=p(a=a_i)\}]\)</span></li>
+<li>信道输出事件的概率空间为<span class="arithmatex">\([B=\{b_1,...,b_s\} \ Q=\{Q_j=p(b=b_j)\}]\)</span></li>
+<li>信道相当于一个数学交换，可以用条件概率描述：<span class="arithmatex">\(p_{ij}=p(b=b_j|a=a_i)=p(b_j|a_i)\)</span></li>
+<li><span class="arithmatex">\(\sum_{j=1}^sp_{ij}=1\)</span></li>
+</ul>
+<p><strong>定义</strong>【离散无记忆信道DMC】：若离散信道的转移概率满足：<span class="arithmatex">\(p(y|x)=p(y_1y_2...y_N|x_1x_2...x_N)=\prod_{i=1}^{N}p(y_i|x_i)\)</span>，则称之为离散无记忆信道，记作<span class="arithmatex">\([X \ p(y_i|x_i) \ Y]\)</span></p>
+<p><strong>定义</strong>【平稳信道】：若DMC对于任意给定的n和m有<span class="arithmatex">\(p(y_n=b_j|x_n=a_i)=p(y_m=b_j|x_m=a_i)\)</span>，则称为平稳信道，即信道转移概率不随时间变化。</p>
+<p><strong>离散信道分类</strong>：</p>
+<ul>
+<li>无噪信道：<span class="arithmatex">\(y_n=f(x_n)\)</span>，<span class="arithmatex">\(p(y_n|x_n)=\begin{cases}1 &amp; y_n=f(x_n)\\ 0 &amp; y_n \neq f(x_n)\end{cases}\)</span></li>
+<li>离散无记忆信道：<span class="arithmatex">\(y_n\neq f(x_n)\)</span>，<span class="arithmatex">\(p(y|x)=p(y_1y_2...y_N|x_1x_2...x_N)=\prod_{i=1}^{N}p(y_i|x_i)\)</span></li>
+<li>离散有记忆信道：<span class="arithmatex">\(y_n\neq f(x_n)\)</span>，<span class="arithmatex">\(p(y|x)=p(y_1y_2...y_N|x_1x_2...x_N)\neq \prod_{i=1}^{N}p(y_i|x_i)\)</span></li>
+</ul>
+<p><strong>定义</strong>【单符号离散无记忆信道】：假设信道输入随机变量为X，取值为x，<span class="arithmatex">\(x\in A=\{a_1,a_2,...,a_r\}\)</span>；输出随机变量为Y，取值为y，<span class="arithmatex">\(y\in B\{b_1,b_2,...,b_s\}\)</span>，信道传递概率为<span class="arithmatex">\(p(y|x)=p(Y=b_j|X=a_i)=p(b_j|a_i)\)</span></p>
+<ul>
+<li><span class="arithmatex">\(\sum_{j=1}^sp(b_j|a_i)=1\)</span></li>
+</ul>
+<p><strong>定义</strong>【信道矩阵】：<span class="arithmatex">\(P=\begin{bmatrix}p(y_1|x_1)&amp;p(y_2|x_1) &amp; \cdots &amp; p(y_s|x_1)\\ p(y_1|x_2)&amp;p(y_2|x_2)&amp;\cdots&amp;p(y_2|x_2)\\ \vdots&amp;\vdots&amp;\ddots&amp;\vdots\\p(y_1|x_r)&amp;p(y_2|x_r)&amp;\cdots&amp;p(y_s|x_r)\end{bmatrix}=\begin{bmatrix}p_{11}&amp;p_{12} &amp; \cdots &amp; p_{1s}\\ p_{21}&amp;p_{22}&amp;\cdots&amp;p_{2s}\\ \vdots&amp;\vdots&amp;\ddots&amp;\vdots\\p_{r1}&amp;p_{r2}&amp;\cdots&amp;p_{rs}\end{bmatrix}\)</span></p>
+<ul>
+<li>特点：<ul>
+<li>每个元素均大于0</li>
+<li>每行元素之和为1</li>
+</ul>
+</li>
+</ul>
+<p><strong>定义</strong>【二进制对称信道BSC】：<span class="arithmatex">\(\varepsilon\)</span>为交叉传输概率。如果交叉传输概率相等，则称此二进制信道为二进制对称信道BSC。</p>
+<ul>
+<li><span class="arithmatex">\(P=\begin{bmatrix}1-\varepsilon&amp;\varepsilon\\\varepsilon&amp;1-\varepsilon\end{bmatrix}\)</span></li>
+</ul>
+<p><strong>定义</strong>【对称信道】：信道矩阵的行元素集合相同、列元素集合也相同的信道，称为对称信道</p>
+<ul>
+<li>所有行/列都是第一行/列的置换</li>
+</ul>
+<p><strong>定义</strong>【二进制删除信道】：如果对积分器输出的判决不能明显地决定是0还是1，则将其作为信道输入的符号E。</p>
+<ul>
+<li><span class="arithmatex">\(P=\begin{bmatrix}1-\varepsilon_1-\varepsilon_2&amp;\varepsilon_1&amp;\varepsilon_2\\\varepsilon_2&amp;\varepsilon_1&amp;1-\varepsilon_1-\varepsilon_2\end{bmatrix}\)</span></li>
+</ul>
+<p>二进制对称BSC可以看作r=s=2且转移概率矩阵对称的DMC。</p>
+<h3 id="112">11.2 公式和定义</h3>
+<p><strong>定义</strong></p>
+<ul>
+<li>【先验概率】：<span class="arithmatex">\(p_i=p(a_i)=p(X=a_i)\)</span></li>
+<li>【信道传递概率（前向概率）】：<span class="arithmatex">\(p_{ij}=p(b_j|a_i)=p(Y=b_j|X=a_i)\)</span><ul>
+<li><span class="arithmatex">\(\sum_{j=1}^{s}p(b_j|a_i)=1\)</span></li>
+</ul>
+</li>
+<li>【联合概率】：<span class="arithmatex">\(R_{ij}=p(a_ib_j)=p(X=a_i,Y=b_j)=p(a_i)p(b_j|a_i)\)</span></li>
+<li>【输出符号概率】：<span class="arithmatex">\(p(b_j)=p(Y=b_j)=\sum_{i=1}^{r}p(a_i)p(b_j|a_i)\)</span></li>
+<li>【后验概率（后向概率）】：<span class="arithmatex">\(Q_{ij}=p(a_i|b_j)=\frac{p(a_i)p(b_j|a_i)}{\sum_{k=1}^r p(a_k)p(b_j|a_k)}\)</span></li>
+</ul>
+<p><strong>定义</strong>【信道疑义度】：<span class="arithmatex">\(H(X|Y)=E[H(X|b_j)]=\sum_{j=1}^{s}\sum_{i=1}^{r}p(a_ib_j)\log p(a_i|b_j)\)</span></p>
+<ul>
+<li>信宿收到全部Y后，对输入符号上存在的平均不确定程度——损失熵</li>
+<li>无损信道：<span class="arithmatex">\(H(X|Y)=0\)</span></li>
+</ul>
+<p><strong>定义</strong>【后验熵】：<span class="arithmatex">\(H(X|b_j)=\sum_{x}p(x|b_j)\log \frac{1}{p(x|b_j)}\)</span></p>
+<p><span class="arithmatex">\(I(X;Y)=\sum_{x}\sum_{y}p(x)p(y|x)\log\frac{p(y|x)}{p(x)p(y|x)}\)</span>，是信源分布<span class="arithmatex">\(p(x)\)</span>和信道转移概率<span class="arithmatex">\(p(y|x)\)</span>的函数</p>
+<p><strong>定理</strong>：对于给定的信道，<span class="arithmatex">\(I(X;Y)\)</span>是信源分布<span class="arithmatex">\(p(x)\)</span>的凹函数</p>
+<ul>
+<li>对于给定信道，至少存在一个信源，当通过这个信道传递时，能够获得最大的平均互信息</li>
+<li>【信道容量】</li>
+</ul>
+<p><strong>定理</strong>：对于给定的信源，<span class="arithmatex">\(I(X;Y)\)</span>是信道传递函数<span class="arithmatex">\(p(y|x)\)</span>的凸函数</p>
+<ul>
+<li>对于给定的信源，至少存在一个信道，当这个信源通过时，可以获得最小的平均互信息</li>
+<li>【限失真信源压缩、率失真函数】</li>
+</ul>
+<p><strong>简介</strong>【信息率失真函数】：研究信道，将信源压缩过程看成通过一个信道，寻找保真度准则下的最小平均互信息</p>
+<p><strong>定义</strong>【离散N次无记忆扩展信道】：假设离散信道为<span class="arithmatex">\([X,p(y|x),Y]\)</span>，输入符号集合为<span class="arithmatex">\(A=\{a_1,a_2,...,a_r\}\)</span>，输出符号集合为<span class="arithmatex">\(B=\{b_1,b_2,...,b_s\}\)</span>，xy取值集合分别为AB，将输入输出N次扩展后得到<span class="arithmatex">\(X=(X_1X_2...X_N)\)</span>和<span class="arithmatex">\(Y=(Y_1Y_2...Y_N)\)</span>。</p>
+<ul>
+<li>若<span class="arithmatex">\(p(y|x)=p(y_1y_2...y_N|x_1x_2...x_N)=\prod_{i=1}^{N}p(y_i|x_i)\)</span>，则称为<span class="arithmatex">\([X,p(y|x),Y]\)</span>的N次无记忆扩展信道，记作<span class="arithmatex">\([X^N,p(y^N|x^N),Y^N]\)</span></li>
+<li>若<span class="arithmatex">\(p(y|x)=p(y_1y_2...y_N|x_1x_2...x_N)\neq\prod_{i=1}^{N}p(y_i|x_i)\)</span>，则称为<span class="arithmatex">\([X,p(y|x),Y]\)</span>的N次有记忆扩展信道</li>
+</ul>
+<p><strong>性质</strong>【离散信道N次无记忆扩展信道】：</p>
+<ul>
+<li>输入集合：<span class="arithmatex">\(A^N=\{a_1,a_2,...,a_{r^N}\}\)</span></li>
+<li>输出集合：<span class="arithmatex">\(B^N=\{b_1,b_2,...,b_{s^N}\}\)</span></li>
+<li>传递概率：<span class="arithmatex">\(p(y^N|x^N)=\prod_{i=1}^{N}p(b_{h_i}|a_{k_i})\)</span></li>
+<li>平均互信息：<span class="arithmatex">\(I(X^N;Y^N)=H(X^N)-H(X^N|Y^N)\leq NI(X;Y)\)</span><ul>
+<li>等号成立充要条件为：信道输入无记忆扩展信源</li>
+</ul>
+</li>
+</ul>
+<h3 id="113">* 11.3 香农第一定理的推广</h3>
+<h2 id="12_1">12 信道容量</h2>
+<h3 id="121">12.1 信道容量的定义</h3>
+<p><strong>定义</strong>【信道容量】：信道容量C定义为平均互信息量的最大值<span class="arithmatex">\(C=max_{p(x)}\{I(X;Y)\}\)</span></p>
+<ul>
+<li>表征信道传输信息的最大能力，信道实际传输的信息量不大于信道容量</li>
+<li><span class="arithmatex">\(I(X;Y)\)</span>是关于<span class="arithmatex">\(p(x)\)</span>的凹函数，对于给定信道，存在<span class="arithmatex">\(p(x)\)</span>使得<span class="arithmatex">\(I(X;Y)\)</span>最大——该信源称之为<strong>最佳信源分布</strong></li>
+<li>关于信道<span class="arithmatex">\(p(y|x)\)</span>的函数，与<span class="arithmatex">\(p(x)\)</span>无关</li>
+<li>平均互信息量与信源分布和信道特性两者都有关，而信道容量仅与信道特性有关，即在各种可能的信源分布<span class="arithmatex">\(p(x)\)</span>中，一定能找到一个分布，使得<span class="arithmatex">\(I(X;Y)\)</span>达到最大值，此值即信道容量</li>
+</ul>
+<p><strong>性质</strong>【信道容量】：</p>
+<ul>
+<li><span class="arithmatex">\(C\geq 0\)</span></li>
+<li><span class="arithmatex">\(C\leq \log |X|\)</span>，<span class="arithmatex">\(C\leq\log|Y|\)</span></li>
+<li><span class="arithmatex">\(I(X;Y)\)</span>与<span class="arithmatex">\(p(x)、p(y|x)\)</span><ul>
+<li>固定<span class="arithmatex">\(p(y|x)\)</span>，<span class="arithmatex">\(I(X;Y)\)</span>是关于<span class="arithmatex">\(p(x)\)</span>的凹函数</li>
+<li>固定<span class="arithmatex">\(p(x)\)</span>，<span class="arithmatex">\(I(X;Y)\)</span>是关于<span class="arithmatex">\(p(y|x)\)</span>的凸函数</li>
+</ul>
+</li>
+</ul>
+<p><strong>实例</strong>：</p>
+<ul>
+<li>
+<p>【无噪、无损信道】：输入X与输出Y具有确定的一一对应的函数关系</p>
+<ul>
+<li>
+<p><span class="arithmatex">\(p(y_j|x_i)=p(x_i|y_j)=\begin{cases} 0 &amp; i\neq j\\ 1 &amp; i=j \end{cases}\)</span></p>
+</li>
+<li>
+<p>每行每列都只有一个非零元素，且为1</p>
+</li>
+<li>
+<p><span class="arithmatex">\(H(Y|X)=H(X|Y)=0\)</span>，<span class="arithmatex">\(I(X;Y)=H(X)=H(Y)\)</span></p>
+</li>
+<li>
+<p><span class="arithmatex">\(C=\max_{p(x)}\{I(X;Y)\}=\max_{p(x)}\{H(X)\}=\max_{p(x)}\{H(Y)\}=\log r=\log s\)</span></p>
+<p>当输入等概分布时，信道传输的互信息量达到信道容量</p>
+</li>
+</ul>
+</li>
+<li>
+<p>【无噪、有损信道】：输入X与输出Y具有确定的多个输入对应一个输出的函数关系</p>
+<ul>
+<li><span class="arithmatex">\(p=\begin{bmatrix}1&amp;0\\0&amp;1\\0&amp;1\\1&amp;0\end{bmatrix}\)</span></li>
+<li>每行只有一个非零元素</li>
+<li><span class="arithmatex">\(r&gt;s\)</span>，<span class="arithmatex">\(H(Y|X)=0\)</span>，<span class="arithmatex">\(H(X|Y)\neq0\)</span>，<span class="arithmatex">\(H(X)\geq H(Y)\)</span>，<span class="arithmatex">\(I(X;Y)=H(Y)\)</span></li>
+<li><span class="arithmatex">\(C=\max_{p(x)}\{I(X;Y)\}=\log s&lt;\log r\)</span></li>
+</ul>
+</li>
+<li>
+<p>【有噪、无损信道】：输入X与输出Y具有一个输入对用多个不确定的输出的函数关系</p>
+<ul>
+<li><span class="arithmatex">\(p=\begin{bmatrix}p_{11}&amp;p_{12}&amp;p_{13}&amp;0&amp;0&amp;0\\0&amp;0&amp;0&amp;p_{24}&amp;p_{25}&amp;p_{26}\end{bmatrix}\)</span></li>
+<li>每列只有一个非零元素</li>
+<li><span class="arithmatex">\(r&lt;s\)</span>，<span class="arithmatex">\(H(Y|X)\neq0\)</span>，<span class="arithmatex">\(H(X|Y)=0\)</span>，<span class="arithmatex">\(H(x)\leq H(Y)\)</span>，<span class="arithmatex">\(I(X;Y)=H(X)\)</span></li>
+<li><span class="arithmatex">\(C=\max_{p(x)}\{I(X;Y)\}=\log r&lt;\log s\)</span></li>
+</ul>
+</li>
+<li>
+<p>【二进制对称信道BSC】：输入和输出都只有0和1两种符号，且发送0收到1或发送1收到0的概率相同</p>
+<ul>
+<li><span class="arithmatex">\(I(X;Y)=H(Y)-H(Y|X)=H(Y)-\sum p(x)H(Y|X=x)=H(Y)-\sum p(x)H(p)=H(Y)-H(p)&lt;1-H(p)=C_{BSC}\)</span><ul>
+<li>当输入均匀分布时等号成立，信道传输的互信息量达到信道容量</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>【对称DMC（对称离散无记忆信道）】：</p>
+<ul>
+<li>特点：<ul>
+<li>离散：输入集和输出集都是离散集</li>
+<li>无记忆：任意时刻的输出只依赖于该时刻输入</li>
+<li>输入对称：转移概率矩阵每行都是第一行的置换</li>
+<li>输出对称：转移概率矩阵每列都是第一列的置换</li>
+</ul>
+</li>
+<li>输入对称：<span class="arithmatex">\(H(Y|X_i)\)</span>与i无关，<span class="arithmatex">\(H(Y|X)=H(Y|X_i)\)</span></li>
+<li>输入符号均匀分布<span class="arithmatex">\(\to\)</span>输出符号均匀分布，反之也成立</li>
+<li><span class="arithmatex">\(C=\max\{I(X;Y)\}=\max\{H(Y)-H(Y|X)\}=\max\{H(Y)\}-H(Y|X)=\max\{H(Y)\}-\sum_{j=1}^{s}p(y_j|x_i)\log p(y_j|x_i)\)</span><ul>
+<li>当输出符号均匀分布时<span class="arithmatex">\(H(Y)\)</span>最大：<span class="arithmatex">\(C=\log s-\sum_{j=1}^{s}p(y_j|x_i)\log p(y_j|x_i)\)</span></li>
+</ul>
+</li>
+<li>【强对称信道】：输入和输出符号个数均为n，正确的传输概率为<span class="arithmatex">\(1-\varepsilon\)</span>，错误的传输概率均为<span class="arithmatex">\(\frac{\varepsilon}{n-1}\)</span></li>
+</ul>
+</li>
+<li>
+<p>【二进制删除信道BEC】：输入只有0和1，输出有0、1和e。设0<span class="arithmatex">\(\to\)</span>e概率为<span class="arithmatex">\(\alpha\)</span>，<span class="arithmatex">\(Pr(X=1)=\pi\)</span></p>
+<ul>
+<li><span class="arithmatex">\(I(X;Y)=H(Y)-H(Y|X)=H(Y)-H(\alpha)=(1-\alpha)H(\pi)\)</span>，<span class="arithmatex">\(H(Y|X)=H(\alpha)\)</span>，<span class="arithmatex">\(H(X|Y)=\alpha H(\pi)\)</span></li>
+<li><span class="arithmatex">\(C=\max\{I(X;Y)\}=\max\{(1-\alpha)H(\pi)\}=1-\alpha\)</span><ul>
+<li>由于比例为<span class="arithmatex">\(\alpha\)</span>的字节在信道中丢失，因此可以恢复比例为<span class="arithmatex">\(1-\alpha\)</span>的字节，则容量至多为<span class="arithmatex">\(1-\alpha\)</span></li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>【有噪打字机信道】：信道输入以概率1/2在输出端精确接收，或以1/2概率转变为下一个字母</p>
+<ul>
+<li><span class="arithmatex">\(C=\max\{I(X;Y)\}=\max\{H(Y)-H(Y|X)\}=\max\{H(Y)\}-1=\log13\)</span></li>
+<li>如果在26个符号中间隔输入13个符号，则每次可以无差地传输13个符号</li>
+<li>香农第二定理的直观解释：世界上任何一个信道均可以看成有噪声的打字机信道</li>
+</ul>
+</li>
+</ul>
+<h3 id="122">12.2 信道容量的计算</h3>
+<p>由于<span class="arithmatex">\(I(X;Y)\)</span>是有界闭区域上的凹函数，所以局部最大值也是整体最大值。</p>
+<ul>
+<li>约束条件：<span class="arithmatex">\(\begin{cases}\sum_{i=1}^{M}p(x_i)=1\\p(x_i)\geq0\end{cases}\)</span></li>
+</ul>
+<p><strong>定理</strong>【K-T条件】：<span class="arithmatex">\(f(\alpha)\)</span>是定义域n维无穷凸集R上的凹函数，<span class="arithmatex">\(a=(a_1,a_2,...,a_n)\)</span>是概率矢量，偏导数<span class="arithmatex">\(\frac{\partial f(a)}{\partial a_k}\)</span>存在且连续，<span class="arithmatex">\(f(a)\)</span>在<span class="arithmatex">\(a^*\)</span>上为极大的充分必要条件是<span class="arithmatex">\(\begin{aligned}&amp;\frac{\partial f(a)}{\partial a_k}|_{a=a^*}=\lambda,a^*&gt; 0\\ &amp;\frac{\partial f(a)}{\partial a_k}|_{a=a^*}\leq\lambda,a^*=0\end{aligned}\)</span></p>
+<p><strong>DMC是最简单、最本质的信道：</strong></p>
+<ul>
+<li>
+<p>对任意x，都有<span class="arithmatex">\(\sum_{y=0}^{J-1}p(y|x)=1\)</span></p>
+</li>
+<li>
+<p>对任意y，都有<span class="arithmatex">\(w(y)=\sum_{x=0}^{K-1}q(x)p(y|x)\)</span></p>
+</li>
+<li>
+<p>设输出x概率分布为<span class="arithmatex">\(\{x,q(x),x\in\{0,1,...,K-1\}\}\)</span>，输出分布为<span class="arithmatex">\(\{y,w(y),y\in\{0,1,...,J-1\}\}\)</span>，转移矩阵为<span class="arithmatex">\(P=[p(y|x),x\in\{0,1,...,K-1\},y\in\{0,1,...,J-1\}]\)</span></p>
+<ul>
+<li>
+<p><span class="arithmatex">\([w(0),w(1),...,w(J-1)]=[q(0),q(1),...,q(K-1)]\times P\)</span></p>
+</li>
+<li>
+<pre class="arithmatex">\[
+    \begin{aligned}
+    I(X;Y)
+    &amp;=\sum_{x=0}^{K-1}\sum_{y=0}^{J-1}p(x,y)\log\frac{p(y|x)}{w(y)}\\
+    &amp;=\sum_{x=0}^{K-1}\sum_{y=0}^{J-1}q(x)p(y|x)\log\frac{p(y|x)}{\sum_{z=0}^{K-1}q(z)p(y|z)}\\
+    &amp;=\sum_{x=0}^{K-1}q(x)\sum_{y=0}^{J-1}p(y|x)\log\frac{p(y|x)}{\sum_{z=0}^{K-1}q(z)p(y|z)}\\
+    \end{aligned}
+    \]</pre>
+</li>
+</ul>
+</li>
+</ul>
+<p><strong>定理</strong>【DMC的最佳输入分布】：输入概率分布<span class="arithmatex">\(\{x,q(x),x\in\{0,1,...,K-1\}\}\)</span>是最佳输入分布的充要条件是：对任何满足<span class="arithmatex">\(q(k)&gt;0\)</span>的k，<span class="arithmatex">\(I(X=k;Y)=\sum_{y=0}^{J-1}p(y|k)\log\frac{p(y|k)}{\sum_{z=0}^{K-1}q(z)p(y|z)}=C\)</span>；对任何满足<span class="arithmatex">\(q(k)=0\)</span>的k，<span class="arithmatex">\(I(X=k;Y)\leq C\)</span></p>
+<p><strong>定义</strong>【准对称DMC】：如果DMC的转移概率矩阵P的全体可分为若干个列子集，若每个列子集所对应的P的子阵都满足“任一行是第一行的置换”、“任一列是第一列的置换”，则称为准对称DMC信道</p>
+<ul>
+<li>如果列子集只有一个，则为对称DMC</li>
+</ul>
+<p><strong>结论</strong>【DMC】：</p>
+<ul>
+<li>如果DMC关于输出对称，则当输入等概分布时，输出也等概分布</li>
+<li>准对称DMC关于输入对称，不一定关于输出对称</li>
+<li>对称DMC不仅关于输入对称，也关于输出对称</li>
+<li>对称DMC当输入分布等概时，输出分布也等概</li>
+<li>准对称DMC当输入分布等概时，输出分布局部等概</li>
+<li>对称DMC未必有J=K，即输入输出的符号数目不一定相等</li>
+</ul>
+<p><strong>定理</strong>【准对称DMC的最佳输入分布】：对于准对称DMC，达到信道容量的最佳输入分布为等概分布，<span class="arithmatex">\(C=\sum_{y=0}^{J-1}p(y|k)\log\frac{p(y|k)}{w(y)}=I(X=k;Y)\)</span></p>
+<ul>
+<li>当信道为对称信道时，<span class="arithmatex">\(C=\log J+\sum_{y=0}^{J-1}p(y|k)\log p(y|k)\)</span></li>
+</ul>
+<p><strong>定理</strong>【k元对称信道】：（强对称信道/均匀信道）达到信道容量的最佳输入分布为等概分布，<span class="arithmatex">\(C=H(X=k;Y)=\log K-p\log (K-1)-H(p)\)</span></p>
+<ul>
+<li>信道容量是转移概率矩阵任何一行对应的半平均互信息量</li>
+</ul>
+<p><strong>定义</strong>【模K加性噪声信道】：引入噪声<span class="arithmatex">\(Z=\{0,1,...,K-1\}\)</span>，且<span class="arithmatex">\(Y=(X+Z)\mod K\)</span></p>
+<ul>
+<li>模K加性噪声信道是对称DMC，信道容量为<span class="arithmatex">\(C=\log K-H(Z)\)</span></li>
+</ul>
+<h2 id="13_1">* 13 信道组合</h2>
+<h3 id="131">13.1 积信道（并联信道）</h3>
+<p><strong>定义</strong>【积信道】：信道1的输入事件为x，共K个；输出事件为y，共J个。信道2的输入事件为u，有N个；输出事件为v，共M个。现有一信道，输入事件为(x,u)，共KN个；输出事件为(y,v)，共JM个，其转移概率矩阵为<span class="arithmatex">\([p((y,v)|(x,u))]_{(KN)\times (JM)}\)</span>，其中<span class="arithmatex">\(p((y,v)|(x,u))=p_1(y|x)p_2(v|u)\)</span>，则称该信道为信道1与信道2的积信道/独立并联信道。</p>
+<p><strong>性质</strong>【积信道】：设信道1转移概率矩阵为<span class="arithmatex">\([p_1(y|x)]_{K\times J}\)</span>，信道容量<span class="arithmatex">\(C_1\)</span>，最佳输入分布<span class="arithmatex">\(\{x,q_1(x)\}\)</span>；信道1转移概率矩阵为<span class="arithmatex">\([p_1(y|x)]_{K\times J}\)</span>，信道容量<span class="arithmatex">\(C_1\)</span>，最佳输入分布<span class="arithmatex">\(\{x,q_1(x)\}\)</span>。</p>
+<ul>
+<li>【最佳输入分布】：<span class="arithmatex">\(p(x_1x_2,...,x_N)=\prod_{i=1}^N p(x_i)\)</span></li>
+<li>【联合平均互信息量】：<span class="arithmatex">\(I(X;Y)\leq \sum_{i=1}^{N}I(X_i;Y_i)\)</span></li>
+<li>【信道容量】：<span class="arithmatex">\(C=\sum_{i=1}^{N}C_i\)</span></li>
+</ul>
+<h3 id="132">13.2 和信道（合信道）</h3>
+<p><strong>定义</strong>【和信道】：信道1的输入事件为x，共K个；输出事件为y，共J个。信道2的输入事件为u，有N个；输出事件为v，共M个。现有一信道，输入事件为<span class="arithmatex">\(\{x\}\cup\{u\}\)</span>且<span class="arithmatex">\(\{x\}\)</span>与<span class="arithmatex">\(\{u\}\)</span>不相交，共K+N个；输出事件为<span class="arithmatex">\(\{y\}\cup\{v\}\)</span>且<span class="arithmatex">\(\{y\}\)</span>与<span class="arithmatex">\(\{v\}\)</span>不相交，共J+M个，其转移概率矩阵为<span class="arithmatex">\(\begin{bmatrix}p_1(y|x)_{K\times J} &amp;0\\0&amp;p_2(v|u)_{N\times M}\end{bmatrix}_{(K+N)\times (J+M)}\)</span>，则称该信道为信道1与信道2的和信道/合信道。</p>
+<p><strong>性质</strong>【和信道】：</p>
+<ul>
+<li>【信道容量】：<span class="arithmatex">\(C=\log(2^{C_1}+2^{C_2})\)</span></li>
+<li>【最佳输入分布】：<span class="arithmatex">\(\{x,\frac{2^{C_1}}{2^{C_1}+2^{C_2}}q_1(x)\}\)</span>，<span class="arithmatex">\(\{u,\frac{2^{C_2}}{2^{C_1}+2^{C_2}}q_2(u)\}\)</span></li>
+</ul>
+<h3 id="133">13.3 级联信道（串联信道）</h3>
+<p><strong>定义</strong>【级联信道】：将信道1的输出作为信道2的输入，信道1的输入作为组合信道的输入集，信道2的输出就是组和信道的输出集，这样的信道称为级联信道/串联信道</p>
+<p><strong>性质</strong>【级联信道】：</p>
+<ul>
+<li>【一般级联信道】：<span class="arithmatex">\(I(X,Y;Z)\geq I(Y;Z)\)</span>，<span class="arithmatex">\(I(X,Y;Z)\geq I(X;Z)\)</span><ul>
+<li>第1个不等式等号成立条件：当且仅当XYZ构成马尔可夫链</li>
+</ul>
+</li>
+<li>【具有马尔可夫性的级联信道】：<span class="arithmatex">\(p(z|xy)=p(z|y)\)</span>，<span class="arithmatex">\(p(z|x)=\sum_{y}p(y|x)p(z|xy)\)</span><ul>
+<li>转移概率矩阵为<span class="arithmatex">\([p(z|x)]_{r\times m}=[p(y|x)]_{r \times s}[p(z|y)]_{s\times m}\)</span></li>
+<li><span class="arithmatex">\(\begin{cases}I(X;Z)\leq I(X;Y)\\I(X;Z)\leq I(Y;Z)\end{cases}\)</span>，等号成立条件分别为<span class="arithmatex">\(\begin{cases}p(x|z)=p(x|y)\\p(z|x)=p(z|y)\end{cases}\)</span></li>
+</ul>
+</li>
+<li>【信道容量】：<span class="arithmatex">\(C\leq \min\{C_1,C_2\}\)</span></li>
+</ul>
+<h2 id="14-aep">14 译码规则与联合AEP</h2>
+<h3 id="141">14.1 译码规则</h3>
+<p><strong>信道编码的作用</strong>：从信道输入符号集合X中选出M个作为信源输出的M个消息序列的码字，使得编码后信道输出符号集S'与输入符号集S的差错尽可能小。</p>
+<p><strong>定义</strong>【译码规则】：设信道输入符号集为<span class="arithmatex">\(X=\{x_1,x_2,...,x_r\}\)</span>，输出符号集为<span class="arithmatex">\(Y=\{y_1,y_2,...,y_s\}\)</span>，若对每一个输出符号<span class="arithmatex">\(y_j\)</span>都有一个确定的函数<span class="arithmatex">\(\Delta(y_i)\)</span>，使<span class="arithmatex">\(y_i\)</span>对应于唯一的一个输入符号<span class="arithmatex">\(x_i\)</span>，则成这样的一族函数为译码规则，即<span class="arithmatex">\(\Delta:Y\to X,\Delta(y_i)=x_i\)</span></p>
+<ul>
+<li>对于r输入、s输出的信道而言，按上述定义得到的译码规则共有<span class="arithmatex">\(r^s\)</span>种</li>
+</ul>
+<p><strong>定义</strong>【译码错误概率】：确定译码规则<span class="arithmatex">\(\Delta(y_I)=x_i\)</span>后，若信道输出端接收符号<span class="arithmatex">\(y_j\)</span>，则译成<span class="arithmatex">\(x_i\)</span>：</p>
+<ul>
+<li>如果发送端发送的是<span class="arithmatex">\(x_i\)</span>，则译码正确，正确的概率为<span class="arithmatex">\(p[\Delta(y_j)|y_j]=p(x_i|y_j)\)</span></li>
+<li>如果发送端发送的是<span class="arithmatex">\(x_k，i\neq k\)</span>，则译码错误，译码错误的概率<span class="arithmatex">\(p_E(y_j)=1-p[\Delta(y_j)|y_j]=1-p(x_i|y_j)\)</span></li>
+</ul>
+<p>译码规则不同，译码错误概率也不同。</p>
+<p><strong>定义</strong>【平均译码错误概率】：给定译码错误规则<span class="arithmatex">\(\Delta(y_j)=x^*\)</span>后，信道输出端接收到某个特定符号<span class="arithmatex">\(y_j\)</span>的译码错误概率<span class="arithmatex">\(p_E=1-p(x^*|y_j)\)</span>，信道接收端收到一个符号的平均译码错误概率<span class="arithmatex">\(p_E=\sum_{j=1}^{s}p(y_j)p_E(y_j)=\sum_{x(x\neq x*)}\sum_{y}p(x,y)\)</span></p>
+<p><strong>译码规则的矩阵表示</strong>：</p>
+<ul>
+<li>
+<p>【联合概率矩阵】矩阵中所有元素之和为1，红色表示译码规则对应关系</p>
+<p><img alt="image-20201231162822011" src="../img/image-20201231162822011.png" /></p>
+</li>
+<li>
+<p>【传递概率矩阵】矩阵中所有元素之和为r，红色表示译码规则对应关系</p>
+<p><img alt="image-20201231165843344" src="../img/image-20201231165843344.png" /></p>
+</li>
+</ul>
+<p><strong>定义</strong>【最佳译码规则】：平均译码错误概率最小</p>
+<p><strong>定理</strong>【最大后验概率准则】：对于收到的符号<span class="arithmatex">\(y_j\)</span>，选择译码规则<span class="arithmatex">\(\Delta(y_j)=x^*\)</span>，使之满足条件<span class="arithmatex">\(p(x^*|y_j)\geq p(x_i|y_j)\)</span></p>
+<ul>
+<li>也称为理想观测者准则</li>
+<li>所有译码规则中，最大后验概率准则的<span class="arithmatex">\(p_E\)</span>最小</li>
+</ul>
+<p><strong>定理</strong>【极大似然译码准则】：对于收到的符号<span class="arithmatex">\(y_j\)</span>，选择译码规则<span class="arithmatex">\(\Delta(y_j)=x^*\)</span>，使之满足条件<span class="arithmatex">\(p(y_j|x^*)p(x^*)\geq p(y_j|x_i)p(x_i)\)</span></p>
+<ul>
+<li>极大似然译码准则与最大后验概率等价</li>
+<li>输入等概时，极大似然译码准则变为<span class="arithmatex">\(p(y_j|x^*)\geq p(y_j|x_i)\)</span>，平均译码错误概率为<span class="arithmatex">\(p_E=\frac{1}{r}\sum_{x(x\neq x^*)}\sum_{y}p(y|x)\)</span></li>
+</ul>
+<p><strong>定理</strong>【Fano不等式】：译码错误概率<span class="arithmatex">\(p_E\)</span>与信道疑义度<span class="arithmatex">\(H(X|Y)\)</span>之间满足关系：<span class="arithmatex">\(H(X|Y)\leq H(p_E)+p_E\log(r-1)\)</span></p>
+<ul>
+<li><span class="arithmatex">\(H(p_E)\)</span>：接收到Y后判断是否发生错误的不确定性</li>
+<li><span class="arithmatex">\(p_E\log(r-1)\)</span>：当判断是错误的，错误概率为<span class="arithmatex">\(p_E\)</span>，确定由r-1个符号种哪一个引起错误的不确定性</li>
+</ul>
+<h3 id="142">14.2 编码方法和错误概率</h3>
+<p>影响平均译码错误概率的因素：</p>
+<ul>
+<li>译码规则</li>
+<li>信道统计特性</li>
+</ul>
+<p>改变信道传递概率减少<span class="arithmatex">\(p_E\)</span>：</p>
+<ul>
+<li>物理上更换信道</li>
+<li>数学上信道编码</li>
+</ul>
+<p><strong>定义</strong>【信息传输率】：<span class="arithmatex">\(R=\frac{\log M}{n}\)</span>，M为信源输出消息序列个数，n为信道编码码字长度</p>
+<p><strong>定义</strong>【n次重复编码】：随着重复编码次数n增大，<span class="arithmatex">\(p_E\)</span>下降，但是R也减少；随着M的增大，R增大，但是<span class="arithmatex">\(p_E\)</span>也增大。</p>
+<p><strong>定义</strong>【(5,2)线性码】：对于<span class="arithmatex">\(a_i=a_{i_1}a_{i_2}a_{i_3}a_{i_4}a_{i_5}\)</span>，<span class="arithmatex">\(\begin{cases}a_{i_1}a_{i_2}=\{00,01,10,11\}\\a_{i_3}=a_{i_1}\bigoplus a_{i_2}\\a_{i_4}=a_{i_1}\\a_{i_5}=a_{i_1}\bigoplus a_{i_2}\end{cases}\)</span></p>
+<ul>
+<li>M=4，n=5</li>
+<li>采用极大似然译码规则，正确译码概率为<span class="arithmatex">\(\bar {p_E}=\bar p^5+5\bar p^4p+2\bar p^3p^2\)</span></li>
+</ul>
+<p>只要码率小于信道的信道容量，则存在错误概率任意小的信道编码。</p>
+<h3 id="143-aep">14.3 联合典型序列与联合AEP</h3>
+<p>联合典型序列是典型序列在涉及两个随机序列是的自然扩展，是信道编码的基础</p>
+<p><strong>信源序列的渐进均分性质</strong>是弱大数定列车在信息论中的应用</p>
+<ul>
+<li><span class="arithmatex">\(A_\varepsilon^{(n)}\)</span>称为典型集，<span class="arithmatex">\(A_\varepsilon^{(n)}\)</span>中的序列称为<span class="arithmatex">\(\varepsilon-\)</span>典型序列</li>
+<li>典型集的概率近似为1，典型集中所有元素几乎是等可能的，典型集的元素个数近似等于<span class="arithmatex">\(2^{nH}\)</span></li>
+</ul>
+<p><strong>定义</strong>【联合典型序列】：设<span class="arithmatex">\(x=(x_1,x_2,...,x_n)\in X^n\)</span>，<span class="arithmatex">\(y=(y_1,y_2,...,y_n)\in Y^n\)</span>。x为典型序列，即对任意小的正数<span class="arithmatex">\(\varepsilon\)</span>，存在n使得<span class="arithmatex">\(|-\frac{1}{n}\log p(x)-H(X)|&lt;\varepsilon\)</span>。y为典型序列，即对任意小的正数<span class="arithmatex">\(\varepsilon\)</span>，存在n使得<span class="arithmatex">\(|-\frac{1}{n}\log p(y)-H(Y)|&lt;\varepsilon\)</span>。xy是典型序列，即对任意小的正数<span class="arithmatex">\(\varepsilon\)</span>，存在n使得<span class="arithmatex">\(|-\frac{1}{n}\log p(x,y)-H(X,Y)|&lt;\varepsilon\)</span></p>
+<ul>
+<li><span class="arithmatex">\(A_\varepsilon^{(n)}=\{(x^n,y^n)\in X^n\times Y^n:\\|-\frac{1}{n}\log p(x^n)-H(X)|&lt;\varepsilon\\|-\frac{1}{n}\log p(y^n)-H(Y)|&lt;\varepsilon\\|-\frac{1}{n}\log p(x^n,y^n)-H(X,Y)|&lt;\varepsilon\}\)</span></li>
+</ul>
+<p><strong>定义</strong>【联合AEP】：设<span class="arithmatex">\((x^n,y^n)\)</span>是服从<span class="arithmatex">\(p(x^n,y^n)=\prod_{i=1}^{n}p(x_i,y_i)\)</span>的独立同分布的n长序列，则：</p>
+<ul>
+<li>当<span class="arithmatex">\(n\to \infty\)</span>时，<span class="arithmatex">\(Pr[(x^n,y^n)\in A_\varepsilon^{(n)}]\to 1\)</span></li>
+<li><span class="arithmatex">\(|A_\varepsilon^{(n)}|\leq 2^{n(H(X)+\varepsilon)}\)</span></li>
+<li>如果<span class="arithmatex">\((\widetilde X^n,\widetilde Y^n)\sim p(x^n)p(y^n)\)</span>，即<span class="arithmatex">\(\widetilde X^n\)</span>与<span class="arithmatex">\(\widetilde Y^n\)</span>独立且与<span class="arithmatex">\(p(x^n,y^n)\)</span>有相同边缘分布，则：<span class="arithmatex">\(Pr[(\widetilde X^n,\widetilde Y^n)\in A_\varepsilon^{(n)}]\leq 2^{-n(I(X;Y)-3\varepsilon)}\)</span>，并且对于充分大的n，有<span class="arithmatex">\(Pr[(\widetilde X^n,\widetilde Y^n)\in A_\varepsilon^{(n)}]\geq (1-\varepsilon)2^{-n(I(X;Y)+3\varepsilon)}\)</span></li>
+</ul>
+<p><strong>性质</strong>：</p>
+<ul>
+<li>联合分布中，大约有<span class="arithmatex">\(2^{nH(X)}\)</span>个典型X序列和<span class="arithmatex">\(2^{nH(Y)}\)</span>个典型Y序列。组合有<span class="arithmatex">\(2^{n(H(X)+H(Y))}\)</span>种，但是联合典型只有<span class="arithmatex">\(2^{nH(X,Y)}\)</span>个。随机选择出现联合典型序列的概率为<span class="arithmatex">\(2^{-nI(X;Y)}\)</span></li>
+</ul>
+<h2 id="15">15 信道编码定理</h2>
+<p><strong>定义</strong>【信道包含的要素】：对于信道<span class="arithmatex">\(\{X,p(y|x),Y\}\)</span>的信道编码包含以下要素：</p>
+<ul>
+<li>输入符号集合<span class="arithmatex">\(\{1,2,...,M\}\)</span></li>
+<li>编码函数<span class="arithmatex">\(f:\{1,2,...,M\}\to X^n\)</span>。该函数为每一个输入符号产生了相应的信道编码码字，这些码字构成的集合称为<em>码簿</em></li>
+<li>解码函数<span class="arithmatex">\(g:Y^n\to \{1,2,...,M\}\)</span>，该函数为一个确定性判决函数，将每一个可能的接收向量映射到一个输入符号</li>
+<li>这样的信道编码称为<strong>(M,n)码</strong></li>
+</ul>
+<p><strong>定义</strong>【条件错误概率】：输入符号为<span class="arithmatex">\(\omega\)</span>时的条件错误概率为<span class="arithmatex">\(\lambda_\omega=\sum_{y\in Y^n;g(y)\neq \omega}Pr\{Y^{(n)}=y|X^{(n)}=f(\omega)\}\)</span></p>
+<p><strong>定义</strong>【最大错误概率】：(M,n)码最大错误概率为<span class="arithmatex">\(\lambda^{(n)}=\max_{\omega\in \{1,2,...,M\}}\lambda_\omega\)</span></p>
+<p><strong>定义</strong>【算术平均错误概率】：<span class="arithmatex">\(P_e^{(n)}=\frac{1}{M}\sum_{i=1}^M \lambda_i\)</span></p>
+<ul>
+<li>若输入等概，则算术平均错误概率等于译码错误概率；算术平均错误概率小于等于最大错误概率</li>
+</ul>
+<p><strong>定义</strong>【码率】：<span class="arithmatex">\(R=\frac{\log M}{n}\)</span>比特/传输</p>
+<ul>
+<li>信道码的每个码字母所能携带的最大信息量</li>
+<li><span class="arithmatex">\((2^{nR},n)\)</span></li>
+</ul>
+<p><strong>定义</strong>【】：一个信道的容量是该信道上所有可达码率的上确界，即<span class="arithmatex">\(C=\sup R\)</span></p>
+<ul>
+<li>小于信道容量的码率能够获得任意小的差错概率</li>
+</ul>
+<p><strong>定理</strong>【信道编码定理】：对于离散无记忆信道，小于其容量C的所有码率是可达的，即对于任意<span class="arithmatex">\(R&lt;C\)</span>，可以找到一个信道编码方案<span class="arithmatex">\((2^{nR},n)\)</span>，使得最大错误概率<span class="arithmatex">\(\lambda^{(n)}\to0\)</span>。反之，对于任意编码方案<span class="arithmatex">\((2^{nR},n)\)</span>，若<span class="arithmatex">\(\lambda^{(n)}\to0\)</span>，则必有<span class="arithmatex">\(R\leq C\)</span></p>
+<h2 id="16">16 汉明码与线性码</h2>
+<h3 id="161-hamming">* 16.1 Hamming与汉明码</h3>
+<h3 id="162">16.2 汉明码</h3>
+<p><strong>汉明码的构造</strong>：</p>
+<ul>
+<li>
+<p>考虑长度为n=7的二进制信道编码，构造以下矩阵：<span class="arithmatex">\(H=\begin{bmatrix}0&amp;0&amp;0&amp;1&amp;1&amp;1&amp;1\\0&amp;1&amp;1&amp;0&amp;0&amp;1&amp;1\\1&amp;0&amp;1&amp;0&amp;1&amp;0&amp;1\end{bmatrix}\)</span></p>
+<ul>
+<li>
+<p>矩阵的秩为3，因此其零空间是4维的，其所有<span class="arithmatex">\(2^4\)</span>个向量为:
+    $$
+    \begin{bmatrix}
+    0000000&amp;0100101&amp;1000011&amp;1100110\
+    0001111&amp;0101010&amp;1001100&amp;1101001\
+    0010110&amp;0110011&amp;1010101&amp;1110000\
+    0011001&amp;0111100&amp;1011010&amp;1111111
+    \end{bmatrix}
+    $$</p>
+</li>
+<li>
+<p>假设码字为<span class="arithmatex">\((x_1,x_2,x_3,x_4,r_1,r_2,r_3)\)</span>，则有<span class="arithmatex">\(\begin{cases}x_4+r_1+r_2+r_3=0\\x_2+x_3+r_1+r_2=0\\x_1+x_3+r_1+r_3=0\end{cases}\)</span>，从而得到<span class="arithmatex">\(\begin{cases}r_1=x_2+x_3+x_4\\r_2=x_1+x_3+x_4\\r_3=x_1+x_2+x_4\end{cases}\)</span></p>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>定义</strong>【权重、汉明距离】：二进制序列中1的个数称为权重，两个二进制序列中对应位不相等的个数称为两个序列的汉明距离</p>
+</li>
+<li>
+<p><strong>定义</strong>【奇偶校验矩阵】：H为奇偶校验矩阵=&gt;<span class="arithmatex">\(\begin{cases}Hc^T=0\\Hr^T=H(c^T+e_i^T)=He_i^T\end{cases}\)</span></p>
+<ul>
+<li><span class="arithmatex">\(e_i\)</span>为第i位为1，其余位为0的向量，<span class="arithmatex">\(He_i^T\)</span>即为H的第i列向量</li>
+</ul>
+</li>
+</ul>
+<p><strong>汉明码的译码</strong>：</p>
+<ul>
+<li>将奇偶校验矩阵H根据二进制表示从1到n排列</li>
+<li>设由信道接收到消息x，计算<span class="arithmatex">\(S(x)=xH^T\)</span><ul>
+<li>如果<span class="arithmatex">\(S(x)=0\)</span>，则没有错误发生</li>
+<li>如果<span class="arithmatex">\(S(x)\neq0\)</span>，则有一个错误发生，<span class="arithmatex">\(S(x)\)</span>即为错误位置的二进制表示，将错误位置改正即可</li>
+</ul>
+</li>
+</ul>
+<p><strong>定义</strong>【系统码】：一般地，前k个比特代表消息，后面n-k个比特留作奇偶校验位，这样得到的码称为系统码。该码由分组长度n、信息比特数k以及最小距离d三个参数确定</p>
+<ul>
+<li>上述汉明码又称<strong>[7,4,3]汉明码</strong></li>
+</ul>
+<p><strong>二元汉明码的参数</strong>：</p>
+<ul>
+<li>码长：<span class="arithmatex">\(n=2^r-1\)</span></li>
+<li>校验位个数：r</li>
+<li>信息位个数：<span class="arithmatex">\(k=n-r=2^r-1-r\)</span></li>
+<li>码字最小距离：3</li>
+<li>纠错能力：1</li>
+</ul>
+<p><strong>结论</strong>【汉明距离】：</p>
+<ul>
+<li><span class="arithmatex">\(d_H(u,u)=0\)</span></li>
+<li><span class="arithmatex">\(d_H(u,v)=d_H(v,u)\)</span></li>
+<li><span class="arithmatex">\(d_H(u,v)\leq d_H(u,w)+d_H(v,w)\)</span></li>
+</ul>
+<h3 id="163">* 16.3 线性码</h3>
+<h3 id="164">* 16.4 译码错误概率和不可检错概率</h3>
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+    <nav class="md-footer__inner md-grid" aria-label="Footer" >
+      
+        
+        <a href="../.." class="md-footer__link md-footer__link--prev" aria-label="Previous: 主页" rel="prev">
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+          </div>
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              主页
+            </div>
+          </div>
+        </a>
+      
+      
+        
+        <a href="../../%E4%BF%A1%E5%8F%B7%E4%B8%8E%E7%B3%BB%E7%BB%9F/1%E4%BF%A1%E5%8F%B7%E4%B8%8E%E7%B3%BB%E7%BB%9F/" class="md-footer__link md-footer__link--next" aria-label="Next: 1.信号与系统" rel="next">
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              1.信号与系统
+            </div>
+          </div>
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4Z"/></svg>
+          </div>
+        </a>
+      
+    </nav>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.tabs", "search.suggest", "search.highlight", "toc.integrate"], "search": "../../assets/javascripts/workers/search.16e2a7d4.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version.title": "Select version"}}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.5a2dcb6a.min.js"></script>
+      
+        <script src="../../javascripts/mathjax.js"></script>
+      
+        <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+    
+    
+  </body>
+</html>

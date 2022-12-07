@@ -1,0 +1,41 @@
+LOG_NAME,LOG_DESC,FIELD_NAME,FIELD_TYPE,FIELD_DESC
+barnyard2.log,Alerts received from Barnyard2,alert,Barnyard2::AlertData &log,Associated alert data. 
+barnyard2.log,Alerts received from Barnyard2,pid,Barnyard2::PacketID &log,Associated packet ID. 
+barnyard2.log,Alerts received from Barnyard2,ts,time &log,Timestamp of the alert. 
+dpd.log,Dynamic protocol detection failures,uid,string &log,Connection unique ID. 
+dpd.log,Dynamic protocol detection failures,ts,time &log,Timestamp for when protocol analysis failed. 
+dpd.log,Dynamic protocol detection failures,packet_segment,string &optional &log,(present if policy/frameworks/dpd/packet-segment-logging.zeek is loaded) A chunk of the payload that most likely resulted in the protocol violation. 
+dpd.log,Dynamic protocol detection failures,analyzer,string &log,The analyzer that generated the violation. 
+dpd.log,Dynamic protocol detection failures,failure_reason,string &log,The textual reason for the analysis failure. 
+dpd.log,Dynamic protocol detection failures,proto,transport_proto &log,Transport protocol for the violation. 
+dpd.log,Dynamic protocol detection failures,id,conn_id &log,Connection ID containing the 4-tuple which identifies endpoints. 
+unified2.log,Interprets Snort's unified output,signature_revision,count &log,Sig revision for this id. 
+unified2.log,Interprets Snort's unified output,generator,string &optional &log,A string representation of the generator_id field if a gen_msg.map file was loaded. 
+unified2.log,Interprets Snort's unified output,sensor_id,count &log,Sensor that originated this event. 
+unified2.log,Interprets Snort's unified output,generator_id,count &log,Which generator generated the alert? 
+unified2.log,Interprets Snort's unified output,signature,string &optional &log,A string representation of the signature_id field if a sid_msg.map file was loaded. 
+unified2.log,Interprets Snort's unified output,signature_id,count &log,Sig id for this generator. 
+unified2.log,Interprets Snort's unified output,priority_id,count &log,Event priority. 
+unified2.log,Interprets Snort's unified output,event_id,count &log,Event ID. 
+unified2.log,Interprets Snort's unified output,packet,string &optional &log,Some of the packet data. 
+unified2.log,Interprets Snort's unified output,classification_id,count &log,Event classification. 
+unified2.log,Interprets Snort's unified output,classification,string &optional &log,Descriptive classification string. 
+unified2.log,Interprets Snort's unified output,id,Unified2::PacketID &log,Addresses and ports for the connection. 
+unified2.log,Interprets Snort's unified output,ts,time &log,Timestamp attached to the alert. 
+unknown_protocols.log,Information about packet protocols that Zeek doesn't know how to process,first_bytes,string &log,A certain number of bytes at the start of the unknown protocol's header. 
+unknown_protocols.log,Information about packet protocols that Zeek doesn't know how to process,protocol_id,string &log,The identifier of the protocol being forwarded. 
+unknown_protocols.log,Information about packet protocols that Zeek doesn't know how to process,analyzer,string &log,The string name of the analyzer attempting to forward the protocol. 
+unknown_protocols.log,Information about packet protocols that Zeek doesn't know how to process,ts,time &log,Timestamp for when the measurement occurred. 
+weird.log,Unexpected network-level activity,peer,string &log &optional &default = peer_description,The peer that originated this weird.  This is helpful in cluster deployments if a particular cluster node is having trouble to help identify which node is having trouble. 
+weird.log,Unexpected network-level activity,addl,string &log &optional,Additional information accompanying the weird if any. 
+weird.log,Unexpected network-level activity,notice,bool &log &default = F &optional,Indicate if this weird was also turned into a notice. 
+weird.log,Unexpected network-level activity,ts,time &log,The time when the weird occurred. 
+weird.log,Unexpected network-level activity,uid,string &log &optional,If a connection is associated with this weird， this will be the connection's unique ID. 
+weird.log,Unexpected network-level activity,identifier,string &optional,This field is to be provided when a weird is generated for the purpose of deduplicating weirds. The identifier string should be unique for a single instance of the weird. This field is used to define when a weird is conceptually a duplicate of a previous weird. 
+weird.log,Unexpected network-level activity,id,conn_id &log &optional,conn_id for the optional connection. 
+weird.log,Unexpected network-level activity,source,string &log &optional,The source of the weird. When reported by an analyzer， this should be the name of the analyzer. 
+weird.log,Unexpected network-level activity,name,string &log,The name of the weird that occurred. 
+weird.log,Unexpected network-level activity,conn,connection &optional,A shorthand way of giving the uid and id to a weird. 
+weird_stats.log,Statistics about unexpected activity,num_seen,count &log,Number of times weird was seen since the last stats interval. 
+weird_stats.log,Statistics about unexpected activity,ts,time &log,Timestamp for the measurement. 
+weird_stats.log,Statistics about unexpected activity,name,string &log,Name of the weird. 

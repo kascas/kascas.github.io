@@ -1,0 +1,44 @@
+LOG_NAME,LOG_DESC,FIELD_NAME,FIELD_TYPE,FIELD_DESC
+netcontrol.log,NetControl actions,action,string &log &optional,String describing an action the entry is about. 
+netcontrol.log,NetControl actions,category,NetControl::InfoCategory &log &optional,Type of the log entry. 
+netcontrol.log,NetControl actions,rule_id,string &log &optional,ID of the rule; unique during each Zeek run. 
+netcontrol.log,NetControl actions,expire,interval &log &optional,Expiry time of the log entry. 
+netcontrol.log,NetControl actions,priority,int &log &optional,Number describing the priority of the log entry. 
+netcontrol.log,NetControl actions,msg,string &log &optional,String with an additional message. 
+netcontrol.log,NetControl actions,mod,string &log &optional,String describing the optional modification of the entry (e.h. redirect) 
+netcontrol.log,NetControl actions,state,NetControl::InfoState &log &optional,State the log entry reflects. 
+netcontrol.log,NetControl actions,plugin,string &log &optional,Plugin triggering the log entry. 
+netcontrol.log,NetControl actions,location,string &log &optional,Location where the underlying action was triggered. 
+netcontrol.log,NetControl actions,ts,time &log,Time at which the recorded activity occurred. 
+netcontrol.log,NetControl actions,target,NetControl::TargetType &log &optional,The target type of the action. 
+netcontrol.log,NetControl actions,entity_type,string &log &optional,Type of the entity the log entry is about. 
+netcontrol.log,NetControl actions,entity,string &log &optional,String describing the entity the log entry is about. 
+netcontrol.log,NetControl actions,cmd,string &log &optional,The command the log entry is about. 
+netcontrol_catch_release.log,NetControl catch and release actions,watch_interval,interval &log &optional,The current watch_interval (for how long the address will be watched and re-block if it reappears). 
+netcontrol_catch_release.log,NetControl catch and release actions,block_interval,interval &log &optional,The current block_interaval (for how long the address is blocked). 
+netcontrol_catch_release.log,NetControl catch and release actions,action,NetControl::CatchReleaseActions &log,The action that was taken in this log-line. 
+netcontrol_catch_release.log,NetControl catch and release actions,ip,addr &log,The IP address that this line refers to. 
+netcontrol_catch_release.log,NetControl catch and release actions,message,string &log &optional,Additional informational string by the catch and release framework about this log-line. 
+netcontrol_catch_release.log,NetControl catch and release actions,location,string &log &optional,The user specified location string. 
+netcontrol_catch_release.log,NetControl catch and release actions,blocked_until,time &log &optional,The absolute time until which the address is blocked. 
+netcontrol_catch_release.log,NetControl catch and release actions,watched_until,time &log &optional,The absolute time until which the address will be monitored. 
+netcontrol_catch_release.log,NetControl catch and release actions,num_blocked,count &log &optional,Number of times that this address was blocked in the current cycle. 
+netcontrol_catch_release.log,NetControl catch and release actions,rule_id,string &log &optional,The rule id that this log line refers to. 
+netcontrol_catch_release.log,NetControl catch and release actions,ts,time &log,The absolute time indicating when the action for this log-line occured. 
+netcontrol_drop.log,NetControl actions,resp_p,port &log &optional,The responder's port number. 
+netcontrol_drop.log,NetControl actions,ts,time &log,Time at which the recorded activity occurred. 
+netcontrol_drop.log,NetControl actions,rule_id,string &log,ID of the rule; unique during each Zeek run. 
+netcontrol_drop.log,NetControl actions,orig_h,addr &log,The originator's IP address. 
+netcontrol_drop.log,NetControl actions,orig_p,port &log &optional,The originator's port number. 
+netcontrol_drop.log,NetControl actions,resp_h,addr &log &optional,The responder's IP address. 
+netcontrol_drop.log,NetControl actions,expire,interval &log,Expiry time of the shunt. 
+netcontrol_drop.log,NetControl actions,location,string &log &optional,Location where the underlying action was triggered. 
+netcontrol_shunt.log,NetControl shunt actions,rule_id,string &log,ID of the rule; unique during each Zeek run. 
+netcontrol_shunt.log,NetControl shunt actions,location,string &log &optional,Location where the underlying action was triggered. 
+netcontrol_shunt.log,NetControl shunt actions,ts,time &log,Time at which the recorded activity occurred. 
+netcontrol_shunt.log,NetControl shunt actions,expire,interval &log,Expiry time of the shunt. 
+netcontrol_shunt.log,NetControl shunt actions,f,flow_id &log,Flow ID of the shunted flow. 
+openflow.log,OpenFlow debug log,ts,time &log,Network time. 
+openflow.log,OpenFlow debug log,flow_mod,OpenFlow::ofp_flow_mod &log,OpenFlow modify flow entry message. 
+openflow.log,OpenFlow debug log,match,OpenFlow::ofp_match &log,OpenFlow match fields. 
+openflow.log,OpenFlow debug log,dpid,count &log,OpenFlow switch datapath id. 

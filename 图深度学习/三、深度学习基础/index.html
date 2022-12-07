@@ -1,0 +1,1507 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.4.2, mkdocs-material-8.5.10">
+    
+    
+      
+        <title>2.深度学习基础 - Kascas's Blogs</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.975780f9.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.2505c338.min.css">
+        
+      
+      
+
+    
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="None" data-md-color-accent="None">
+  
+    
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#_1" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="Kascas&#39;s Blogs" class="md-header__button md-logo" aria-label="Kascas's Blogs" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Kascas's Blogs
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              2.深度学习基础
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/kascas/kascas.github.io" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.2.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-tabs__inner md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="../.." class="md-tabs__link">
+      主页
+    </a>
+  </li>
+
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="../../%E4%BF%A1%E6%81%AF%E8%AE%BA%E4%B8%8E%E7%BC%96%E7%A0%81/%E4%BF%A1%E6%81%AF%E8%AE%BA%E4%B8%8E%E7%BC%96%E7%A0%81/" class="md-tabs__link">
+      信息论与编码
+    </a>
+  </li>
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../%E4%BF%A1%E5%8F%B7%E4%B8%8E%E7%B3%BB%E7%BB%9F/1%E4%BF%A1%E5%8F%B7%E4%B8%8E%E7%B3%BB%E7%BB%9F/" class="md-tabs__link">
+        信号与系统
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../%E9%80%9A%E4%BF%A1%E5%8E%9F%E7%90%86/md/4%E4%BF%A1%E9%81%93/" class="md-tabs__link">
+        通信原理
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/2%E9%97%AE%E9%A2%98%E6%B1%82%E8%A7%A3/" class="md-tabs__link">
+        人工智能
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+    
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../%E4%BA%8C%E3%80%81%E5%9B%BE%E8%AE%BA%E5%9F%BA%E7%A1%80/" class="md-tabs__link md-tabs__link--active">
+        图深度学习
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../Python%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86/1NumPy%E5%85%A5%E9%97%A8/" class="md-tabs__link">
+        Python数据处理
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../%E6%97%A5%E5%BF%97%E5%88%86%E6%9E%90/Linux-Audit%E5%8F%82%E8%80%83/Linux-Audit%E5%8F%82%E8%80%83/" class="md-tabs__link">
+        日志分析
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E7%B3%BB%E7%BB%9F%E7%BA%A7%E6%BA%AF%E6%BA%90%E5%9B%BE%E4%B8%8E%E5%A8%81%E8%83%81%E6%A3%80%E6%B5%8B/" class="md-tabs__link">
+        学习笔记
+      </a>
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+  
+
+
+  
+
+<nav class="md-nav md-nav--primary md-nav--lifted md-nav--integrated" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Kascas&#39;s Blogs" class="md-nav__button md-logo" aria-label="Kascas's Blogs" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    Kascas's Blogs
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/kascas/kascas.github.io" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.2.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        主页
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E4%BF%A1%E6%81%AF%E8%AE%BA%E4%B8%8E%E7%BC%96%E7%A0%81/%E4%BF%A1%E6%81%AF%E8%AE%BA%E4%B8%8E%E7%BC%96%E7%A0%81/" class="md-nav__link">
+        信息论与编码
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3" type="checkbox" id="__nav_3" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_3">
+          信号与系统
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="信号与系统" data-md-level="1">
+        <label class="md-nav__title" for="__nav_3">
+          <span class="md-nav__icon md-icon"></span>
+          信号与系统
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E4%BF%A1%E5%8F%B7%E4%B8%8E%E7%B3%BB%E7%BB%9F/1%E4%BF%A1%E5%8F%B7%E4%B8%8E%E7%B3%BB%E7%BB%9F/" class="md-nav__link">
+        1.信号与系统
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E4%BF%A1%E5%8F%B7%E4%B8%8E%E7%B3%BB%E7%BB%9F/2%E7%BA%BF%E6%80%A7%E6%97%B6%E4%B8%8D%E5%8F%98%E7%B3%BB%E7%BB%9F/" class="md-nav__link">
+        2.线性时不变系统
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E4%BF%A1%E5%8F%B7%E4%B8%8E%E7%B3%BB%E7%BB%9F/3%E5%91%A8%E6%9C%9F%E4%BF%A1%E5%8F%B7%E7%9A%84%E5%82%85%E9%87%8C%E5%8F%B6%E7%BA%A7%E6%95%B0%E8%A1%A8%E7%A4%BA/" class="md-nav__link">
+        3.周期信号的傅里叶级数表示
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E4%BF%A1%E5%8F%B7%E4%B8%8E%E7%B3%BB%E7%BB%9F/4%E8%BF%9E%E7%BB%AD%E6%97%B6%E9%97%B4%E5%82%85%E9%87%8C%E5%8F%B6%E5%8F%98%E6%8D%A2/" class="md-nav__link">
+        4.连续时间傅里叶变换
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E4%BF%A1%E5%8F%B7%E4%B8%8E%E7%B3%BB%E7%BB%9F/5%E7%A6%BB%E6%95%A3%E6%97%B6%E9%97%B4%E5%82%85%E9%87%8C%E5%8F%B6%E5%8F%98%E6%8D%A2/" class="md-nav__link">
+        5.离散时间傅里叶变换
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E4%BF%A1%E5%8F%B7%E4%B8%8E%E7%B3%BB%E7%BB%9F/9%E6%8B%89%E6%99%AE%E6%8B%89%E6%96%AF%E5%8F%98%E6%8D%A2/" class="md-nav__link">
+        9.拉普拉斯变换
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E4%BF%A1%E5%8F%B7%E4%B8%8E%E7%B3%BB%E7%BB%9F/10Z%E5%8F%98%E6%8D%A2/" class="md-nav__link">
+        10.Z变换
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E4%BF%A1%E5%8F%B7%E4%B8%8E%E7%B3%BB%E7%BB%9F/%E5%85%AC%E5%BC%8F%E6%80%BB%E7%BB%93/" class="md-nav__link">
+        公式总结
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4" type="checkbox" id="__nav_4" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_4">
+          通信原理
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="通信原理" data-md-level="1">
+        <label class="md-nav__title" for="__nav_4">
+          <span class="md-nav__icon md-icon"></span>
+          通信原理
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E9%80%9A%E4%BF%A1%E5%8E%9F%E7%90%86/md/4%E4%BF%A1%E9%81%93/" class="md-nav__link">
+        4.信道
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E9%80%9A%E4%BF%A1%E5%8E%9F%E7%90%86/md/5%E6%A8%A1%E6%8B%9F%E8%B0%83%E5%88%B6%E7%B3%BB%E7%BB%9F/" class="md-nav__link">
+        5.模拟调制系统
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E9%80%9A%E4%BF%A1%E5%8E%9F%E7%90%86/md/6%E6%95%B0%E5%AD%97%E5%9F%BA%E5%B8%A6%E4%BC%A0%E8%BE%93/" class="md-nav__link">
+        6.数字基带传输
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E9%80%9A%E4%BF%A1%E5%8E%9F%E7%90%86/md/7%E6%95%B0%E5%AD%97%E5%B8%A6%E9%80%9A%E4%BC%A0%E8%BE%93%E7%B3%BB%E7%BB%9F/" class="md-nav__link">
+        7.数字带通传输系统
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E9%80%9A%E4%BF%A1%E5%8E%9F%E7%90%86/md/8%E6%96%B0%E5%9E%8B%E6%95%B0%E5%AD%97%E5%B8%A6%E9%80%9A%E8%B0%83%E5%88%B6%E6%8A%80%E6%9C%AF/" class="md-nav__link">
+        8.新型数字带通调制技术
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E9%80%9A%E4%BF%A1%E5%8E%9F%E7%90%86/md/9%E6%9C%80%E4%BD%B3%E6%8E%A5%E6%94%B6%E6%9C%BA%E8%AE%BE%E8%AE%A1/" class="md-nav__link">
+        9.最佳接收机设计
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E9%80%9A%E4%BF%A1%E5%8E%9F%E7%90%86/md/10%E4%BF%A1%E6%BA%90%E7%BC%96%E7%A0%81/" class="md-nav__link">
+        10.信源编码
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E9%80%9A%E4%BF%A1%E5%8E%9F%E7%90%86/md/11%E5%B7%AE%E9%94%99%E6%8E%A7%E5%88%B6%E7%BC%96%E7%A0%81/" class="md-nav__link">
+        11.差错控制编码
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E9%80%9A%E4%BF%A1%E5%8E%9F%E7%90%86/md/%E5%85%AC%E5%BC%8F%E6%B1%87%E6%80%BB/" class="md-nav__link">
+        12.公式汇总
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_5" type="checkbox" id="__nav_5" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_5">
+          人工智能
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="人工智能" data-md-level="1">
+        <label class="md-nav__title" for="__nav_5">
+          <span class="md-nav__icon md-icon"></span>
+          人工智能
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/2%E9%97%AE%E9%A2%98%E6%B1%82%E8%A7%A3/" class="md-nav__link">
+        2.问题求解
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/3%E5%8D%9A%E5%BC%88%E9%97%AE%E9%A2%98/" class="md-nav__link">
+        3.博弈问题
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/4%E6%8E%A8%E7%90%86%E6%8A%80%E6%9C%AF/" class="md-nav__link">
+        4.推理技术
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/6%E4%B8%8D%E7%A1%AE%E5%AE%9A%E6%80%A7%E6%8E%A8%E7%90%86/" class="md-nav__link">
+        6.不确定性推理
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6" type="checkbox" id="__nav_6" checked>
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_6">
+          图深度学习
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="图深度学习" data-md-level="1">
+        <label class="md-nav__title" for="__nav_6">
+          <span class="md-nav__icon md-icon"></span>
+          图深度学习
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E4%BA%8C%E3%80%81%E5%9B%BE%E8%AE%BA%E5%9F%BA%E7%A1%80/" class="md-nav__link">
+        1.图论基础
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          2.深度学习基础
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        2.深度学习基础
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#31" class="md-nav__link">
+    3.1 深度前馈神经网络
+  </a>
+  
+    <nav class="md-nav" aria-label="3.1 深度前馈神经网络">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#311" class="md-nav__link">
+    3.1.1 网络结构
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#312" class="md-nav__link">
+    3.1.2 激活函数
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#313" class="md-nav__link">
+    3.1.3 输出层与损失函数
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#32" class="md-nav__link">
+    3.2 卷积神经网络
+  </a>
+  
+    <nav class="md-nav" aria-label="3.2 卷积神经网络">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#321" class="md-nav__link">
+    3.2.1 卷积与卷积层
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#322" class="md-nav__link">
+    3.2.2 实际操作中的卷积层
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#323" class="md-nav__link">
+    3.2.3 非线性激活层
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#324" class="md-nav__link">
+    3.2.4 池化层
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#325" class="md-nav__link">
+    3.2.5 卷积神经网络总体框架
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#33" class="md-nav__link">
+    3.3 循环神经网络
+  </a>
+  
+    <nav class="md-nav" aria-label="3.3 循环神经网络">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#331" class="md-nav__link">
+    3.3.1 传统循环神经网络的网络结构
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#332" class="md-nav__link">
+    3.3.2 长短期记忆网络
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#333" class="md-nav__link">
+    3.3.3 门控循环单元
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#34" class="md-nav__link">
+    3.4 自编码器
+  </a>
+  
+    <nav class="md-nav" aria-label="3.4 自编码器">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#341" class="md-nav__link">
+    3.4.1 欠完备自编码器
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#342" class="md-nav__link">
+    3.4.2 正则化自编码器
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#35" class="md-nav__link">
+    3.5 深度神经网络的训练
+  </a>
+  
+    <nav class="md-nav" aria-label="3.5 深度神经网络的训练">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#351" class="md-nav__link">
+    3.5.1 梯度下降
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#352" class="md-nav__link">
+    3.5.2 反向传播
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#353" class="md-nav__link">
+    3.5.3 预防过拟合
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E5%9B%9B%E3%80%81%E5%9B%BE%E5%B5%8C%E5%85%A5/" class="md-nav__link">
+        3.图嵌入
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E4%BA%94%E3%80%81%E5%9B%BE%E4%BF%A1%E5%8F%B7%E5%A4%84%E7%90%86%E4%B8%8E%E5%9B%BE%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/" class="md-nav__link">
+        4.图信号处理与图卷积神经网络
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_7" type="checkbox" id="__nav_7" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_7">
+          Python数据处理
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Python数据处理" data-md-level="1">
+        <label class="md-nav__title" for="__nav_7">
+          <span class="md-nav__icon md-icon"></span>
+          Python数据处理
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Python%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86/1NumPy%E5%85%A5%E9%97%A8/" class="md-nav__link">
+        1 NumPy入门
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_8" type="checkbox" id="__nav_8" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_8">
+          日志分析
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="日志分析" data-md-level="1">
+        <label class="md-nav__title" for="__nav_8">
+          <span class="md-nav__icon md-icon"></span>
+          日志分析
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E6%97%A5%E5%BF%97%E5%88%86%E6%9E%90/Linux-Audit%E5%8F%82%E8%80%83/Linux-Audit%E5%8F%82%E8%80%83/" class="md-nav__link">
+        Linux-Audit参考
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E6%97%A5%E5%BF%97%E5%88%86%E6%9E%90/Zeek%E5%8F%82%E8%80%83/Zeek%E5%8F%82%E8%80%83/" class="md-nav__link">
+        Zeek参考
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E6%97%A5%E5%BF%97%E5%88%86%E6%9E%90/syslog%E5%8D%8F%E8%AE%AE/" class="md-nav__link">
+        syslog日志
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_9" type="checkbox" id="__nav_9" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_9">
+          学习笔记
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="学习笔记" data-md-level="1">
+        <label class="md-nav__title" for="__nav_9">
+          <span class="md-nav__icon md-icon"></span>
+          学习笔记
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E7%B3%BB%E7%BB%9F%E7%BA%A7%E6%BA%AF%E6%BA%90%E5%9B%BE%E4%B8%8E%E5%A8%81%E8%83%81%E6%A3%80%E6%B5%8B/" class="md-nav__link">
+        系统级溯源图与威胁检测
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+  <a href="https://github.com/kascas/kascas.github.io/edit/master/docs/图深度学习/三、深度学习基础.md" title="Edit this page" class="md-content__button md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25Z"/></svg>
+  </a>
+
+
+<h1 id="_1">三、深度学习基础</h1>
+<h2 id="31">3.1 深度前馈神经网络</h2>
+<p>前馈神经网络是许多重要深度学习方法的基础，用给定的数据近似（拟合）某个函数<span class="arithmatex">\(f^*(x)\)</span>。对于分类器而言，前馈神经网络的训练目标是学习参数<span class="arithmatex">\(\theta\)</span>来得到理想分类器<span class="arithmatex">\(f^*(x)\)</span>的最好近似函数。</p>
+<p>在前馈神经网络中，<strong>输出层</strong>能直接接收来自训练数据的监督信号，而中间层不能。由于训练数据没有为中间层设定明确的输出目标，因此中间层也称为<strong>隐藏层</strong>。</p>
+<p>从网络层之间的输入与输出来看，每一层都可以看作向量-&gt;向量的函数；从网络层内的节点来看，网络层的每一层都可以看作向量到标量的函数的集合，每个节点代表一个函数。每个节点从上层所有节点<strong>聚合信息</strong>并进行变换（线性），然后传递给<strong>激活函数</strong>（非线性）。激活函数决定了信息能多大程度传递到下一层。线性运算与非线性运算提高了神经网络的拟合能力。</p>
+<h3 id="311">3.1.1 网络结构</h3>
+<p>在全连接前馈神经网络中，相邻层的节点组成了一个完全二分图。一个节点的运算主要由两部分构成：输入元素的<strong>线性加权求和</strong>、<strong>偏置项</strong>。节点运算的数学表示为<span class="arithmatex">\(h=\alpha(b+\sum_{i}w_i\cdot x_i)\)</span>，其中<span class="arithmatex">\(\alpha\)</span>为激活函数，<span class="arithmatex">\(b\)</span>为偏置项。</p>
+<p><img alt="picture 1" src="../assets/img/%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E7%9A%84%E7%BD%91%E7%BB%9C%E7%BB%93%E6%9E%84.png" />  </p>
+<p>对于一般神经网络，在第<span class="arithmatex">\(k\)</span>层有<span class="arithmatex">\(N^{(k)}\)</span>个节点，该层输出为<span class="arithmatex">\(h^{(k)}\)</span>，则第<span class="arithmatex">\(k+1\)</span>层的第<span class="arithmatex">\(j\)</span>个元素可表示为:</p>
+<pre class="arithmatex">\[
+h_j^{(k+1)}=\alpha(b_j^{(k)}+\sum_{i=1}^{N^{(k)}}W_{j,i}^{(k)}h_i^{(k)})
+\]</pre>
+<p>矩阵表示为：</p>
+<pre class="arithmatex">\[
+h^{(k+1)}=f^{(k+1)}(h^{(k)})=\alpha(b^{(k)}+W^{(k)}h^{(k)})
+\]</pre>
+<p><img alt="picture 2" src="../assets/img/%E7%A5%9E%E7%BB%8F%E5%85%83%E7%BB%93%E6%9E%84.png" />  </p>
+<h3 id="312">3.1.2 激活函数</h3>
+<p>【<strong>整流函数</strong>】（Rectifier Function） 整流函数的定义为<span class="arithmatex">\(\mathrm{ReLU}(z)=\max\{0,z\}\)</span>。采用整流函数作为激活函数的单元称为<strong>整流线性单元</strong>（ReLU）。</p>
+<ul>
+<li>当输入为负数时梯度为0，因此若某单元没有激活则无法获取训练该单元的监督信号</li>
+<li><strong>带泄露整流线性单元</strong>（LeakyReLU） <span class="arithmatex">\(\mathrm{LeakyReLU}(z)=\begin{cases}\alpha z, &amp;z&lt;0 \\ z, &amp; z\geq 0\end{cases}\)</span></li>
+<li><strong>指数线性单元</strong>（ELU） <span class="arithmatex">\(\mathrm{ELU}(z)=\begin{cases}c(e^z-1), &amp;z&lt;0 \\ z, &amp; z\geq 0\end{cases}\)</span></li>
+</ul>
+<p>【<strong>逻辑S型函数</strong>】（Logistic Sigmoid Function） <span class="arithmatex">\(\sigma(z)=\frac{1}{1+e^{-z}}\)</span></p>
+<p>【<strong>双曲正切函数</strong>】 <span class="arithmatex">\(\tanh(z)=\frac{2}{1+e^{-2z}}-1=2\sigma(2z)-1\)</span></p>
+<p><img alt="picture 3" src="../assets/img/%E4%B8%89%E7%A7%8D%E5%B8%B8%E7%94%A8%E6%BF%80%E6%B4%BB%E5%87%BD%E6%95%B0.png" />  </p>
+<h3 id="313">3.1.3 输出层与损失函数</h3>
+<p>对于二分类问题，使用线性层与逻辑S型函数将结果映射到0到1的范围（<span class="arithmatex">\(\hat{y}=\sigma(Wh+b)\)</span>）。输出为<span class="arithmatex">\(\hat{y}\)</span>代表输入样本类别为1的概率。对于输出<span class="arithmatex">\(\hat{y}\)</span>与真实标签值<span class="arithmatex">\(y\)</span>，可用过<strong>交叉熵损失函数</strong>计算真实值与模型预测值的差异：<span class="arithmatex">\(l(y,\hat{y})=-y\log(\hat{y})-(1-y)\log(1-\hat{y})\)</span>。推断时若<span class="arithmatex">\(\hat{y}&gt;0.5\)</span>则预测为1，否则为0。</p>
+<p>对于多分类问题，One-Hot向量<span class="arithmatex">\(y\in \{0,1\}^n\)</span>指示样本的标签。使用线性层与Softmax函数将结果归一化为一个类别相关的离散概率分布：<span class="arithmatex">\(\hat{y}_i=\mathrm{Softmax}(z)_i=\frac{e^{z_i}}{\sum_je^{z_i}}\)</span>，其中<span class="arithmatex">\(\hat{y}_i\)</span>表示输入样本属于类别<span class="arithmatex">\(i-1\)</span>的概率。最终使用交叉熵计算损失函数<span class="arithmatex">\(l(y,\hat{y})=-\sum_{i=0}^{n-1}y_i\log(\hat{y}_i)\)</span>。推断时若<span class="arithmatex">\(\hat{y}_i\)</span>为输出单元中最大值，则预测为i-1。</p>
+<h2 id="32">3.2 卷积神经网络</h2>
+<p><strong>卷积神经网络</strong>（CNN）是一种流行的神经网络模型。在CNN中，具有卷积运算的层称为卷积层，将附近神经元输出汇聚为新的输出的过程称为池化，具有池化功能的层称为池化层。</p>
+<h3 id="321">3.2.1 卷积与卷积层</h3>
+<p>连续信号的卷积过程为<span class="arithmatex">\((f*g)(t)=\int_{-\infty}^{\infty}f(\tau)g(t-\tau)d\tau\)</span>，离散信号的卷积过程为<span class="arithmatex">\((f*w)(t)=\sum_{\tau=-\infty}^{\infty}f(\tau)w(t-\tau)\)</span>。</p>
+<p>在神经网络中，<span class="arithmatex">\(t\)</span>可以作为输入层中的单元索引，函数<span class="arithmatex">\(w\)</span>可作为内核（滤波器），卷积操作可表示稀疏连接图，卷积层可理解为在输入层上滑动内核进行卷积计算。</p>
+<p>卷积层具有三个重要特点：<strong>稀疏连接</strong>、<strong>参数共享</strong>、<strong>等变表示</strong>。</p>
+<p>【<strong>稀疏连接</strong>】 与传统神经网络相比，CNN在两层之间的连接更加稀疏。在密集连接的两层中，单个输出单元受到所有输入单元的影响；在CNN的两层中，输出单元仅受到少数输入单元的影响，由此引出<strong>感受野</strong>的概念。稀疏连接能够提高神经网络的计算效率，若不考虑参数共享，则当内核大小为<span class="arithmatex">\(K\)</span>、输出大小为<span class="arithmatex">\(M\)</span>时，时间复杂度为<span class="arithmatex">\(O(K\times M)\)</span>。</p>
+<p>【<strong>参数共享</strong>】 参数共享，指对不同输出单元执行计算时采用同一组参数。因此参数共享能够提高计算效率。</p>
+<p>【<strong>等变表示</strong>】 在卷积操作中平移函数（例如移位）是等变的，因此属性的偏移并不会影响CNN对于某一属性的指示。</p>
+<h3 id="322">3.2.2 实际操作中的卷积层</h3>
+<p>在典型的卷积层中，多个不同的<strong>卷积核</strong>会被并行应用，以提取输入层的特征，因此输入层和输出层都是<strong>多通道</strong>表示的，其中每个卷积核的结果对应于一个输出通道。</p>
+<p>对于通道数为<span class="arithmatex">\(L\)</span>的输入图片<span class="arithmatex">\(I\)</span>，对其进行<span class="arithmatex">\(P\)</span>个卷积核的卷积操作，计算过程为：</p>
+<pre class="arithmatex">\[
+S(i,j,p)=(I*K_p)(i,j)=\sum_{l=1}^{L}\sum_{\tau=i-n}^{i+n}\sum_{j=\gamma-n}^{\gamma+n}I(\tau,\gamma,l)K_p(i-\tau,j-\gamma,l)
+\]</pre>
+<p>有时为了降低计算复杂度，卷积核滑动时可以跳过一些位置，即卷积操作每隔s个位置执行一次，称为<strong>跨步卷积</strong>，数学表示为：</p>
+<pre class="arithmatex">\[
+S(i,j,p)=\sum_{l=1}^{L}\sum_{\tau=i-n}^{i+n}\sum_{j=\gamma-n}^{\gamma+n}I(\tau,\gamma,l)K_p((i-1)s+1-\tau,(j-1)*s+1-\gamma,l)
+\]</pre>
+<p>在进行卷积运算前，通常需要进行<strong>零填充</strong>，而填充的大小、感受野的大小（或卷积核的大小）以及步长决定了给定输入大小时的输出大小。假设一维输入长度为<span class="arithmatex">\(N\)</span>，卷积填充大小为<span class="arithmatex">\(Q\)</span>，感受野大小为<span class="arithmatex">\(F\)</span>，步长为<span class="arithmatex">\(s\)</span>，则输出的尺寸为<span class="arithmatex">\(O=\frac{N-F+2Q}{s}+1\)</span></p>
+<h3 id="323">3.2.3 非线性激活层</h3>
+<p>ReLU是CNN中广泛使用的激活函数，非线性激活过程也称为探测阶段或探测层。</p>
+<h3 id="324">3.2.4 池化层</h3>
+<p>池化层通常在卷积层和探测层之后。<strong>池化函数</strong>通过汇总局部邻域的统计信息得到输出结果，因此在池化层之后数据的宽度和高度都会减小，但是数据的深度（通道数）不会改变。常用的池化操作包括最大池化、平均池化等。</p>
+<h3 id="325">3.2.5 卷积神经网络总体框架</h3>
+<p>基于CNN的分类任务的总体框架可分为两部分：<strong>特征提取模块</strong>、<strong>分类模块</strong>。特征提取模块通过卷积层和池化层从输入中提取特征；分类模块是基于全连接的前馈神经网络。这两个模块通过<strong>展平操作</strong>连接，将由特征提取模块得到的多通道的特征矩阵展平为一维向量，该向量作为分类模块的输入。</p>
+<p><img alt="picture 1" src="../assets/img/%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E6%80%BB%E4%BD%93%E6%A1%86%E6%9E%B6.png" />  </p>
+<h2 id="33">3.3 循环神经网络</h2>
+<p>当任务中数据样本由序列值构成时，将序列中每个元素看作输入层的一个输入单元的策略是不合适的：（1）输入的序列值长度可能不同（2）无法共享序列不同位置学习的特征。</p>
+<p><strong>循环神经网络</strong>（RNN）将序列的每个元素逐个地应用相同的函数，使得模型在不同序列位置上实现了参数共享。无论序列的长度为多少，模型都可以重复地使用相同的函数，这从本质上解决了输入序列长度变化的问题。</p>
+<h3 id="331">3.3.1 传统循环神经网络的网络结构</h3>
+<p>传统RNN模型一次提取序列中的一个元素，然后用一个神经网络模块进行处理，但是对于每个模块来说，其输入不仅包括单个序列元素，还包括前一模块的输出，因此序列中靠前的元素的信息会对靠后的元素的处理造成影响。</p>
+<p>长度为n的序列可表示为<span class="arithmatex">\((x^{(1)},x^{(2)},\cdots,x^{(n)})\)</span>，在位置<span class="arithmatex">\(t\)</span>产生的输出信息<span class="arithmatex">\(y^{(t)}\)</span>，流入下一个模块的输出信息<span class="arithmatex">\(h^{(t)}\)</span>，且<span class="arithmatex">\(h^{(0)}\)</span>初始化为0。循环神经网络处理第i个元素的过程可表述如下：（<span class="arithmatex">\(W_{hh}\)</span>、<span class="arithmatex">\(W_{hx}\)</span>、<span class="arithmatex">\(W_{yh}\)</span>表示线性变换相关的参数矩阵，<span class="arithmatex">\(b_h\)</span>、<span class="arithmatex">\(b_y\)</span>为偏置项，<span class="arithmatex">\(\alpha_h\)</span>、<span class="arithmatex">\(\alpha_y\)</span>为激活函数）</p>
+<pre class="arithmatex">\[
+\begin{aligned}
+h^{(i)}&amp;=\alpha_h(W_{hh}h^{(i-1)}+W_{hx}x^{(i-1)}+b_h) \\
+y^{(i)}&amp;=\alpha_y(W_{yh}h^{(i)}+b_y)
+\end{aligned}
+\]</pre>
+<p><img alt="picture 1" src="../assets/img/%E5%BE%AA%E7%8E%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C.png" /></p>
+<p>传统RNN模型并不能很好地捕获序列中元素之间的长距离依赖关系。随着网络模型模块的不断叠加，传统RNN模型可能出现梯度爆炸（损坏模型优化过程）或梯度消失（靠后的元素无法为靠前的元素的计算提供指导信息）。</p>
+<h3 id="332">3.3.2 长短期记忆网络</h3>
+<p><strong>长短期记忆网络</strong>（LSTM）相比传统RNN模型的独特之处在于一组<strong>门单元</strong>控制其信息流。信息流过序列中连续位置的<strong>状态单元</strong><span class="arithmatex">\(C^{(t-1)}\)</span>和<strong>隐藏状态</strong><span class="arithmatex">\(h^{(t-1)}\)</span>，其中状态单元可被认为从先前状态传播到下一个位置的信息，隐藏状态帮助确定该信息如何传播。</p>
+<p>LSTM的工作过程大致如下：</p>
+<ul>
+<li>确定从先前单元状态来的那些信息应该被丢弃。该决定由<strong>遗忘门</strong>做出，遗忘门可表述为<span class="arithmatex">\(f_t=\sigma(W_f\cdot x^{(t)}+U_f\cdot h^{(t-1)}+b_f)\)</span></li>
+<li>确定输入<span class="arithmatex">\(x^{(t)}\)</span>中哪些信息需要存储到新单元状态中。该决定由<strong>输入门</strong>做出，输入门可表述为<span class="arithmatex">\(i_t=\sigma(W_i\cdot x^{(t)}+U_i\cdot h^{(t-1)}+b_i)\)</span></li>
+<li>输入<span class="arithmatex">\(x^{(t)}\)</span>经由神经网络处理后生成候选值<span class="arithmatex">\(\tilde{C}^{(t)}=\tanh(W_c\cdot x^{(t)}+U_c\cdot h^{(t-1)}+b_c)\)</span></li>
+<li>通过组合旧单元状态<span class="arithmatex">\(C^{(t-1)}\)</span>和新候选单元状态<span class="arithmatex">\(\tilde{C}^{(t)}\)</span>，生成新单元状态<span class="arithmatex">\(C^{(t)}=f_t \odot C^{(t-1)}+i_t\odot \tilde{C}^{(t)}\)</span>（<span class="arithmatex">\(odot\)</span>为Hadamard积）</li>
+<li>最后生成隐藏状态<span class="arithmatex">\(h^{(t)}\)</span>。隐藏状态基于更新的单元状态<span class="arithmatex">\(C^{(t)}\)</span>和<strong>输出门</strong>，输出门确定要保留新单元状态的哪些信息。新的隐藏状态生成方式为<span class="arithmatex">\(o_t=\sigma(W_o\cdot x^{(t)}+U_o\cdot h^{(t-1)}+b_o)\)</span>、<span class="arithmatex">\(h^{(t)}=o_t\odot \tanh(C^{(t)})\)</span></li>
+</ul>
+<p><img alt="picture 1" src="../assets/img/LSTM%E7%A4%BA%E6%84%8F%E5%9B%BE.png" />  </p>
+<p>LSTM神经网络总体框架可表述为<span class="arithmatex">\(C^{(t)},h^{(t)}=LSTM(x^{(t)},C^{(t-1)},h^{(t-1)})\)</span></p>
+<h3 id="333">3.3.3 门控循环单元</h3>
+<p><strong>门控循环单元</strong>（GRU）可看作LSTM的一种变体，其中遗忘门和输入门合并为GRU的<strong>更新门</strong>，单元状态和隐藏状态合并为GRU中同一状态。</p>
+<p>门控RNN模型GRU公式如下：</p>
+<ul>
+<li><span class="arithmatex">\(z_t=\sigma(W_z\cdot x^{(t)}+U_z\cdot h^{(t-1)}+b_z)\)</span></li>
+<li><span class="arithmatex">\(r_t=\sigma(W_r\cdot x^{(t)}+U_r\cdot h^{(t-1)}+b_r)\)</span></li>
+<li><span class="arithmatex">\(\tilde{h}^{(t)}=\tanh(W\cdot x^{(t)}+U\cdot (r^{(t)}\odot h^{(t-1)})+b)\)</span></li>
+<li><span class="arithmatex">\(h^{(t)}=(1-z_t)\odot h^{(t-1)}+z_t\odot \tilde{h}^{(t)}\)</span></li>
+</ul>
+<p><span class="arithmatex">\(z_t\)</span>为更新门，<span class="arithmatex">\(r_t\)</span>为重置门，GRU的总体框架可表述为<span class="arithmatex">\(h^{(t)}=GRU(x^{(t)},h^{(t-1)})\)</span></p>
+<p><img alt="picture 2" src="../assets/img/%E9%97%A8%E6%8E%A7%E5%BE%AA%E7%8E%AF%E5%8D%95%E5%85%83.png" />  </p>
+<h2 id="34">3.4 自编码器</h2>
+<p><strong>自编码器</strong>可看作一个试图在输出中复现输入的神经网络，位于中间位置的隐藏层表达<span class="arithmatex">\(h\)</span>描述了一个包含输入信息的<strong>编码</strong>。自编码器包括<strong>编码器</strong>和<strong>解码器</strong>两部分，其中编码器将输入编码为<span class="arithmatex">\(h\)</span>（<span class="arithmatex">\(h=f(x)\)</span>），解码器通过编码重构输入（<span class="arithmatex">\(\hat{x}=g(h)\)</span>）。理想的自编码器并不能够完美地重构输入，而是将一些必要的信息压缩到编码中以获得较为满意的输出。自编码器的损失函数可表示为<span class="arithmatex">\(l(x,g(f(x)))\)</span></p>
+<p>“<strong>信息瓶颈</strong>”的设计对于自编码器至关重要。通过限制编码维度可得到<strong>欠完备自编码器</strong>；通过增加正则化选项阻断输入与输出之间的记忆可得到<strong>正则化自编码器</strong>。</p>
+<h3 id="341">3.4.1 欠完备自编码器</h3>
+<p>一个编码维度小于输入维度的自编码器称为欠完备自编码器。通过最小化重构误差，模型可以将输入中最重要的信息保存在隐藏层编码中。</p>
+<p><img alt="picture 1" src="../assets/img/%E6%AC%A0%E5%AE%8C%E5%A4%87%E8%87%AA%E7%BC%96%E7%A0%81%E5%99%A8.png" />  </p>
+<h3 id="342">3.4.2 正则化自编码器</h3>
+<p>通过叠加更多编码器和解码器网络层，可以增加字编码器的深度，但是如果容量太大，则自编码器可能无法学习任何有用的东西。为了防止自编码器学到一个恒等函数，可以在损失函数中加入正则化项：<span class="arithmatex">\(l(x,g(f(x)))+\eta \cdot \Omega(h)\)</span>，其中<span class="arithmatex">\(\Omega(h)\)</span>表示在编码<span class="arithmatex">\(h\)</span>上的正则化项，<span class="arithmatex">\(\eta\)</span>为决定正则化作用大小的超参数。</p>
+<p><strong>稀疏编码器</strong>的正则化项使用编码<span class="arithmatex">\(h\)</span>的<span class="arithmatex">\(L_1\)</span>范数<span class="arithmatex">\(\Omega(h)=||h||_1\)</span>。基于<span class="arithmatex">\(L_1\)</span>范数的正则化项迫使编码<span class="arithmatex">\(h\)</span>变得稀疏。</p>
+<p>另一种增加编码稀疏性的方法是使编码中的神经元在大部分时间处于“非活跃状态”，即<span class="arithmatex">\(h\)</span>中神经元的数值比较小。基于一组训练样本<span class="arithmatex">\(\{x_{(i)}\}_{i=1}^{m}\)</span>的平均隐藏层编码可表示为<span class="arithmatex">\(\bar{h}=\frac{1}{m}\sum_{i=1}^{m}h(x_{(i)})\)</span>。我们希望限制隐藏层编码中的每个元素，使其与一个小数值<span class="arithmatex">\(\rho\)</span>尽可能接近。</p>
+<p>正则化项的自编码器也可称为<strong>稀疏自编码器</strong>。正则化项既可应用在欠完备自编码器上，也可独立作为“信息瓶颈”（当正则化项存在时编码的维度不一定小于输入维度）。</p>
+<h2 id="35">3.5 深度神经网络的训练</h2>
+<h3 id="351">3.5.1 梯度下降</h3>
+<p><strong>梯度下降</strong>及其变种是深度学习中最常被用来最小化损失函数的方法。梯度下降是一种一节迭代优化算法，每次迭代中通过向梯度的反方向前进一步更新参数<span class="arithmatex">\(W\)</span>：<span class="arithmatex">\(W'=W-\eta \cdot \triangledown_WL(W)\)</span>，其中<span class="arithmatex">\(\eta\)</span>代表<strong>学习率</strong>。学习率决定了梯度下降的速度，通常学习率设定为较小的常数。<strong>损失函数</strong>通常为对于一组训练样本的惩罚的总和<span class="arithmatex">\(L(W)=\sum_{i=1}^{N_s}L_i(W)\)</span></p>
+<p>在许多情况下，直接在所有样本上进行梯度下降需要消耗大量时间和空间，因此小批量梯度下降法应运而生。在小批量梯度下降法中，梯度可以被估计为<span class="arithmatex">\(\sum_{j\in M}\triangledown_W L_i(W)\)</span>。梯度下降法还有其它变体例如Adagrad、Adadelta、Adam等。</p>
+<h3 id="352">3.5.2 反向传播</h3>
+<p><strong>反向传播算法</strong>提供了使用动态规划计算梯度的有效算法。反向传播由两个阶段组成：</p>
+<ul>
+<li><strong>前向传播</strong> 输入进入神经网络，神经网络基于当前参数计算输出，通过输出计算损失函数</li>
+<li><strong>反向传播</strong> 根据链式法则，模型可以从输出层反向计算所有参数的梯度</li>
+</ul>
+<p><img alt="路径分解" src="../assets/img/%E8%B7%AF%E5%BE%84%E5%88%86%E8%A7%A3.png" /></p>
+<p>设<span class="arithmatex">\(h^r\)</span>为来自第<span class="arithmatex">\(r\)</span>层的神经元。在大多数多层神经网络中，一般会有若干路径连接<span class="arithmatex">\(h^{r-1}\)</span>与<span class="arithmatex">\(h^{r}\)</span>，因此需要将不同路径相关的梯度加起来：（<span class="arithmatex">\(P\)</span>为从<span class="arithmatex">\(h^r\)</span>到<span class="arithmatex">\(o\)</span>的路径的集合）</p>
+<pre class="arithmatex">\[
+\frac{\partial L}{\partial w_{(h^{r-1},h^r)}}=\underbrace{\frac{\partial L}{\partial o}\cdot [\sum_{[h^r,h^{r+1},\cdots,h^k,o]\in P}\frac{\partial o}{\partial h^k}\prod_{i=r}^{k-1}\frac{\partial h^{i+1}}{\partial h^i}]}_{\triangle(h^r,o)=\frac{\partial L}{\partial h^r}}\cdot \frac{\partial h^r}{\partial w_{(h^{r-1},h^r)}}
+\]</pre>
+<p>将任意路径<span class="arithmatex">\(p\in P\)</span>分解为两部分：边<span class="arithmatex">\((h^r,h^{r+1})\)</span>和从<span class="arithmatex">\(h^{r+1}\)</span>到<span class="arithmatex">\(o\)</span>的路径，共享相同的第一条边为<span class="arithmatex">\((h^r,h^{r+1})\)</span>的路径的集合记为<span class="arithmatex">\(P_{r+1}\)</span>，<span class="arithmatex">\(P_{r+1}\)</span>去除共享的边<span class="arithmatex">\((h^r,h^{r+1})\)</span>的路径的集合记为<span class="arithmatex">\(P_{r+1}'\)</span>，则有下列关系：（<span class="arithmatex">\(\varepsilon\)</span>表示所有从<span class="arithmatex">\(h^r\)</span>到第<span class="arithmatex">\(r+1\)</span>层任意神经元的边的集合）</p>
+<pre class="arithmatex">\[
+\begin{aligned}
+\triangle(h^r,o)
+&amp;=\frac{\partial L}{\partial o}\cdot [\sum_{[h^r,h^{r+1},\cdots,h^k,o]\in P}\frac{\partial o}{\partial h^k}\prod_{i=r}^{k-1}\frac{\partial h^{i+1}}{\partial h^i}] \\
+&amp;=\frac{\partial L}{\partial o}\cdot [\sum_{[h^r,h^{r+1},\cdots,h^k,o]\in P}\frac{\partial o}{\partial h^k}\prod_{i=r+1}^{k-1}\frac{\partial h^{i+1}}{\partial h^i}\cdot \frac{\partial h^{r+1}}{\partial h^r}] \\
+&amp;=\frac{\partial L}{\partial o}\cdot [\sum_{(h^r,h^{r+1})\in \varepsilon} \frac{\partial h^{r+1}}{\partial h^r} \cdot [\sum_{[h^r,h^{r+1},\cdots,h^k,o]\in P_{r+1}'}\frac{\partial o}{\partial h^k}\prod_{i=r+1}^{k-1}\frac{\partial h^{i+1}}{\partial h^i}]] \\
+&amp;=\sum_{(h^r,h^{r+1})\in \varepsilon} \frac{\partial h^{r+1}}{\partial h^r} \cdot\frac{\partial L}{\partial o}\cdot [\sum_{[h^r,h^{r+1},\cdots,h^k,o]\in P_{r+1}'}\frac{\partial o}{\partial h^k}\prod_{i=r+1}^{k-1}\frac{\partial h^{i+1}}{\partial h^i}] \\
+&amp;=\sum_{(h^r,h^{r+1})\in \varepsilon} \frac{\partial h^{r+1}}{\partial h^r}\cdot\triangle(h^{r+1},o)
+\end{aligned}
+\]</pre>
+<p>令<span class="arithmatex">\(a^{r+1}\)</span>代表<span class="arithmatex">\(h^{r+1}\)</span>单元在使用激活函数<span class="arithmatex">\(\alpha\)</span>前的数值（<span class="arithmatex">\(h^{r+1}=\alpha(a^{r+1})\)</span>），则通过链式法则可计算<span class="arithmatex">\(\frac{\partial h^{r+1}}{\partial h^r}\)</span>：</p>
+<pre class="arithmatex">\[
+\frac{\partial h^{r+1}}{\partial h^{r}}=\frac{\partial\alpha(a^{r+1})}{\partial a^{r+1}}\cdot \frac{\partial a^{r+1}}{\partial h^r}=\alpha'(a^{r+1})\cdot w_{(h^r,h^{r+1})}
+\]</pre>
+<p>因此，<span class="arithmatex">\(\frac{\partial L}{\partial w_{(h^{r-1},h^r)}}\)</span>的计算可通过以下关系计算：</p>
+<pre class="arithmatex">\[
+\begin{cases}
+\triangle(h^r,o)&amp;=\sum_{(h^r,h^{r+1})\in \varepsilon} \alpha'(a^{r+1})\cdot w_{(h^r,h^{r+1})}\cdot\triangle(h^{r+1},o)\\
+\frac{\partial h^r}{\partial w_{(h^{r-1},h^r)}}&amp;=\alpha'(a^r)\cdot h^{r-1}
+\end{cases}
+\]</pre>
+<h3 id="353">3.5.3 预防过拟合</h3>
+<p>【<strong>参数正则化</strong>】 在机器学习中，将模型参数正则化项引入损失函数是防止过拟合的常用技术。通过正则化，模型中参数被约束为相对较小值，这通常意味着对应的模型具有更好的泛化能力。模型参数的<span class="arithmatex">\(L_1\)</span>和<span class="arithmatex">\(L_2\)</span>范数是两个常用的正则化项。</p>
+<p>【<strong>Dropout</strong>】 Dropout是一种防止过拟合的有效技术。Dropout的基本思想是在每批训练过程中忽略网络中的某些单元，因此引入被称为dropout rate的超参数<span class="arithmatex">\(p\)</span>来控制每个单元被忽略的概率。在每次迭代中，根据概率<span class="arithmatex">\(p\)</span>随机确定网络中哪些神经元被忽略。不过Dropout仅在训练中使用，在推断阶段仍使用整个网络。</p>
+<p>【<strong>批量归一化</strong>】 批量归一化最初用来解决内部协变量偏移问题，也可以降低模型过拟合风险。批量归一化将上一层的激活输入下一层之前进行归一化处理。如果训练过程中采用小批量训练，则该归一化通过减去批次平均值并除以批次标准偏差实现。在推断阶段，使用总体样本的统计信息执行归一化。</p>
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+    <nav class="md-footer__inner md-grid" aria-label="Footer" >
+      
+        
+        <a href="../%E4%BA%8C%E3%80%81%E5%9B%BE%E8%AE%BA%E5%9F%BA%E7%A1%80/" class="md-footer__link md-footer__link--prev" aria-label="Previous: 1.图论基础" rel="prev">
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+          </div>
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              1.图论基础
+            </div>
+          </div>
+        </a>
+      
+      
+        
+        <a href="../%E5%9B%9B%E3%80%81%E5%9B%BE%E5%B5%8C%E5%85%A5/" class="md-footer__link md-footer__link--next" aria-label="Next: 3.图嵌入" rel="next">
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              3.图嵌入
+            </div>
+          </div>
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4Z"/></svg>
+          </div>
+        </a>
+      
+    </nav>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.tabs", "search.suggest", "search.highlight", "toc.integrate"], "search": "../../assets/javascripts/workers/search.16e2a7d4.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version.title": "Select version"}}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.5a2dcb6a.min.js"></script>
+      
+        <script src="../../javascripts/mathjax.js"></script>
+      
+        <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+    
+    
+  </body>
+</html>

@@ -1,0 +1,1385 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.4.2, mkdocs-material-8.5.10">
+    
+    
+      
+        <title>4.图信号处理与图卷积神经网络 - Kascas's Blogs</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.975780f9.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.2505c338.min.css">
+        
+      
+      
+
+    
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="None" data-md-color-accent="None">
+  
+    
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#_1" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="Kascas&#39;s Blogs" class="md-header__button md-logo" aria-label="Kascas's Blogs" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Kascas's Blogs
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              4.图信号处理与图卷积神经网络
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/kascas/kascas.github.io" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.2.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-tabs__inner md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="../.." class="md-tabs__link">
+      主页
+    </a>
+  </li>
+
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="../../%E4%BF%A1%E6%81%AF%E8%AE%BA%E4%B8%8E%E7%BC%96%E7%A0%81/%E4%BF%A1%E6%81%AF%E8%AE%BA%E4%B8%8E%E7%BC%96%E7%A0%81/" class="md-tabs__link">
+      信息论与编码
+    </a>
+  </li>
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../%E4%BF%A1%E5%8F%B7%E4%B8%8E%E7%B3%BB%E7%BB%9F/1%E4%BF%A1%E5%8F%B7%E4%B8%8E%E7%B3%BB%E7%BB%9F/" class="md-tabs__link">
+        信号与系统
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../%E9%80%9A%E4%BF%A1%E5%8E%9F%E7%90%86/md/4%E4%BF%A1%E9%81%93/" class="md-tabs__link">
+        通信原理
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/2%E9%97%AE%E9%A2%98%E6%B1%82%E8%A7%A3/" class="md-tabs__link">
+        人工智能
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+    
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../%E4%BA%8C%E3%80%81%E5%9B%BE%E8%AE%BA%E5%9F%BA%E7%A1%80/" class="md-tabs__link md-tabs__link--active">
+        图深度学习
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../Python%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86/1NumPy%E5%85%A5%E9%97%A8/" class="md-tabs__link">
+        Python数据处理
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../%E6%97%A5%E5%BF%97%E5%88%86%E6%9E%90/Linux-Audit%E5%8F%82%E8%80%83/Linux-Audit%E5%8F%82%E8%80%83/" class="md-tabs__link">
+        日志分析
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E7%B3%BB%E7%BB%9F%E7%BA%A7%E6%BA%AF%E6%BA%90%E5%9B%BE%E4%B8%8E%E5%A8%81%E8%83%81%E6%A3%80%E6%B5%8B/" class="md-tabs__link">
+        学习笔记
+      </a>
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+  
+
+
+  
+
+<nav class="md-nav md-nav--primary md-nav--lifted md-nav--integrated" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Kascas&#39;s Blogs" class="md-nav__button md-logo" aria-label="Kascas's Blogs" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    Kascas's Blogs
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/kascas/kascas.github.io" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.2.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        主页
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E4%BF%A1%E6%81%AF%E8%AE%BA%E4%B8%8E%E7%BC%96%E7%A0%81/%E4%BF%A1%E6%81%AF%E8%AE%BA%E4%B8%8E%E7%BC%96%E7%A0%81/" class="md-nav__link">
+        信息论与编码
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3" type="checkbox" id="__nav_3" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_3">
+          信号与系统
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="信号与系统" data-md-level="1">
+        <label class="md-nav__title" for="__nav_3">
+          <span class="md-nav__icon md-icon"></span>
+          信号与系统
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E4%BF%A1%E5%8F%B7%E4%B8%8E%E7%B3%BB%E7%BB%9F/1%E4%BF%A1%E5%8F%B7%E4%B8%8E%E7%B3%BB%E7%BB%9F/" class="md-nav__link">
+        1.信号与系统
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E4%BF%A1%E5%8F%B7%E4%B8%8E%E7%B3%BB%E7%BB%9F/2%E7%BA%BF%E6%80%A7%E6%97%B6%E4%B8%8D%E5%8F%98%E7%B3%BB%E7%BB%9F/" class="md-nav__link">
+        2.线性时不变系统
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E4%BF%A1%E5%8F%B7%E4%B8%8E%E7%B3%BB%E7%BB%9F/3%E5%91%A8%E6%9C%9F%E4%BF%A1%E5%8F%B7%E7%9A%84%E5%82%85%E9%87%8C%E5%8F%B6%E7%BA%A7%E6%95%B0%E8%A1%A8%E7%A4%BA/" class="md-nav__link">
+        3.周期信号的傅里叶级数表示
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E4%BF%A1%E5%8F%B7%E4%B8%8E%E7%B3%BB%E7%BB%9F/4%E8%BF%9E%E7%BB%AD%E6%97%B6%E9%97%B4%E5%82%85%E9%87%8C%E5%8F%B6%E5%8F%98%E6%8D%A2/" class="md-nav__link">
+        4.连续时间傅里叶变换
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E4%BF%A1%E5%8F%B7%E4%B8%8E%E7%B3%BB%E7%BB%9F/5%E7%A6%BB%E6%95%A3%E6%97%B6%E9%97%B4%E5%82%85%E9%87%8C%E5%8F%B6%E5%8F%98%E6%8D%A2/" class="md-nav__link">
+        5.离散时间傅里叶变换
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E4%BF%A1%E5%8F%B7%E4%B8%8E%E7%B3%BB%E7%BB%9F/9%E6%8B%89%E6%99%AE%E6%8B%89%E6%96%AF%E5%8F%98%E6%8D%A2/" class="md-nav__link">
+        9.拉普拉斯变换
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E4%BF%A1%E5%8F%B7%E4%B8%8E%E7%B3%BB%E7%BB%9F/10Z%E5%8F%98%E6%8D%A2/" class="md-nav__link">
+        10.Z变换
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E4%BF%A1%E5%8F%B7%E4%B8%8E%E7%B3%BB%E7%BB%9F/%E5%85%AC%E5%BC%8F%E6%80%BB%E7%BB%93/" class="md-nav__link">
+        公式总结
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4" type="checkbox" id="__nav_4" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_4">
+          通信原理
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="通信原理" data-md-level="1">
+        <label class="md-nav__title" for="__nav_4">
+          <span class="md-nav__icon md-icon"></span>
+          通信原理
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E9%80%9A%E4%BF%A1%E5%8E%9F%E7%90%86/md/4%E4%BF%A1%E9%81%93/" class="md-nav__link">
+        4.信道
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E9%80%9A%E4%BF%A1%E5%8E%9F%E7%90%86/md/5%E6%A8%A1%E6%8B%9F%E8%B0%83%E5%88%B6%E7%B3%BB%E7%BB%9F/" class="md-nav__link">
+        5.模拟调制系统
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E9%80%9A%E4%BF%A1%E5%8E%9F%E7%90%86/md/6%E6%95%B0%E5%AD%97%E5%9F%BA%E5%B8%A6%E4%BC%A0%E8%BE%93/" class="md-nav__link">
+        6.数字基带传输
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E9%80%9A%E4%BF%A1%E5%8E%9F%E7%90%86/md/7%E6%95%B0%E5%AD%97%E5%B8%A6%E9%80%9A%E4%BC%A0%E8%BE%93%E7%B3%BB%E7%BB%9F/" class="md-nav__link">
+        7.数字带通传输系统
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E9%80%9A%E4%BF%A1%E5%8E%9F%E7%90%86/md/8%E6%96%B0%E5%9E%8B%E6%95%B0%E5%AD%97%E5%B8%A6%E9%80%9A%E8%B0%83%E5%88%B6%E6%8A%80%E6%9C%AF/" class="md-nav__link">
+        8.新型数字带通调制技术
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E9%80%9A%E4%BF%A1%E5%8E%9F%E7%90%86/md/9%E6%9C%80%E4%BD%B3%E6%8E%A5%E6%94%B6%E6%9C%BA%E8%AE%BE%E8%AE%A1/" class="md-nav__link">
+        9.最佳接收机设计
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E9%80%9A%E4%BF%A1%E5%8E%9F%E7%90%86/md/10%E4%BF%A1%E6%BA%90%E7%BC%96%E7%A0%81/" class="md-nav__link">
+        10.信源编码
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E9%80%9A%E4%BF%A1%E5%8E%9F%E7%90%86/md/11%E5%B7%AE%E9%94%99%E6%8E%A7%E5%88%B6%E7%BC%96%E7%A0%81/" class="md-nav__link">
+        11.差错控制编码
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E9%80%9A%E4%BF%A1%E5%8E%9F%E7%90%86/md/%E5%85%AC%E5%BC%8F%E6%B1%87%E6%80%BB/" class="md-nav__link">
+        12.公式汇总
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_5" type="checkbox" id="__nav_5" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_5">
+          人工智能
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="人工智能" data-md-level="1">
+        <label class="md-nav__title" for="__nav_5">
+          <span class="md-nav__icon md-icon"></span>
+          人工智能
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/2%E9%97%AE%E9%A2%98%E6%B1%82%E8%A7%A3/" class="md-nav__link">
+        2.问题求解
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/3%E5%8D%9A%E5%BC%88%E9%97%AE%E9%A2%98/" class="md-nav__link">
+        3.博弈问题
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/4%E6%8E%A8%E7%90%86%E6%8A%80%E6%9C%AF/" class="md-nav__link">
+        4.推理技术
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/6%E4%B8%8D%E7%A1%AE%E5%AE%9A%E6%80%A7%E6%8E%A8%E7%90%86/" class="md-nav__link">
+        6.不确定性推理
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6" type="checkbox" id="__nav_6" checked>
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_6">
+          图深度学习
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="图深度学习" data-md-level="1">
+        <label class="md-nav__title" for="__nav_6">
+          <span class="md-nav__icon md-icon"></span>
+          图深度学习
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E4%BA%8C%E3%80%81%E5%9B%BE%E8%AE%BA%E5%9F%BA%E7%A1%80/" class="md-nav__link">
+        1.图论基础
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E4%B8%89%E3%80%81%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E5%9F%BA%E7%A1%80/" class="md-nav__link">
+        2.深度学习基础
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E5%9B%9B%E3%80%81%E5%9B%BE%E5%B5%8C%E5%85%A5/" class="md-nav__link">
+        3.图嵌入
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          4.图信号处理与图卷积神经网络
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        4.图信号处理与图卷积神经网络
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    图信号与图拉普拉斯矩阵
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    图傅里叶变换
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    图滤波器
+  </a>
+  
+    <nav class="md-nav" aria-label="图滤波器">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    空域角度
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    频域角度
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    图卷积神经网络
+  </a>
+  
+    <nav class="md-nav" aria-label="图卷积神经网络">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    对频率响应矩阵进行参数化
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_9" class="md-nav__link">
+    对多项式系数进行参数化
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_10" class="md-nav__link">
+    设计固定的图滤波器
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_7" type="checkbox" id="__nav_7" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_7">
+          Python数据处理
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Python数据处理" data-md-level="1">
+        <label class="md-nav__title" for="__nav_7">
+          <span class="md-nav__icon md-icon"></span>
+          Python数据处理
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Python%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86/1NumPy%E5%85%A5%E9%97%A8/" class="md-nav__link">
+        1 NumPy入门
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_8" type="checkbox" id="__nav_8" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_8">
+          日志分析
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="日志分析" data-md-level="1">
+        <label class="md-nav__title" for="__nav_8">
+          <span class="md-nav__icon md-icon"></span>
+          日志分析
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E6%97%A5%E5%BF%97%E5%88%86%E6%9E%90/Linux-Audit%E5%8F%82%E8%80%83/Linux-Audit%E5%8F%82%E8%80%83/" class="md-nav__link">
+        Linux-Audit参考
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E6%97%A5%E5%BF%97%E5%88%86%E6%9E%90/Zeek%E5%8F%82%E8%80%83/Zeek%E5%8F%82%E8%80%83/" class="md-nav__link">
+        Zeek参考
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E6%97%A5%E5%BF%97%E5%88%86%E6%9E%90/syslog%E5%8D%8F%E8%AE%AE/" class="md-nav__link">
+        syslog日志
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_9" type="checkbox" id="__nav_9" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_9">
+          学习笔记
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="学习笔记" data-md-level="1">
+        <label class="md-nav__title" for="__nav_9">
+          <span class="md-nav__icon md-icon"></span>
+          学习笔记
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E7%B3%BB%E7%BB%9F%E7%BA%A7%E6%BA%AF%E6%BA%90%E5%9B%BE%E4%B8%8E%E5%A8%81%E8%83%81%E6%A3%80%E6%B5%8B/" class="md-nav__link">
+        系统级溯源图与威胁检测
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+  <a href="https://github.com/kascas/kascas.github.io/edit/master/docs/图深度学习/五、图信号处理与图卷积神经网络.md" title="Edit this page" class="md-content__button md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25Z"/></svg>
+  </a>
+
+
+<h1 id="_1">图信号处理与图卷积神经网络</h1>
+<h2 id="_2">图信号与图拉普拉斯矩阵</h2>
+<p>【<strong>图的拉普拉斯矩阵</strong>】 <span class="arithmatex">\(L=D-A\)</span>，其中<span class="arithmatex">\(L_{ij}=\begin{cases}d(v_i) &amp; i=j \\ -1 &amp; e_{ij}\in E\\ 0 &amp; otherwise\end{cases}\)</span></p>
+<ul>
+<li>正则化表示：<span class="arithmatex">\(L'=D^{-\frac{1}{2}}(D-A)D^{-\frac{1}{2}}=I-D^{-\frac{1}{2}}AD^{-\frac{1}{2}}\)</span>，其中<span class="arithmatex">\(L'_{ij}=\begin{cases}1 &amp; i=j \\ -\frac{1}{\sqrt{d(v_i)d(v_j)}} &amp; e_{ij}\in E\\ 0 &amp; otherwise\end{cases}\)</span></li>
+<li>对角化表示（L是实对称矩阵）：<span class="arithmatex">\(L=V\Lambda V^T=\begin{bmatrix}v_1&amp;\cdots &amp;v_N\end{bmatrix}\begin{bmatrix}\lambda_1 &amp;&amp; \\ &amp; \ddots&amp;\\ &amp;&amp;\lambda_N\end{bmatrix}\begin{bmatrix}v_1^T \\ \vdots \\ v_N^T\end{bmatrix}\)</span></li>
+<li><span class="arithmatex">\(V\in R^{N\times N}\)</span>为正交矩阵（<span class="arithmatex">\(VV^T=E\)</span>）</li>
+<li><span class="arithmatex">\(V=\begin{bmatrix}v_1&amp;\cdots&amp;v_N\end{bmatrix}\)</span>为<span class="arithmatex">\(L\)</span>的N个特征向量</li>
+<li>对特征值进行排序得到<span class="arithmatex">\(\lambda_1\leq \cdots \leq \lambda_N\)</span>，对应的特征向量为<span class="arithmatex">\(v_1,\cdots,v_N\)</span></li>
+<li>在图信号中，拉普拉斯算子被用来描述中心节点与邻居节点之间信号的差异：<span class="arithmatex">\(Lx=(D-A)x=[\cdots,\sum_{v_j\in N(v_i)}(x_i-x_j),\cdots]^T\)</span>。由此可知，拉普拉斯矩阵是一个反映图信号局部平滑度的算子。</li>
+</ul>
+<p>【<strong>图信号的总变差</strong>】 <span class="arithmatex">\(TV(x)=x^TLx=\sum_{e_{ij}\in E}(x_i-x_j)^2\)</span></p>
+<ul>
+<li>总变差是一个标量，刻画了图信号整体的平滑度</li>
+</ul>
+<p>【<strong>关于拉普拉斯矩阵的特征值</strong>】</p>
+<ul>
+<li>由于二次型<span class="arithmatex">\(x^TLx\geq 0\)</span>，因此拉普拉斯矩阵为半正定矩阵，其特征值均非负</li>
+<li>可以证明，对于正则化的拉普拉斯矩阵，特征值不大于2</li>
+</ul>
+<h2 id="_3">图傅里叶变换</h2>
+<p>【<strong>图傅里叶变换GFT</strong>】 <span class="arithmatex">\(\tilde{x}=V^Tx\)</span></p>
+<ul>
+<li><span class="arithmatex">\(\tilde{x}_k=\sum_{i=1}^{N}V_{ki}^Tx_i\)</span></li>
+<li>特征向量为傅里叶基，傅里叶系数<span class="arithmatex">\(\tilde{x}_k\)</span>本质上是图信号在傅里叶基上的投影，衡量了图信号与傅里叶基之间的相似度</li>
+</ul>
+<p>【<strong>图傅里叶逆变换IGFT</strong>】 <span class="arithmatex">\(x=V\tilde{x}\)</span></p>
+<ul>
+<li><span class="arithmatex">\(x_k=\sum_{i=1}^{N}V_{ki}\tilde{x_i}\)</span></li>
+<li>特征向量组成了<span class="arithmatex">\(N\)</span>维特征空间中的一组完备的基向量，图信号可表示为基向量的线性加权，权重则为对应傅里叶基上的傅里叶系数</li>
+</ul>
+<p>再次考察总变差，<span class="arithmatex">\(TV(x)=x^TLx=(V^Tx)^T\Lambda(V^Tx)=\tilde{x}^T\Lambda\tilde{x}= \sum_{k=1}^{N}\lambda_k\tilde{x}_k^2\)</span>。由此可以看出图信号的总变差与图的特征值之间存在明显的关系。在图信号为单位向量的限定条件下，若<span class="arithmatex">\(x=v_k\)</span>，则有<span class="arithmatex">\(TV(x)=\lambda_k\)</span>。特别地，当图信号与特征向量<span class="arithmatex">\(v_1\)</span>完全重合时，总变差取最小值。可以进一步证明，如果依此选择彼此正交的图信号<span class="arithmatex">\(x_k\)</span>使得<span class="arithmatex">\(TV(x_k)\)</span>取最小值，则这组彼此正交的图信号即为<span class="arithmatex">\(\{v_1,\cdots,v_N\}\)</span>，即<span class="arithmatex">\(\lambda_k=\min_{x:||x||=1,x\bot x_1,\cdots,x_{k-1}} \ x^TLx\)</span>。</p>
+<p>通过以上信息可以发现，特征值的依次排列对图信号的平滑度做出了梯度刻画，因此特征值可以看作信号中的频率：特征值越低，则频率越低，对应傅里叶基变化越缓慢；特征值越高，则频率越高，对应傅里叶基变化越剧烈。傅里叶系数可以等价于图信号在对应频率分量上的幅值，反映了图信号在该频率分量上的强度。</p>
+<p>【<strong>图信号能量</strong>】 <span class="arithmatex">\(E(x)=||x||_2^2=x^Tx=\tilde{x}^T\tilde{x}\)</span></p>
+<p>【<strong>图信号的频谱</strong>】 将图信号所有傅里叶系数合称为图信号的频谱</p>
+<ul>
+<li>频域视角是一种全局视角，频谱上任意一个傅里叶系数都是对图信号低频或高频特征的定量描述</li>
+<li>频谱中既包含了图信号本身值的大小，也考虑了图的结构信息</li>
+</ul>
+<h2 id="_4">图滤波器</h2>
+<p>【<strong>图滤波器</strong>】 假设图滤波器为<span class="arithmatex">\(H\in R^{N\times N}\)</span>，<span class="arithmatex">\(H:R^N\rightarrow R^N\)</span>，令输出图信号为<span class="arithmatex">\(y\)</span>，则有<span class="arithmatex">\(y=Hx=\sum_{k=1}^N(h(\lambda_k)\tilde{x}_k)v_k\)</span></p>
+<p>对图滤波器的定义式变换可得：
+<span class="arithmatex">\(<span class="arithmatex">\(y=Hx=\sum_{k=1}^N(h(\lambda_k)\tilde{x}_k)v_k=\begin{bmatrix}v_1 &amp; \cdots &amp; v_N\end{bmatrix}\begin{bmatrix}h(\lambda_1)\tilde{x}_1 \\ \vdots \\ h(\lambda_N)\tilde{x}_N \end{bmatrix}=V\begin{bmatrix}h(\lambda_1) &amp; &amp; \\ &amp; \ddots &amp; \\ &amp; &amp; h(\lambda_N)\end{bmatrix}V^Tx=(V\Lambda_h V^T)x\)</span>\)</span></p>
+<p>观察对角矩阵<span class="arithmatex">\(\Lambda\)</span>与<span class="arithmatex">\(\Lambda_h\)</span>，可以看出<span class="arithmatex">\(H\)</span>仅改变了主对角线上的特征值（<span class="arithmatex">\(\Lambda\rightarrow\Lambda_h\)</span>）。</p>
+<p>【<strong>频率响应矩阵</strong>】 <span class="arithmatex">\(\Lambda_h=\begin{bmatrix}h(\lambda_1) &amp; &amp; \\ &amp; \ddots &amp; \\ &amp; &amp; h(\lambda_N)\end{bmatrix}\)</span></p>
+<p>图滤波器通常具有的性质包括：</p>
+<ul>
+<li>线性：<span class="arithmatex">\(H(x+y)=Hx+Hy\)</span></li>
+<li>顺序无关：<span class="arithmatex">\(H_1(H_2x)=H_2(H_1x)\)</span></li>
+<li>如果<span class="arithmatex">\(h(\lambda)\neq 0\)</span>，则滤波操作可逆</li>
+</ul>
+<p>【<strong>图位移算子</strong>】 矩阵<span class="arithmatex">\(S\in R^{N\times N}\)</span>，只在对角和边坐标取非零值，即<span class="arithmatex">\(S_{ij}\)</span>当且仅当<span class="arithmatex">\(i\neq j\)</span>且<span class="arithmatex">\(e_{ij}\not \in E\)</span></p>
+<ul>
+<li>典型的图位移算子是邻接矩阵和拉普拉斯矩阵</li>
+<li><span class="arithmatex">\(Sx\)</span>描述了一种作用在每个节点一阶子图上的变换操作</li>
+</ul>
+<p>【<strong>图滤波器的多项式表示</strong>】 对于平移不变的图滤波器，可以使用图位移算子的多项式进行表示：<span class="arithmatex">\(H=\sum_{k=0}^{N}h_kS^k\)</span></p>
+<h3 id="_5">空域角度</h3>
+<p>定义<span class="arithmatex">\(x^{(k)}=S^kx=Sx^{(k-1)}\)</span>，则<span class="arithmatex">\(y=\sum_{k=0}^{K}h_kx^{(k)}\)</span>。由于<span class="arithmatex">\(S\)</span>为图位移算子，因此<span class="arithmatex">\(x^{(k-1)}\)</span>到<span class="arithmatex">\(x^{(k)}\)</span>的变换只需要所有节点的一阶邻居参与计算，这种性质称为图滤波器的<strong>局部性</strong>。</p>
+<p>从空域角度看，滤波操作具有的性质包括：</p>
+<ul>
+<li>局部性：每个节点的输出信号值只需要考虑其K阶子图</li>
+<li>可通过K步迭代式的矩阵向量乘法完成滤波操作</li>
+</ul>
+<h3 id="_6">频域角度</h3>
+<p>当图位移算子为拉普拉斯矩阵时，图滤波器可表示为<span class="arithmatex">\(H=\sum_{k=0}^{N}h_kL^k=V(\sum_{k=0}^K h_k\Lambda^k)V^T=V\begin{bmatrix}\sum_{k=0}^{K}h_k\lambda_1^k &amp;&amp; \\ &amp; \ddots \\ &amp;&amp; \sum_{k=0}^{K}h_k\lambda_N^k\end{bmatrix}V^T\)</span>。当<span class="arithmatex">\(K\)</span>足够大时，可以用上述方式逼近任意一个关于<span class="arithmatex">\(\lambda\)</span>的函数。</p>
+<p>频域下滤波操作可表示为<span class="arithmatex">\(y=Hx=V(\sum_{k=0}^K h_k\Lambda^k)V^Tx\)</span>，变换过程主要由3步组成：</p>
+<ul>
+<li>通过GFT将图信号变换到频域空间，得到<span class="arithmatex">\(V^Tx\)</span></li>
+<li>通过<span class="arithmatex">\(\Lambda_h\)</span>对频率分量的强度进行调节，得到<span class="arithmatex">\(\Lambda_h V^Tx\)</span></li>
+<li>通过IGFT将调节后的信号进行反解，得到<span class="arithmatex">\(V\Lambda_hV^Tx\)</span></li>
+</ul>
+<p>假设所有多项式系数<span class="arithmatex">\(h_k\)</span>构成向量<span class="arithmatex">\(h\)</span>，则<span class="arithmatex">\(H\)</span>的频率响应矩阵为<span class="arithmatex">\(\Lambda_h=\sum_{k=0}^Kh_k\Lambda^k=diag(\Psi h)\)</span>，其中<span class="arithmatex">\(\Psi=\begin{bmatrix} 1&amp; \lambda_1&amp; \cdots &amp; \lambda_1^K \\ 1&amp; \lambda_2&amp; \cdots &amp; \lambda_2^K \\ \vdots &amp; \vdots &amp; \ddots &amp; \vdots \\ 1&amp; \lambda_N&amp; \cdots &amp; \lambda_N^K\end{bmatrix}\)</span>为范德蒙矩阵。我们可以通过上式反解得到多项式系数<span class="arithmatex">\(h=\Psi^{-1}diag^{-1}(\Lambda_h)\)</span>，其中<span class="arithmatex">\(diag^{-1}\)</span>将对角矩阵变换为列向量。</p>
+<p>从频域角度看，图滤波操作具有如下性质：</p>
+<ul>
+<li>在频域能够更加清晰地完成对图信号的特定滤波操作</li>
+<li>图滤波器如何设计具有显式的公式推导</li>
+<li>对矩阵进行特征分解是非常耗时的操作，时间复杂度为<span class="arithmatex">\(O(N^3)\)</span>。相比空域视角的矩阵向量乘法而言有一定局限性。</li>
+</ul>
+<h2 id="_7">图卷积神经网络</h2>
+<p>【<strong>图卷积运算</strong>】 <span class="arithmatex">\(x_1*x_2=IGFT(GFT(x_1)\odot GFT(x_2))\)</span>，<span class="arithmatex">\(\odot\)</span>为哈达玛积。</p>
+<pre class="arithmatex">\[
+\begin{aligned}
+x_1*x_2
+&amp;=V((V^Tx_1)\odot (V^Tx_2))\\
+&amp;=V(\tilde{x}_1\odot (V^Tx_2))\\
+&amp;=V(diag(\tilde{x}_1)(V^Tx_2))\\
+&amp;=(V\cdot diag(\tilde{x}_1)V^T)x_2\\
+&amp;=H_{\tilde{x}_1}x_2
+\end{aligned}
+\]</pre>
+<p>由上述推导可知，两组图信号的图卷积运算总能转化为对应形式的图滤波运算，因此图卷积可以等价于图滤波。</p>
+<p>先前讨论的图信号都以一维列向量形式表示，但是图信号可以拓展到多通道的矩阵形式<span class="arithmatex">\(X\in R^{N\times d}\)</span>，即<strong>图信号矩阵</strong>，<span class="arithmatex">\(d\)</span>为图信号的总通道数。相应地，图滤波操作表示为<span class="arithmatex">\(Y=HX\)</span>，其中第<span class="arithmatex">\(j\)</span>个通道的输出<span class="arithmatex">\(Y_{:,j}\)</span>对应于输入<span class="arithmatex">\(X_{:,j}\)</span>。</p>
+<h3 id="_8">对频率响应矩阵进行参数化</h3>
+<p>图滤波算子的核心在于频率响应矩阵。定义如下网络层：</p>
+<pre class="arithmatex">\[
+X'=\sigma(V\begin{bmatrix}\theta_1 &amp; &amp; \\ &amp; \ddots &amp; \\ &amp; &amp; \theta_N\end{bmatrix}V^TX)=\sigma(V diag(\theta) V^T)=\sigma(\Theta X)
+\]</pre>
+<p>在上式中，<span class="arithmatex">\(\{\theta_1,\cdots,\theta_N\}\)</span>为需要学习的参数，<span class="arithmatex">\(\Theta\)</span>为参数对应的图滤波器。从空域看，网络层引入了自适应的图位移算子，通过学习的手段指导算子的学习；从频域看，网络层在<span class="arithmatex">\(X\)</span>与<span class="arithmatex">\(X'\)</span>之间训练了一个可自适应的图滤波器，对应的频率响应函数可通过监督学习实现。</p>
+<p>该方案存在的问题是引入的学习参数过多，需要学习的参数量与图中节点数一致，这样极易发生过拟合问题。另外，在真实图数据中，数据的有效信息通常蕴含在低频段中，因此图滤波器设置N个维度的自由度且对每个频率都进行学习是没必要的。</p>
+<h3 id="_9">对多项式系数进行参数化</h3>
+<p>为了拟合任意的频率响应函数，可以将拉普拉斯矩阵的多项式形式转化为一种可学习的形式：<span class="arithmatex">\(X'=\sigma(V(\sum_{k=0}^{K}\theta_k\Lambda^k)V^TX)=\sigma(V diag(\Psi\theta)V^TX)\)</span>，其中<span class="arithmatex">\(\{\theta_1,\cdots,\theta_K\}\)</span>为多项式系数向量，也是网络层需要学习的参数。参数量<span class="arithmatex">\(K\)</span>可自由控制，<span class="arithmatex">\(K\)</span>的大小可以衡量输入与输出之间滤波关系的复杂程度，一般<span class="arithmatex">\(K\ll N\)</span>以减小过拟合的风险。</p>
+<p>该方案存在的问题主要在于依赖矩阵的特征分解而为计算带来较高复杂度。</p>
+<h3 id="_10">设计固定的图滤波器</h3>
+<p>在多项式系数参数化方案的基础上，设定<span class="arithmatex">\(K=1\)</span>，因此<span class="arithmatex">\(X'=\sigma(\theta_0X+\theta_1LX)\)</span>，再设<span class="arithmatex">\(\theta_0=\theta_1=\theta\)</span>，则有<span class="arithmatex">\(X'=\sigma(\theta(E+L)X)=\sigma(\theta\tilde{L}X)\)</span>。对上式进行归一化处理，此时<span class="arithmatex">\(\theta\)</span>可取1，最后可以得到一个固定的图滤波器<span class="arithmatex">\(\tilde{L}\)</span>。</p>
+<p>为了加强学习是的数值稳定性，对<span class="arithmatex">\(\tilde{L}\)</span>也进行了类似拉普拉斯矩阵的归一化处理：</p>
+<pre class="arithmatex">\[
+\begin{aligned}
+\tilde{L}_{sym}&amp;=\tilde{D}^{-\frac{1}{2}}\tilde{A}\tilde{D}^{-\frac{1}{2}}\\
+\tilde{A}&amp;=A+I\\
+\tilde{D}_{ii}&amp;=\sum_{j}\tilde{A}_{ij}
+\end{aligned}
+\]</pre>
+<p>同时，为了加强网络的拟合能力，添加一个参数化的权重矩阵<span class="arithmatex">\(W\)</span>对输入的图信号矩阵进行仿射变换，得到<span class="arithmatex">\(X'=\sigma(\tilde{L}_{sym}XW)\)</span>。</p>
+<p>【<strong>图卷积层（GCN Layer）</strong>】 <span class="arithmatex">\(X'=\sigma(\tilde{L}_{sym}XW)=\sigma(\tilde{D}^{-\frac{1}{2}}\tilde{A}\tilde{D}^{-\frac{1}{2}}XW)\)</span></p>
+<ul>
+<li><span class="arithmatex">\(\tilde{A}=A+I\)</span></li>
+<li><span class="arithmatex">\(\tilde{D}_{ii}=\sum_{j}\tilde{A}_{ij}\)</span></li>
+</ul>
+<p>图卷积层是对频率响应函数拟合形式上的极大简化，最后图滤波器退化为<span class="arithmatex">\(\tilde{L}_{sym}\)</span>。图卷积层的计算过程相当于对节点的一阶邻居进行了聚合，但是通过堆叠多层GCN可以达到高阶多项式对频率响应函数的拟合效果。在工程上，<span class="arithmatex">\(\tilde{L}_{sym}\)</span>可以用稀疏矩阵表示，能够降低图卷积层的计算复杂度。相比频域中矩阵特征分解的<span class="arithmatex">\(O(N^3)\)</span>复杂度，图卷积层的复杂度可降低为<span class="arithmatex">\(O(|E|d)\)</span>。</p>
+<p>对于固定的图滤波器的合理性可以进行如下说明：</p>
+<ul>
+<li><span class="arithmatex">\(\tilde{L}_{sym}\)</span>本身具有的滤波特性是符合真实数据的性质的，能够对数据实现高效的滤波操作</li>
+<li>虽然GCN层是对频率响应函数的线性近似推导而来，但是通过堆叠GCN层可以达到高阶多项式形式的频率响应函数的滤波能力</li>
+</ul>
+<p>一般来说，对于只能从频域出发进行矩阵特征分解从而执行图卷积计算的模型，称之为<strong>频域图卷积模型</strong>；对于图卷积计算不需要进行矩阵特征分解，能在空域执行矩阵乘法计算的模型，称之为<strong>空域图卷积模型</strong>。虽然空域图卷积模型在工程上具有优越性，但是频域视角对于图卷积模型的设计仍然是十分重要的。</p>
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+    <nav class="md-footer__inner md-grid" aria-label="Footer" >
+      
+        
+        <a href="../%E5%9B%9B%E3%80%81%E5%9B%BE%E5%B5%8C%E5%85%A5/" class="md-footer__link md-footer__link--prev" aria-label="Previous: 3.图嵌入" rel="prev">
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+          </div>
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              3.图嵌入
+            </div>
+          </div>
+        </a>
+      
+      
+        
+        <a href="../../Python%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86/1NumPy%E5%85%A5%E9%97%A8/" class="md-footer__link md-footer__link--next" aria-label="Next: 1 NumPy入门" rel="next">
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              1 NumPy入门
+            </div>
+          </div>
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4Z"/></svg>
+          </div>
+        </a>
+      
+    </nav>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.tabs", "search.suggest", "search.highlight", "toc.integrate"], "search": "../../assets/javascripts/workers/search.16e2a7d4.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version.title": "Select version"}}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.5a2dcb6a.min.js"></script>
+      
+        <script src="../../javascripts/mathjax.js"></script>
+      
+        <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+    
+    
+  </body>
+</html>

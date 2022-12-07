@@ -1,0 +1,65 @@
+LOG_NAME,LOG_DESC,FIELD_NAME,FIELD_TYPE,FIELD_DESC
+files.log,File analysis results,x509,X509::Info &optional,(present if base/files/x509/main.zeek is loaded) Information about X509 certificates. This is used to keep certificate information until all events have been received. 
+files.log,File analysis results,extracted,string &optional &log,(present if base/files/extract/main.zeek is loaded) Local filename of extracted file. 
+files.log,File analysis results,extracted_size,count &optional &log,(present if base/files/extract/main.zeek is loaded) The number of bytes extracted to disk. 
+files.log,File analysis results,entropy,double &log &optional,(present if policy/frameworks/files/entropy-test-all-files.zeek is loaded) The information density of the contents of the file， expressed as a number of bits per character. 
+files.log,File analysis results,seen_bytes,count &log &default = 0 &optional,Number of bytes provided to the file analysis engine for the file. 
+files.log,File analysis results,total_bytes,count &log &optional,Total number of bytes that are supposed to comprise the full file. 
+files.log,File analysis results,depth,count &default = 0 &optional &log,A value to represent the depth of this file in relation to its source.  In SMTP， it is the depth of the MIME attachment on the message.  In HTTP， it is the depth of the request within the TCP connection. 
+files.log,File analysis results,filename,string &log &optional,A filename for the file if one is available from the source for the file.  These will frequently come from "Content-Disposition" headers in network protocols. 
+files.log,File analysis results,mime_type,string &log &optional,A mime type provided by the strongest file magic signature match against the bof_buffer field of fa_file， or in the cases where no buffering of the beginning of file occurs， an initial guess of the mime type based on the first data seen. 
+files.log,File analysis results,analyzers,set [string] &default = {  } &optional &log,A set of analysis types done during the file analysis. 
+files.log,File analysis results,missing_bytes,count &log &default = 0 &optional,The number of bytes in the file stream that were completely missed during the process of analysis e.g. due to dropped packets. 
+files.log,File analysis results,source,string &log &optional,An identification of the source of the file data.  E.g. it may be a network protocol over which it was transferred， or a local file path which was read， or some other input source. 
+files.log,File analysis results,conn_uids,set [string] &default = {  } &optional &log,Connection UIDs over which the file was transferred. 
+files.log,File analysis results,timedout,bool &log &default = F &optional,Whether the file analysis timed out at least once for the file. 
+files.log,File analysis results,duration,interval &log &default = 0 secs &optional,The duration the file was analyzed for. 
+files.log,File analysis results,parent_fuid,string &log &optional,Identifier associated with a container file from which this one was extracted as part of the file analysis. 
+files.log,File analysis results,md5,string &log &optional,(present if base/files/hash/main.zeek is loaded) An MD5 digest of the file contents. 
+files.log,File analysis results,sha1,string &log &optional,(present if base/files/hash/main.zeek is loaded) A SHA1 digest of the file contents. 
+files.log,File analysis results,sha256,string &log &optional,(present if base/files/hash/main.zeek is loaded) A SHA256 digest of the file contents. 
+files.log,File analysis results,extracted_cutoff,bool &optional &log,(present if base/files/extract/main.zeek is loaded) Set to true if the file being extracted was cut off so the whole file was not logged. 
+files.log,File analysis results,local_orig,bool &log &optional,If the source of this file is a network connection， this field indicates if the data originated from the local network or not as determined by the configured Site::local_nets. 
+files.log,File analysis results,rx_hosts,set [addr] &default = {  } &optional &log,If this file was transferred over a network connection this should show the host or hosts that the data traveled to. 
+files.log,File analysis results,tx_hosts,set [addr] &default = {  } &optional &log,If this file was transferred over a network connection this should show the host or hosts that the data sourced from. 
+files.log,File analysis results,fuid,string &log,An identifier associated with a single file. 
+files.log,File analysis results,ts,time &log,The time when the file was first seen. 
+files.log,File analysis results,is_orig,bool &log &optional,If the source of this file is a network connection， this field indicates if the file is being sent by the originator of the connection or the responder. 
+files.log,File analysis results,overflow_bytes,count &log &default = 0 &optional,The number of bytes in the file stream that were not delivered to stream file analyzers.  This could be overlapping bytes or bytes that couldn't be reassembled. 
+ocsp.log,Online Certificate Status Protocol (OCSP). Only created if policy script is loaded.,revoketime,time &log &optional,Time at which the certificate was revoked. 
+ocsp.log,Online Certificate Status Protocol (OCSP). Only created if policy script is loaded.,serialNumber,string &log,Serial number of the affected certificate. 
+ocsp.log,Online Certificate Status Protocol (OCSP). Only created if policy script is loaded.,issuerKeyHash,string &log,Hash of the issuer's public key. 
+ocsp.log,Online Certificate Status Protocol (OCSP). Only created if policy script is loaded.,issuerNameHash,string &log,Hash of the issuer's distingueshed name. 
+ocsp.log,Online Certificate Status Protocol (OCSP). Only created if policy script is loaded.,hashAlgorithm,string &log,Hash algorithm used to generate issuerNameHash and issuerKeyHash. 
+ocsp.log,Online Certificate Status Protocol (OCSP). Only created if policy script is loaded.,id,string &log,File id of the OCSP reply. 
+ocsp.log,Online Certificate Status Protocol (OCSP). Only created if policy script is loaded.,ts,time &log,Time when the OCSP reply was encountered. 
+ocsp.log,Online Certificate Status Protocol (OCSP). Only created if policy script is loaded.,nextUpdate,time &log &optional,The latest time at which new information about the status of the certificate will be available. 
+ocsp.log,Online Certificate Status Protocol (OCSP). Only created if policy script is loaded.,thisUpdate,time &log,The time at which the status being shows is known to have been correct. 
+ocsp.log,Online Certificate Status Protocol (OCSP). Only created if policy script is loaded.,revokereason,string &log &optional,Reason for which the certificate was revoked. 
+ocsp.log,Online Certificate Status Protocol (OCSP). Only created if policy script is loaded.,certStatus,string &log,Status of the affected certificate. 
+pe.log,Portable Executable (PE),has_cert_table,bool &log &optional,Does the file have an attribute certificate table? 
+pe.log,Portable Executable (PE),has_export_table,bool &log &optional,Does the file have an export table? 
+pe.log,Portable Executable (PE),has_import_table,bool &log &optional,Does the file have an import table? 
+pe.log,Portable Executable (PE),is_exe,bool &log &default = T &optional,Is the file an executable， or just an object file? 
+pe.log,Portable Executable (PE),subsystem,string &log &optional,The subsystem that is required to run this file. 
+pe.log,Portable Executable (PE),os,string &log &optional,The required operating system. 
+pe.log,Portable Executable (PE),compile_ts,time &log &optional,The time that the file was created at. 
+pe.log,Portable Executable (PE),section_names,vector of string &log &optional,The names of the sections， in order. 
+pe.log,Portable Executable (PE),machine,string &log &optional,The target machine that the file was compiled for. 
+pe.log,Portable Executable (PE),has_debug_data,bool &log &optional,Does the file have a debug table? 
+pe.log,Portable Executable (PE),is_64bit,bool &log &default = T &optional,Is the file a 64-bit executable? 
+pe.log,Portable Executable (PE),ts,time &log,Current timestamp. 
+pe.log,Portable Executable (PE),id,string &log,File id of this portable executable file. 
+pe.log,Portable Executable (PE),uses_seh,bool &log &default = T &optional,Does the file use structured exception handing? 
+pe.log,Portable Executable (PE),uses_code_integrity,bool &log &default = F &optional,Does the file enforce code integrity checks? 
+pe.log,Portable Executable (PE),uses_dep,bool &log &default = F &optional,Does the file support Data Execution Prevention? 
+pe.log,Portable Executable (PE),uses_aslr,bool &log &default = F &optional,Does the file support Address Space Layout Randomization? 
+x509.log,X.509 certificate info,extensions_cache,vector of any &default = [] &optional,All extensions in the order they were raised. This is used for caching certificates that are commonly encountered and should not be relied on in user scripts. 
+x509.log,X.509 certificate info,logcert,bool &default = T &optional,(present if policy/protocols/ssl/log-hostcerts-only.zeek is loaded) Logging of certificate is suppressed if set to F 
+x509.log,X.509 certificate info,san,X509::SubjectAlternativeName &optional &log,Subject alternative name extension of the certificate. 
+x509.log,X.509 certificate info,extensions,vector of X509::Extension &default = [] &optional,All extensions that were encountered in the certificate. 
+x509.log,X.509 certificate info,handle,opaque of x509,The opaque wrapping the certificate. Mainly used for the verify operations. 
+x509.log,X.509 certificate info,certificate,X509::Certificate &log,Basic information about the certificate. 
+x509.log,X.509 certificate info,id,string &log,File id of this certificate. 
+x509.log,X.509 certificate info,ts,time &log,Current timestamp. 
+x509.log,X.509 certificate info,basic_constraints,X509::BasicConstraints &optional &log,Basic constraints extension of the certificate. 
