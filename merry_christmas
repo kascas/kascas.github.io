@@ -1,0 +1,712 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>粒子圣诞树 - 桌面交互版</title>
+    <style>
+        html, body {
+            width: 100%;
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            background: radial-gradient(circle at center, #1a1a24 0%, #000000 100%);
+            font-family: 'Arial', sans-serif;
+            user-select: none; /* 禁止选中文本，避免双击时选中文本 */
+        }
+
+        #canvas-container {
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: 1;
+        }
+
+        #ui-layer {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 2;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        /* 新增：主标题样式 */
+        #main-title {
+            position: absolute;
+            top: 5%;
+            width: 100%;
+            text-align: center;
+            font-family: 'Brush Script MT', 'Comic Sans MS', 'Georgia', serif; /* 优先使用手写风格字体 */
+            font-size: 4rem;
+            color: #fff;
+            font-weight: normal;
+            margin: 0;
+            text-shadow: 
+                0 0 10px rgba(255, 215, 0, 0.8), 
+                0 0 20px rgba(255, 0, 0, 0.6),
+                0 0 40px rgba(255, 215, 0, 0.4);
+            pointer-events: none;
+            z-index: 4;
+            animation: titleBreath 4s ease-in-out infinite alternate;
+        }
+
+        @keyframes titleBreath {
+            0% { opacity: 0.8; text-shadow: 0 0 10px rgba(255, 215, 0, 0.8), 0 0 20px rgba(255, 0, 0, 0.6); transform: scale(1); }
+            100% { opacity: 1; text-shadow: 0 0 20px rgba(255, 215, 0, 1), 0 0 40px rgba(255, 0, 0, 0.8), 0 0 60px rgba(255, 215, 0, 0.6); transform: scale(1.05); }
+        }
+
+        #instructions {
+            color: rgba(255, 255, 255, 0.7);
+            text-align: center;
+            background: rgba(30, 30, 30, 0.4);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 10px 20px;
+            border-radius: 20px;
+            backdrop-filter: blur(8px);
+            font-size: 14px;
+            margin-top: 100px; /* 给标题留出空间 */
+            pointer-events: auto;
+            transition: opacity 0.5s;
+            cursor: pointer; /* 提示可点击 */
+        }
+
+        #quote-box {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: #fff;
+            font-size: 24px;
+            font-weight: bold;
+            text-align: center;
+            text-shadow: 0 0 10px rgba(0,0,0,0.8), 0 0 20px rgba(255, 215, 0, 0.6);
+            opacity: 0;
+            transition: opacity 0.5s ease-in-out, transform 0.5s ease-out;
+            pointer-events: none;
+            width: 80%;
+            max-width: 600px;
+            font-family: 'Georgia', serif;
+            z-index: 5;
+        }
+
+        #easter-egg-box {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0.5);
+            opacity: 0;
+            pointer-events: none;
+            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            z-index: 10;
+            border: 8px solid #fff;
+            box-shadow: 0 0 50px rgba(255, 215, 0, 0.8);
+            background: #000;
+            max-width: 90vw;
+            max-height: 80vh;
+            border-radius: 12px;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        #easter-egg-box img {
+            display: block;
+            width: auto;
+            height: auto;
+            max-width: 100%;
+            max-height: 80vh; 
+            object-fit: contain;
+        }
+
+        /* 移除了 controls 相关的样式 */
+        
+        ::-webkit-scrollbar { display: none; }
+    </style>
+</head>
+<body>
+
+    <div id="ui-layer">
+        <!-- 新增：标题 -->
+        <h1 id="main-title">Merry Christmas</h1>
+
+        <div id="instructions">
+            🖱️ 双击：炸裂/还原 | 🖐️ 拖动：旋转 | 🎁 星云状态下单击：彩蛋
+        </div>
+
+        <div id="quote-box">Merry Christmas!</div>
+
+        <div id="easter-egg-box">
+            <img id="easter-egg-img" src="" alt="Easter Egg">
+        </div>
+        
+        <!-- 移除了控制条 DOM -->
+    </div>
+
+    <div id="canvas-container"></div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+
+    <script>
+        // ---------------------------------------------------------
+        // 1. 初始化场景
+        // ---------------------------------------------------------
+        const container = document.getElementById('canvas-container');
+        const scene = new THREE.Scene();
+        scene.fog = new THREE.FogExp2(0x1a1a24, 0.002);
+
+        const camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 1000);
+        camera.position.z = 80;
+        camera.position.y = 5;
+
+        const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+        
+        // 开启物理光照计算
+        renderer.physicallyCorrectLights = true;
+        renderer.outputEncoding = THREE.sRGBEncoding;
+        renderer.toneMapping = THREE.ACESFilmicToneMapping;
+        renderer.toneMappingExposure = 0.8; 
+        
+        container.appendChild(renderer.domElement);
+
+        // ---------------------------------------------------------
+        // 2. 灯光系统
+        // ---------------------------------------------------------
+        
+        const ambientLight = new THREE.AmbientLight(0xffffff, 0.4); 
+        scene.add(ambientLight);
+
+        const mainLight = new THREE.PointLight(0xffaa00, 600, 200);
+        mainLight.position.set(20, 20, 50);
+        scene.add(mainLight);
+
+        const blueLight = new THREE.PointLight(0x4444ff, 400, 200);
+        blueLight.position.set(-30, 10, 30);
+        scene.add(blueLight);
+        
+        const rimLight = new THREE.PointLight(0xff00ff, 300, 200);
+        rimLight.position.set(0, -20, -30);
+        scene.add(rimLight);
+        
+        const lightGroup = new THREE.Group();
+        const colors = [0xff0000, 0x00ff00, 0x0000ff];
+        colors.forEach((c, i) => {
+            const l = new THREE.PointLight(c, 200, 100); 
+            l.position.set(
+                Math.cos(i * 2.09) * 40,
+                Math.random() * 40 - 20,
+                Math.sin(i * 2.09) * 40
+            );
+            lightGroup.add(l);
+        });
+        scene.add(lightGroup);
+
+        // ---------------------------------------------------------
+        // 3. 实例化网格
+        // ---------------------------------------------------------
+        
+        const baseGeometry = new THREE.OctahedronGeometry(0.6, 0); 
+
+        const baseMaterial = new THREE.MeshStandardMaterial({
+            color: 0xffffff,
+            metalness: 0.85, 
+            roughness: 0.25, 
+            flatShading: true,
+            side: THREE.DoubleSide
+        });
+
+        const instanceCount = 3000; 
+        const instancedMesh = new THREE.InstancedMesh(baseGeometry, baseMaterial, instanceCount);
+        
+        instancedMesh.frustumCulled = false;
+
+        const aPosTree = new Float32Array(instanceCount * 3);
+        const aPosSphere = new Float32Array(instanceCount * 3);
+        const aRandom = new Float32Array(instanceCount); 
+
+        const dummy = new THREE.Object3D();
+        
+        const leafColors = [
+            new THREE.Color(0x1a5d1a),
+            new THREE.Color(0x2d8a27),
+            new THREE.Color(0x004d40),
+        ];
+        const ornamentColors = [
+            new THREE.Color(0xd00000),
+            new THREE.Color(0xffb700),
+            new THREE.Color(0x0088ff),
+            new THREE.Color(0xc0c0c0),
+        ];
+
+        function getTreeRadius(normalizedHeight) {
+            const baseCone = (1.0 - normalizedHeight) * 18.0;
+            const layers = 6.0;
+            const layerProgress = (normalizedHeight * layers) % 1.0;
+            const branchFlare = 6.0 * Math.pow(1.0 - layerProgress, 1.5) * (1.0 - normalizedHeight * 0.8);
+            return baseCone + branchFlare;
+        }
+
+        for (let i = 0; i < instanceCount; i++) {
+            const angle = Math.random() * Math.PI * 2 * 25;
+            const height = Math.random() * 60 - 30; 
+            const normalizedHeight = (height + 30) / 60;
+            const maxRadius = getTreeRadius(normalizedHeight);
+            const rRandom = Math.sqrt(Math.random()); 
+            const spiralRadius = maxRadius * rRandom + (Math.random() - 0.5) * 1.5;
+
+            aPosTree[i*3] = spiralRadius * Math.cos(angle);
+            aPosTree[i*3+1] = height;
+            aPosTree[i*3+2] = spiralRadius * Math.sin(angle);
+
+            const r = 35 + Math.random() * 10;
+            const theta = Math.random() * Math.PI * 2;
+            const phi = Math.acos((Math.random() * 2) - 1);
+            
+            aPosSphere[i*3] = r * Math.sin(phi) * Math.cos(theta);
+            aPosSphere[i*3+1] = r * Math.sin(phi) * Math.sin(theta);
+            aPosSphere[i*3+2] = r * Math.cos(phi);
+
+            let isOrnament = false;
+            if (Math.random() > 0.85) isOrnament = true;
+
+            if (isOrnament) {
+                instancedMesh.setColorAt(i, ornamentColors[Math.floor(Math.random() * ornamentColors.length)]);
+            } else {
+                let c = leafColors[Math.floor(Math.random() * leafColors.length)];
+                if (Math.random() > 0.5) c = c.clone().multiplyScalar(0.8);
+                instancedMesh.setColorAt(i, c);
+            }
+
+            aRandom[i] = Math.random();
+            
+            dummy.position.set(0,0,0);
+            dummy.rotation.set(0,0,0);
+            dummy.scale.set(1,1,1);
+            dummy.updateMatrix();
+            instancedMesh.setMatrixAt(i, dummy.matrix);
+        }
+
+        baseGeometry.setAttribute('aPosTree', new THREE.InstancedBufferAttribute(aPosTree, 3));
+        baseGeometry.setAttribute('aPosSphere', new THREE.InstancedBufferAttribute(aPosSphere, 3));
+        baseGeometry.setAttribute('aRandom', new THREE.InstancedBufferAttribute(aRandom, 1));
+
+        scene.add(instancedMesh);
+        
+        // ---------------------------------------------------------
+        // 4. Shader 注入
+        // ---------------------------------------------------------
+        
+        const uniforms = {
+            mixRatio: { value: 0.0 },
+            time: { value: 0.0 }
+        };
+
+        baseMaterial.onBeforeCompile = (shader) => {
+            shader.uniforms.uMixRatio = uniforms.mixRatio;
+            shader.uniforms.uTime = uniforms.time;
+
+            shader.vertexShader = `
+                uniform float uMixRatio;
+                uniform float uTime;
+                attribute vec3 aPosTree;
+                attribute vec3 aPosSphere;
+                attribute float aRandom;
+                
+                vec3 rotate(vec3 v, vec3 axis, float angle) {
+                    return mix(dot(axis, v) * axis, v, cos(angle)) + cross(axis, v) * sin(angle);
+                }
+            ` + shader.vertexShader;
+
+            shader.vertexShader = shader.vertexShader.replace(
+                '#include <begin_vertex>',
+                `
+                vec3 transformed = vec3( position );
+                
+                float scale = 0.5 + aRandom * 1.0; 
+                transformed *= scale;
+                transformed *= vec3(0.8 + 0.4*sin(aRandom*10.0), 0.8 + 0.4*cos(aRandom*20.0), 0.8 + 0.4*sin(aRandom*30.0));
+                
+                vec3 axis = normalize(vec3(sin(aRandom), cos(aRandom), aRandom));
+                transformed = rotate(transformed, axis, aRandom * 6.28);
+
+                vec3 targetOffset = mix(aPosTree, aPosSphere, uMixRatio);
+
+                float floatSpeed = 0.5 + aRandom * 0.5;
+                targetOffset.x += sin(uTime * 1.5 * floatSpeed + targetOffset.y) * 0.2 * uMixRatio;
+                targetOffset.y += cos(uTime * 1.0 * floatSpeed + targetOffset.x) * 0.2 * uMixRatio;
+                
+                transformed += targetOffset;
+                `
+            );
+        };
+
+
+        // ---------------------------------------------------------
+        // 5. 背景雪花
+        // ---------------------------------------------------------
+        function createSnowflakeTexture() {
+            const canvas = document.createElement('canvas');
+            canvas.width = 32;
+            canvas.height = 32;
+            const ctx = canvas.getContext('2d');
+            ctx.fillStyle = 'transparent';
+            ctx.fillRect(0,0,32,32);
+            ctx.translate(16,16);
+            ctx.strokeStyle = '#ffffff';
+            ctx.lineWidth = 2;
+            ctx.lineCap = 'round';
+            for(let i=0; i<6; i++) {
+                ctx.rotate(Math.PI/3);
+                ctx.beginPath(); ctx.moveTo(0,0); ctx.lineTo(0,12);
+                ctx.moveTo(0,6); ctx.lineTo(3,9);
+                ctx.moveTo(0,6); ctx.lineTo(-3,9);
+                ctx.stroke();
+            }
+            return new THREE.CanvasTexture(canvas);
+        }
+        
+        const snowGeo = new THREE.BufferGeometry();
+        const snowPos = [];
+        const snowVel = [];
+        for(let i=0; i<500; i++) {
+            snowPos.push((Math.random()-0.5)*200, (Math.random()-0.5)*100+20, (Math.random()-0.5)*100-20);
+            snowVel.push(0.05 + Math.random()*0.1);
+        }
+        snowGeo.setAttribute('position', new THREE.Float32BufferAttribute(snowPos, 3));
+        const snowMat = new THREE.PointsMaterial({
+            color: 0xffffff, size: 2.0, map: createSnowflakeTexture(),
+            transparent: true, opacity: 0.6, depthWrite: false, blending: THREE.AdditiveBlending
+        });
+        const snowSystem = new THREE.Points(snowGeo, snowMat);
+        scene.add(snowSystem);
+
+
+        // ---------------------------------------------------------
+        // 6. 交互逻辑 (桌面优化版)
+        // ---------------------------------------------------------
+        
+        let isDragging = false;
+        let isUserInteracting = false;
+        let hasMoved = false;
+        let startPointerPosition = { x: 0, y: 0 };
+        let previousMousePosition = { x: 0, y: 0 };
+        
+        let rotationVelocity = 0.002; 
+        const FRICTION = 0.975; 
+        const SENSITIVITY = 0.005;
+        
+        let morphValue = 0; 
+        let targetMorphValue = 0; 
+
+        // 扩充后的祝福语库
+        const quotes = [
+            "🎄 Merry Christmas! 愿你拥有温暖的冬日。",
+            "✨ 即使是微小的星光，也能照亮黑夜。",
+            "🎁 最好的礼物不是在树下，而是在你身边。",
+            "❄️ 让过去随雪花融化，新年在等你。",
+            "🎅 Ho Ho Ho! 奇迹正在发生。",
+            "🌟 你就是那颗最亮的星星。",
+            "❤️ 愿爱与欢乐充满你的世界。",
+            "🎶 听，驯鹿的铃声近了。",
+            "🥂 为美好的未来干杯！",
+            "🍬 生活不仅需要糖，还需要一个像圣诞节一样的梦想。",
+            "🌈 所有的遗憾都是为了明年惊喜的铺垫。",
+            "🧸 愿你三冬暖，愿你春不寒，愿你圣诞快乐。",
+            "🕯️ 点亮心中的光，照亮前行的路。",
+            "💖 愿你被这个世界温柔以待。",
+            "🌌 星河滚滚，你是人间理想。",
+            "🕰️ 时间在走，美好的记忆会停留。",
+            "🔔 叮叮当，叮叮当，愿你的霉运都清光。",
+            "🦌 驯鹿正在派送你的快乐，请查收！",
+            "🍪 记得给圣诞老人留块饼干，也记得对自己好一点。",
+            "🍎 平安夜，吃苹果，岁岁年年平安过。",
+            "🚀 准备好起飞了吗？下一站：幸福年。",
+            "🦄 愿你保持童心，相信魔法。",
+            "💫 你的笑容是这个节日最美的装饰。",
+            "🎊 Merry Everything and Happy Always!",
+            "🐈 圣诞快乐！祝你有猫有狗，生活富有。",
+            "🧐 冷知识：圣诞老人最初的衣服其实是绿色的。",
+            "🧐 冷知识：世界上第一棵人造圣诞树是用鹅毛做的。",
+            "🧐 趣闻：为了送完礼物，圣诞老人需以每秒 1000 公里的速度飞行。",
+            "🧐 你知道吗？《铃儿响叮当》最初其实是为感恩节写的。",
+            "🧐 最高的圣诞树有 67 米高，相当于 20 多层楼！",
+            "🐱 冷知识：猫的一生有70%的时间都在睡觉。",
+            "🍯 冷知识：蜂蜜是唯一不会变质的食物，3000年前的蜂蜜还能吃。",
+            "🐙 冷知识：章鱼有三颗心脏，九个大脑，血液是蓝色的。",
+            "👃 冷知识：捏住鼻子的时候，你没法哼歌（不信你试试）。",
+            "🍌 冷知识：从植物学角度看，香蕉是浆果，而草莓反而不是。",
+            "🐨 冷知识：考拉的指纹和人类极其相似，甚至可能混淆犯罪现场。",
+            "💤 冷知识：海豚睡觉时只闭一只眼睛，因为需要一半大脑保持清醒。",
+            "🦒 冷知识：长颈鹿的舌头是黑紫色的，为了防止吃树叶时晒伤。",
+            "🥕 冷知识：胡萝卜最初其实是紫色的，橙色是后来培育出来的。",
+            "🧬 冷知识：人类的DNA有50%和香蕉是完全一样的。",
+            "🍅 冷知识：在1830年代，番茄酱曾被作为药物来治疗腹泻。",
+            "🐄 冷知识：牛其实没有上排门牙，它们用牙龈和下排牙齿磨碎草。",
+            "🍫 冷知识：白巧克力其实不是巧克力，因为它不含可可粉，只有可可脂。",
+            "🍿 冷知识：电影院爆米花的成本极低，售价却是成本的十倍以上。",
+            "🐘 冷知识：大象是唯一一种不会跳跃的哺乳动物（成年）。",
+            "🐧 冷知识：企鹅求婚时会送给对方一颗精心挑选的鹅卵石。",
+            "🎬 冷知识：《猫和老鼠》里Tom的主人从未露正脸，因为是猫的视角。",
+            "🦆 趣闻：唐老鸭漫画曾在芬兰被禁，理由是他不穿裤子。",
+            "🍕 游戏史：吃豆人（Pac-Man）的灵感其实来自于缺了一角的披萨。",
+            "🍄 游戏史：马里奥最初的名字叫“Jumpman”，职业是木匠。",
+            "⚡ 游戏史：皮卡丘的设计原型其实是松鼠，而不是老鼠。",
+            "☁️ 游戏史：超级马里奥里的云和草丛其实是同一个图案，只是颜色不同。",
+            "📹 冷知识：Netflix成立的时间其实比Google还要早一年。",
+            "🦁 趣闻：《狮子王》里的狮吼声其实是老虎叫，因为狮子的声音不够霸气。",
+            "🏰 趣闻：迪士尼乐园地下有巨大的隧道网络，为了不让身穿戏服的员工破坏各个区域的氛围。",
+            "🃏 游戏史：任天堂（Nintendo）成立于1889年，最初是卖花札扑克牌的。",
+            "🧱 游戏史：俄罗斯方块（Tetris）是历史上第一款在太空被玩过的电子游戏。",
+            "🥇 冷知识：奥运金牌其实大部分是银做的，只有表面镀了6克金。",
+            "🏀 冷知识：篮球最初是用足球来打的，篮筐是装桃子的筐，还得用梯子取球。",
+            "🏸 冷知识：羽毛球是球速最快的球类运动，最高时速可达493公里。",
+            "🥛 冷知识：奶牛听音乐时产奶量会增加，尤其是慢节奏的歌。",
+            "🏎️ 体育：F1赛车的方向盘上可能有多达25个以上的按钮和开关。",
+            "🎳 体育：保龄球最初其实只有9个瓶子，后来为了规避禁赌法律加了第10个。",
+            "🏊 体育：迈克尔·菲尔普斯获得的奥运金牌数超过了全球80%的国家的历史金牌总数。"
+        ];
+
+        // --- 新增：彩蛋逻辑 ---
+        const posterUrls = [
+            "https://images.ctfassets.net/1fvlg6xqnm65/2025-race-miami-race-0/7d18fbbd8df3c2dd11fe98a5d6890fdc/M502920.jpg",
+            "https://q2.itc.cn/images01/20250827/4f8bba4b671045688b8332a1f9a35bc1.jpeg",
+            "https://blog.shopping.gamania.com/_next/image?url=https%3A%2F%2Fcdn.sanity.io%2Fimages%2F3wl0vtkq%2Fproduction%2Fe51af44dbefafe96ac35bb7b526ad8ba0d01521e-1200x750.png&w=3840&q=75",
+            "https://www.ign.com.cn/sm/t/ign_cn/screenshot/default/zootopiathumb-1759151331582_fwae.1200.jpg",
+            "https://ossweb-img.qq.com/upload/webplat/info/yxzj/20240802/1722604914742397.jpeg",
+            "https://img.cloudimg.in/uploads/shops/19315/products/23/233375690eea55ac4e689debb49c33a2.jpg",
+            "https://image11.m1905.cn/uploadfile/2025/0728/20250728034315131571.jpg",
+            "https://q1.itc.cn/q_70/images03/20250616/1188044d3d3f483dabb5b6c0d358adba.jpeg"
+        ];
+
+        document.addEventListener('mousedown', onPointerDown);
+        document.addEventListener('mousemove', onPointerMove);
+        document.addEventListener('mouseup', onPointerUp);
+        document.addEventListener('click', onInteractClick);
+        // 新增：双击交互
+        document.addEventListener('dblclick', onDoubleClick);
+
+        function onPointerDown(e) {
+            isUserInteracting = true;
+            hasMoved = false;
+            startPointerPosition = { x: e.clientX, y: e.clientY };
+            previousMousePosition = { x: e.clientX, y: e.clientY };
+        }
+
+        function onPointerMove(e) {
+            if (!isUserInteracting) return;
+            const clientX = e.clientX;
+            const clientY = e.clientY;
+            
+            if (!isDragging) {
+                const dx = clientX - startPointerPosition.x;
+                const dy = clientY - startPointerPosition.y;
+                if (Math.sqrt(dx * dx + dy * dy) > 5) {
+                    isDragging = true;
+                    hasMoved = true;
+                    rotationVelocity = 0;
+                }
+            }
+            
+            if (isDragging) {
+                const deltaX = clientX - previousMousePosition.x;
+                rotationVelocity = deltaX * SENSITIVITY;
+                instancedMesh.rotation.y += rotationVelocity;
+                snowSystem.rotation.y += rotationVelocity * 0.3; 
+                previousMousePosition = { x: clientX, y: clientY };
+            }
+        }
+
+        function onPointerUp() {
+            isUserInteracting = false;
+            isDragging = false;
+        }
+
+        // 双击处理函数
+        function onDoubleClick(e) {
+            // 切换状态：0 (树) <-> 1 (星云)
+            targetMorphValue = targetMorphValue === 0 ? 1 : 0;
+            
+            // 如果触发了还原(准备变回树)，立即清理掉可能因为单击出现的弹窗
+            if (targetMorphValue === 0) {
+                clearAllDisplays();
+            }
+            
+            triggerRipple(); // 给点震动反馈
+        }
+
+        function onInteractClick(e) {
+            if (hasMoved) return; // 拖动时不触发
+            
+            // 只有在星云状态 (morphValue > 0.6) 才能点出彩蛋
+            if (morphValue > 0.6) {
+                if (Math.random() < 0.15) {
+                    showEasterEgg();
+                } else {
+                    showRandomQuote();
+                }
+                triggerRipple();
+            }
+        }
+        
+        const quoteBox = document.getElementById('quote-box');
+        const easterEggBox = document.getElementById('easter-egg-box');
+        const easterEggImg = document.getElementById('easter-egg-img');
+        
+        let quoteTimeout;
+        let easterEggTimeout;
+        
+        function clearAllDisplays() {
+            if (quoteTimeout) clearTimeout(quoteTimeout);
+            if (easterEggTimeout) clearTimeout(easterEggTimeout);
+            
+            easterEggImg.onload = null;
+
+            quoteBox.style.opacity = 0;
+            quoteBox.style.transform = "translate(-50%, -50%) scale(1)";
+            
+            easterEggBox.style.opacity = 0;
+            easterEggBox.style.transform = "translate(-50%, -50%) scale(0.5)";
+        }
+        
+        let availableQuotes = [...quotes];
+        
+        function getUniqueRandomQuote() {
+            if (availableQuotes.length === 0) {
+                availableQuotes = [...quotes];
+            }
+            const randomIndex = Math.floor(Math.random() * availableQuotes.length);
+            return availableQuotes.splice(randomIndex, 1)[0];
+        }
+
+        let availablePosters = [...posterUrls];
+
+        function getUniqueRandomPoster() {
+            if (availablePosters.length === 0) {
+                availablePosters = [...posterUrls];
+            }
+            const randomIndex = Math.floor(Math.random() * availablePosters.length);
+            return availablePosters.splice(randomIndex, 1)[0];
+        }
+
+        function showRandomQuote() {
+            // 先清理现场，确保图片立即消失
+            clearAllDisplays();
+            
+            const randomQuote = getUniqueRandomQuote();
+            quoteBox.innerText = randomQuote;
+            
+            quoteBox.style.opacity = 1;
+            quoteBox.style.transform = "translate(-50%, -50%) scale(1.1)";
+            
+            quoteTimeout = setTimeout(() => {
+                quoteBox.style.opacity = 0;
+                quoteBox.style.transform = "translate(-50%, -50%) scale(1)";
+            }, 3000);
+        }
+
+        function showEasterEgg() {
+            // 先清理现场，确保文字立即消失
+            clearAllDisplays();
+            
+            const randomPoster = getUniqueRandomPoster();
+            
+            // 定义加载完成后的回调
+            easterEggImg.onload = () => {
+                // 图片加载好了，显示容器
+                easterEggBox.style.opacity = 1;
+                easterEggBox.style.transform = "translate(-50%, -50%) scale(1)";
+                
+                // 开始计时：3秒后消失
+                easterEggTimeout = setTimeout(() => {
+                    easterEggBox.style.opacity = 0;
+                    easterEggBox.style.transform = "translate(-50%, -50%) scale(0.5)";
+                }, 3000);
+            };
+            
+            // 设置新的图片地址，开始加载
+            easterEggImg.src = randomPoster;
+        }
+
+        let timeSurge = 0;
+        function triggerRipple() {
+            timeSurge = 20.0; 
+        }
+
+        // ---------------------------------------------------------
+        // 7. 动画循环
+        // ---------------------------------------------------------
+        const clock = new THREE.Clock();
+
+        function animate() {
+            requestAnimationFrame(animate);
+
+            const delta = clock.getDelta();
+            if (timeSurge > 0) {
+                timeSurge *= 0.95; 
+                if (timeSurge < 0.01) timeSurge = 0;
+            }
+            uniforms.time.value += delta * (1.0 + timeSurge);
+
+            // 1. 动态更新彩灯位置 (绕圈旋转)
+            const time = uniforms.time.value;
+            lightGroup.rotation.y = time * 0.5;
+            
+            // 2. 变形插值
+            // 修改：将系数从 0.1 降低到 0.04，让炸开/还原的速度变慢
+            morphValue += (targetMorphValue - morphValue) * 0.04;
+            uniforms.mixRatio.value = morphValue;
+
+            // 3. 惯性旋转
+            if (!isDragging) {
+                instancedMesh.rotation.y += rotationVelocity;
+                snowSystem.rotation.y += rotationVelocity * 0.3; 
+                rotationVelocity *= FRICTION;
+                if (Math.abs(rotationVelocity) < 0.001) {
+                    rotationVelocity += (0.001 - rotationVelocity) * 0.05;
+                }
+            }
+            
+            // 4. 雪花更新
+            const positions = snowSystem.geometry.attributes.position.array;
+            for(let i=0; i<500; i++) {
+                positions[i*3 + 1] -= snowVel[i];
+                if (positions[i*3 + 1] < -50) {
+                    positions[i*3 + 1] = 50;
+                }
+            }
+            snowSystem.geometry.attributes.position.needsUpdate = true;
+
+            const instructions = document.getElementById('instructions');
+            if (morphValue > 0.8) {
+                instructions.style.opacity = 0.3; 
+            } else {
+                instructions.style.opacity = 1.0;
+            }
+
+            renderer.render(scene, camera);
+        }
+
+        window.addEventListener('resize', () => {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+        });
+
+        animate();
+
+    </script>
+</body>
+</html>
