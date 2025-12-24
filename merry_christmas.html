@@ -3,7 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-    <title>粒子圣诞树 - 桌面交互版</title>
+    <title>粒子圣诞树 - 全平台交互版</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Mountains+of+Christmas:wght@700&display=swap" rel="stylesheet">
+
     <style>
         html, body {
             width: 100%;
@@ -13,7 +18,8 @@
             overflow: hidden;
             background: radial-gradient(circle at center, #1a1a24 0%, #000000 100%);
             font-family: 'Arial', sans-serif;
-            user-select: none; /* 禁止选中文本，避免双击时选中文本 */
+            user-select: none;
+            touch-action: none; /* 关键：禁止浏览器默认的缩放和滚动 */
         }
 
         #canvas-container {
@@ -35,23 +41,22 @@
             z-index: 2;
             display: flex;
             flex-direction: column;
-            justify-content: space-between;
+            justify-content: flex-start; 
             align-items: center;
             padding: 20px;
             box-sizing: border-box;
+            gap: 15px; 
         }
 
-        /* 新增：主标题样式 */
         #main-title {
-            position: absolute;
-            top: 5%;
+            position: relative;
             width: 100%;
             text-align: center;
-            font-family: 'Brush Script MT', 'Comic Sans MS', 'Georgia', serif; /* 优先使用手写风格字体 */
+            font-family: 'Mountains of Christmas', 'Brush Script MT', cursive; 
             font-size: 4rem;
             color: #fff;
-            font-weight: normal;
-            margin: 0;
+            font-weight: bold;
+            margin: 10px 0 0 0;
             text-shadow: 
                 0 0 10px rgba(255, 215, 0, 0.8), 
                 0 0 20px rgba(255, 0, 0, 0.6),
@@ -59,6 +64,7 @@
             pointer-events: none;
             z-index: 4;
             animation: titleBreath 4s ease-in-out infinite alternate;
+            flex-shrink: 0;
         }
 
         @keyframes titleBreath {
@@ -75,10 +81,22 @@
             border-radius: 20px;
             backdrop-filter: blur(8px);
             font-size: 14px;
-            margin-top: 100px; /* 给标题留出空间 */
+            margin-top: 0; 
             pointer-events: auto;
             transition: opacity 0.5s;
-            cursor: pointer; /* 提示可点击 */
+            cursor: pointer; 
+            flex-shrink: 0;
+        }
+
+        @media (max-width: 600px) {
+            #main-title {
+                font-size: 3rem; 
+                margin-top: 40px; 
+            }
+            #instructions {
+                font-size: 12px;
+                padding: 8px 15px;
+            }
         }
 
         #quote-box {
@@ -129,8 +147,6 @@
             max-height: 80vh; 
             object-fit: contain;
         }
-
-        /* 移除了 controls 相关的样式 */
         
         ::-webkit-scrollbar { display: none; }
     </style>
@@ -138,11 +154,10 @@
 <body>
 
     <div id="ui-layer">
-        <!-- 新增：标题 -->
         <h1 id="main-title">Merry Christmas</h1>
 
         <div id="instructions">
-            🖱️ 双击：炸裂/还原 | 🖐️ 拖动：旋转 | 🎁 星云状态下单击：彩蛋
+            💻 双击 / 📱 双指：切换形态 | 👋 拖动：旋转 | 🎁 星云时点击：彩蛋
         </div>
 
         <div id="quote-box">Merry Christmas!</div>
@@ -151,7 +166,7 @@
             <img id="easter-egg-img" src="" alt="Easter Egg">
         </div>
         
-        <!-- 移除了控制条 DOM -->
+        <!-- 移除了控制条 -->
     </div>
 
     <div id="canvas-container"></div>
@@ -174,7 +189,6 @@
         renderer.setSize(window.innerWidth, window.innerHeight);
         renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
         
-        // 开启物理光照计算
         renderer.physicallyCorrectLights = true;
         renderer.outputEncoding = THREE.sRGBEncoding;
         renderer.toneMapping = THREE.ACESFilmicToneMapping;
@@ -185,7 +199,6 @@
         // ---------------------------------------------------------
         // 2. 灯光系统
         // ---------------------------------------------------------
-        
         const ambientLight = new THREE.AmbientLight(0xffffff, 0.4); 
         scene.add(ambientLight);
 
@@ -217,7 +230,6 @@
         // ---------------------------------------------------------
         // 3. 实例化网格
         // ---------------------------------------------------------
-        
         const baseGeometry = new THREE.OctahedronGeometry(0.6, 0); 
 
         const baseMaterial = new THREE.MeshStandardMaterial({
@@ -230,7 +242,6 @@
 
         const instanceCount = 3000; 
         const instancedMesh = new THREE.InstancedMesh(baseGeometry, baseMaterial, instanceCount);
-        
         instancedMesh.frustumCulled = false;
 
         const aPosTree = new Float32Array(instanceCount * 3);
@@ -291,7 +302,6 @@
             }
 
             aRandom[i] = Math.random();
-            
             dummy.position.set(0,0,0);
             dummy.rotation.set(0,0,0);
             dummy.scale.set(1,1,1);
@@ -308,7 +318,6 @@
         // ---------------------------------------------------------
         // 4. Shader 注入
         // ---------------------------------------------------------
-        
         const uniforms = {
             mixRatio: { value: 0.0 },
             time: { value: 0.0 }
@@ -353,7 +362,6 @@
             );
         };
 
-
         // ---------------------------------------------------------
         // 5. 背景雪花
         // ---------------------------------------------------------
@@ -393,9 +401,8 @@
         const snowSystem = new THREE.Points(snowGeo, snowMat);
         scene.add(snowSystem);
 
-
         // ---------------------------------------------------------
-        // 6. 交互逻辑 (桌面优化版)
+        // 6. 交互逻辑 (全平台优化版)
         // ---------------------------------------------------------
         
         let isDragging = false;
@@ -411,7 +418,7 @@
         let morphValue = 0; 
         let targetMorphValue = 0; 
 
-        // 扩充后的祝福语库
+        // 语料库
         const quotes = [
             "🎄 Merry Christmas! 愿你拥有温暖的冬日。",
             "✨ 即使是微小的星光，也能照亮黑夜。",
@@ -479,7 +486,6 @@
             "🏊 体育：迈克尔·菲尔普斯获得的奥运金牌数超过了全球80%的国家的历史金牌总数。"
         ];
 
-        // --- 新增：彩蛋逻辑 ---
         const posterUrls = [
             "https://images.ctfassets.net/1fvlg6xqnm65/2025-race-miami-race-0/7d18fbbd8df3c2dd11fe98a5d6890fdc/M502920.jpg",
             "https://q2.itc.cn/images01/20250827/4f8bba4b671045688b8332a1f9a35bc1.jpeg",
@@ -492,17 +498,43 @@
         ];
 
         document.addEventListener('mousedown', onPointerDown);
+        document.addEventListener('touchstart', onTouchStart, { passive: false });
+        
         document.addEventListener('mousemove', onPointerMove);
+        document.addEventListener('touchmove', onTouchMove, { passive: false });
+        
         document.addEventListener('mouseup', onPointerUp);
+        document.addEventListener('touchend', onPointerUp);
+        
         document.addEventListener('click', onInteractClick);
-        // 新增：双击交互
         document.addEventListener('dblclick', onDoubleClick);
+
+        let initialPinchDistance = null;
+        let initialMorphValueAtPinch = 0;
 
         function onPointerDown(e) {
             isUserInteracting = true;
             hasMoved = false;
             startPointerPosition = { x: e.clientX, y: e.clientY };
             previousMousePosition = { x: e.clientX, y: e.clientY };
+        }
+
+        function onTouchStart(e) {
+            if (e.touches.length === 1) {
+                isUserInteracting = true;
+                hasMoved = false;
+                startPointerPosition = { x: e.touches[0].clientX, y: e.touches[0].clientY };
+                previousMousePosition = { x: e.touches[0].clientX, y: e.touches[0].clientY };
+            } else if (e.touches.length === 2) {
+                // 双指捏合开始
+                isUserInteracting = false; 
+                isDragging = false;
+                const dx = e.touches[0].clientX - e.touches[1].clientX;
+                const dy = e.touches[0].clientY - e.touches[1].clientY;
+                initialPinchDistance = Math.sqrt(dx * dx + dy * dy);
+                initialMorphValueAtPinch = targetMorphValue;
+                e.preventDefault(); 
+            }
         }
 
         function onPointerMove(e) {
@@ -529,28 +561,62 @@
             }
         }
 
+        function onTouchMove(e) {
+            if (e.touches.length === 1 && isUserInteracting) {
+                const clientX = e.touches[0].clientX;
+                const clientY = e.touches[0].clientY;
+                
+                if (!isDragging) {
+                    const dx = clientX - startPointerPosition.x;
+                    const dy = clientY - startPointerPosition.y;
+                    if (Math.sqrt(dx * dx + dy * dy) > 5) {
+                        isDragging = true;
+                        hasMoved = true;
+                        rotationVelocity = 0;
+                    }
+                }
+                
+                if (isDragging) {
+                    const deltaX = clientX - previousMousePosition.x;
+                    rotationVelocity = deltaX * SENSITIVITY;
+                    instancedMesh.rotation.y += rotationVelocity;
+                    snowSystem.rotation.y += rotationVelocity * 0.3;
+                    previousMousePosition = { x: clientX, y: clientY };
+                }
+                
+            } else if (e.touches.length === 2 && initialPinchDistance) {
+                // 双指捏合逻辑
+                const dx = e.touches[0].clientX - e.touches[1].clientX;
+                const dy = e.touches[0].clientY - e.touches[1].clientY;
+                const currentDistance = Math.sqrt(dx * dx + dy * dy);
+                
+                const delta = (currentDistance - initialPinchDistance) * 0.005;
+                
+                // 限制在 0 和 1 之间
+                targetMorphValue = Math.max(0, Math.min(1, initialMorphValueAtPinch + delta));
+                
+                e.preventDefault();
+            }
+        }
+
         function onPointerUp() {
             isUserInteracting = false;
             isDragging = false;
+            initialPinchDistance = null;
         }
 
-        // 双击处理函数
         function onDoubleClick(e) {
-            // 切换状态：0 (树) <-> 1 (星云)
             targetMorphValue = targetMorphValue === 0 ? 1 : 0;
-            
-            // 如果触发了还原(准备变回树)，立即清理掉可能因为单击出现的弹窗
             if (targetMorphValue === 0) {
                 clearAllDisplays();
             }
-            
-            triggerRipple(); // 给点震动反馈
+            triggerRipple();
         }
 
         function onInteractClick(e) {
-            if (hasMoved) return; // 拖动时不触发
+            // 如果发生了拖动，则不认为是点击
+            if (hasMoved) return;
             
-            // 只有在星云状态 (morphValue > 0.6) 才能点出彩蛋
             if (morphValue > 0.6) {
                 if (Math.random() < 0.15) {
                     showEasterEgg();
@@ -602,7 +668,6 @@
         }
 
         function showRandomQuote() {
-            // 先清理现场，确保图片立即消失
             clearAllDisplays();
             
             const randomQuote = getUniqueRandomQuote();
@@ -618,25 +683,20 @@
         }
 
         function showEasterEgg() {
-            // 先清理现场，确保文字立即消失
             clearAllDisplays();
             
             const randomPoster = getUniqueRandomPoster();
             
-            // 定义加载完成后的回调
             easterEggImg.onload = () => {
-                // 图片加载好了，显示容器
                 easterEggBox.style.opacity = 1;
                 easterEggBox.style.transform = "translate(-50%, -50%) scale(1)";
                 
-                // 开始计时：3秒后消失
                 easterEggTimeout = setTimeout(() => {
                     easterEggBox.style.opacity = 0;
                     easterEggBox.style.transform = "translate(-50%, -50%) scale(0.5)";
                 }, 3000);
             };
             
-            // 设置新的图片地址，开始加载
             easterEggImg.src = randomPoster;
         }
 
@@ -660,16 +720,12 @@
             }
             uniforms.time.value += delta * (1.0 + timeSurge);
 
-            // 1. 动态更新彩灯位置 (绕圈旋转)
             const time = uniforms.time.value;
             lightGroup.rotation.y = time * 0.5;
             
-            // 2. 变形插值
-            // 修改：将系数从 0.1 降低到 0.04，让炸开/还原的速度变慢
             morphValue += (targetMorphValue - morphValue) * 0.04;
             uniforms.mixRatio.value = morphValue;
 
-            // 3. 惯性旋转
             if (!isDragging) {
                 instancedMesh.rotation.y += rotationVelocity;
                 snowSystem.rotation.y += rotationVelocity * 0.3; 
@@ -679,7 +735,6 @@
                 }
             }
             
-            // 4. 雪花更新
             const positions = snowSystem.geometry.attributes.position.array;
             for(let i=0; i<500; i++) {
                 positions[i*3 + 1] -= snowVel[i];
